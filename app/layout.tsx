@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SiteHeader from "./SiteHeader";
-
-import { Michroma } from "next/font/google";
-
-const michroma = Michroma({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-michroma",
-});
+import { lato } from "./fonts";
 
 export const metadata: Metadata = {
   title: "MasterChef Compendium",
@@ -22,9 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`font-sans ${lato.variable}`}>
         <SiteHeader />
-        <main className="flex min-h-screen  border border-red-600">
+        <main className="flex min-h-screen max-w-6xl mx-auto border border-red-600">
           {children}
         </main>
       </body>
