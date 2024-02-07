@@ -10,6 +10,9 @@
     "db:schema:format": "npx prisma format",
     "db:schema:migrate": "npx prisma migrate dev"
   },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed_seasons.ts"
+  },
   "dependencies": {
     "@prisma/client": "^5.9.1",
     "next": "14.1.0",
@@ -17,7 +20,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.11.16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
@@ -26,6 +29,7 @@
     "postcss": "^8",
     "prisma": "^5.9.1",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
