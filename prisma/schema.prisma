@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Season {
+  id           String       @id @default(uuid())
+  seasonNumber Int          @unique
+  name         String       @unique @db.VarChar(9)
+  episodes     Episode[]
+  contestants  Contestant[]
+  judges       Judge[]
+}
+
+model Judge {
+  id       String    @id @default(uuid())
+  name     String    @db.VarChar(150)
+  seasons  Season[]
+  episodes Episode[]
+}
+
+model Contestant {
+  id         String           @id @default(uuid())
+  name       String           @db.VarChar(150)
+  age        Int              @default(1)
+  hometown   String           @db.VarChar(255)
+  occupation String           @db.VarChar(255)
+  seasonId   String
+  status     ContestantStatus @default(ELIMINATED)
+  season     Season           @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  episodes   Episode[]
+}
+
+enum ContestantStatus {
+  ELIMINATED
+  RUNNER_UP
+  WINNER
+}
+
+model Episode {
+  id            String       @id @default(uuid())
+  episodeNumber Int          @unique
+  name          String       @db.VarChar(255)
+  airDate       DateTime
+  seasonId      String
+  season        Season       @relation(fields: [seasonId], references: [id])
+  contestants   Contestant[]
+  judges        Judge[]
+}
