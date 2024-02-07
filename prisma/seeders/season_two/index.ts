@@ -9,4 +9,19 @@ export default async function seedSeasonTwo(prisma: PrismaClient) {
       name: "Season 2",
     },
   });
+
+  const joeBastianich = await prisma.judge.upsert({
+    where: { name: "Joe Bastianich" },
+    update: {
+      seasons: {
+        connect: seasonTwo,
+      },
+    },
+    create: {
+      name: "Joe Bastianich",
+      seasons: {
+        connect: seasonTwo,
+      },
+    },
+  });
 }

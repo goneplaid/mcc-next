@@ -18,7 +18,7 @@ model Season {
 
 model Judge {
   id       String    @id @default(uuid())
-  name     String    @db.VarChar(150)
+  name     String    @db.VarChar(150) @unique
   seasons  Season[]
   episodes Episode[]
 }
