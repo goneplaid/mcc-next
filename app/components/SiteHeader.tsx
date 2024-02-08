@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React, { PropsWithChildren } from "react";
 
-import { michroma } from "./fonts";
+import { michroma } from "../assets/fonts";
 import Link from "next/link";
-import { StyledComponent } from "./types/components.types";
+import { StyledComponent } from "../types/components.types";
 
 interface SiteHeader extends StyledComponent {}
 
