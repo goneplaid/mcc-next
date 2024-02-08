@@ -1,12 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
 import { michroma } from "./fonts";
 import Link from "next/link";
+import { StyledComponent } from "./types/components.types";
 
-const SiteHeader = () => {
+interface SiteHeader extends StyledComponent {}
+
+const SiteHeader = ({ className }: SiteHeader) => {
   return (
-    <header className="p-2 mb-4 shadow-md bg-white">
+    <header className={`p-2 mb-4 shadow-md bg-white ${className}`}>
       <div className="content flex flex-row h-full">
         <Link href="/" className="w-14  flex flex-row items-center">
           <Image

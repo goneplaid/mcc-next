@@ -16,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${lato.variable}`}>
-        <SiteHeader />
-        <main className="flex min-h-screen max-w-6xl mx-auto border border-red-600">
-          {children}
-        </main>
+        <div className="min-h-screen flex flex-col border border-red-600">
+          <SiteHeader className="flex-shrink-0" />
+          <main className="max-w-6xl mx-auto border border-teal-600">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
