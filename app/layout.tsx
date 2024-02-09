@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import "./assets/globals.css";
+import "./globals.css";
 import SiteHeader from "./components/SiteHeader";
-import { lato } from "./assets/fonts";
+import { lato } from "./fonts";
 
 export const metadata: Metadata = {
   title: "MasterChef Compendium",

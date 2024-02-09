@@ -11,6 +11,7 @@ model Season {
   id           String       @id @default(uuid())
   seasonNumber Int          @unique
   name         String       @unique @db.VarChar(9)
+  year         Int
   episodes     Episode[]
   contestants  Contestant[]
   judges       Judge[]
@@ -25,13 +26,12 @@ model Judge {
 
 model Contestant {
   id         String           @id @default(uuid())
-  name       String           @db.VarChar(150)
+  name       String           @db.VarChar(150) @unique
   age        Int              @default(1)
   hometown   String           @db.VarChar(255)
   occupation String           @db.VarChar(255)
-  seasonId   String
+  seasons    Season[]
   status     ContestantStatus @default(ELIMINATED)
-  season     Season           @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   episodes   Episode[]
 }
 
@@ -44,8 +44,9 @@ enum ContestantStatus {
 model Episode {
   id            String       @id @default(uuid())
   episodeNumber Int          @unique
-  name          String       @db.VarChar(255)
+  description   String       @db.VarChar(255)
   airDate       DateTime
+  notes         String       @db.Text
   seasonId      String
   season        Season       @relation(fields: [seasonId], references: [id])
   contestants   Contestant[]

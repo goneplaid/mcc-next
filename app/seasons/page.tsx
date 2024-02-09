@@ -2,7 +2,13 @@ import SeasonCard from "./components/SeasonCard";
 import prisma from "@/prisma/client";
 
 export default async function Home() {
-  const seasons = await prisma.season.findMany();
+  const seasons = await prisma.season.findMany({
+    orderBy: [
+      {
+        seasonNumber: "asc",
+      },
+    ],
+  });
 
   return (
     <>

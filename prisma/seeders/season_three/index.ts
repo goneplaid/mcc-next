@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 
-export default async function seedSeasonTwo(prisma: PrismaClient) {
-  const season = 2;
-  const seasonTwo = await prisma.season.upsert({
+export default async function seedSeasonThree(prisma: PrismaClient) {
+  const season = 3;
+  const seasonThree = await prisma.season.upsert({
     where: { seasonNumber: season },
     update: {},
     create: {
       seasonNumber: season,
       name: `Season ${season}`,
-      year: 2011,
+      year: 2012,
     },
   });
 
@@ -19,13 +19,13 @@ export default async function seedSeasonTwo(prisma: PrismaClient) {
       where: { name: judge },
       update: {
         seasons: {
-          connect: seasonTwo,
+          connect: seasonThree,
         },
       },
       create: {
         name: judge,
         seasons: {
-          connect: seasonTwo,
+          connect: seasonThree,
         },
       },
     });
