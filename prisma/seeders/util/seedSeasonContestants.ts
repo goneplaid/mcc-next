@@ -6,28 +6,52 @@ export default async function seedSeasonContestants(
   prisma: PrismaClient
 ) {
   for (const contestant of contestantData) {
-    const { name, age, hometown, occupation, status } = contestant;
+    const { name, age, hometown, occupation, status: rawStatus } = contestant;
 
-    const contestantRecord = {
+    const profileRecord = {
       name,
       age: Number(age),
       hometown,
       occupation,
-      status: getStatus(status),
-      seasons: {
-        connect: season,
-      },
     };
 
-    await prisma.contestant.upsert({
-      where: { name: contestant.name },
-      update: contestantRecord,
-      create: contestantRecord,
+    const newProfile = await prisma.contestantProfile.upsert({
+      where: { name: profileRecord.name },
+      update: profileRecord,
+      create: profileRecord,
+    });
+
+    // Had problems with upserts here while using a @@unique constraint on the
+    // model for `profileId: newProfile.id, seasonId: season.id`. This works
+    // fine for our purposes here though.
+    await prisma.contestant.deleteMany({
+      where: { profileId: newProfile.id, seasonId: season.id },
+    });
+
+    const parsedStatus = getStatus(rawStatus, season.year);
+
+    // `place` isn't handled here well, needs to be extracted from challenge
+    // data. Some contestants are tied for their finishing place, so having it
+    // based ont the index here isn't ideal. Todo for later once we get to
+    // processing the more complex challenge/episdoe/contestant data.
+    await prisma.contestant.create({
+      data: {
+        status: parsedStatus.status,
+        profileId: newProfile.id,
+        seasonId: season.id,
+        place: contestantData.indexOf(contestant) + 1,
+        finishDate: parsedStatus.finishDate,
+      },
     });
   }
 }
 
-const getStatus = (data: string): ContestantStatus => {
+type DerivedStatus = {
+  status: ContestantStatus;
+  finishDate: Date;
+};
+
+const getStatus = (data: string, seasonYear: number): DerivedStatus => {
   type statusKey = "Winner" | "Runner-Up" | "Eliminated";
   type statusValue = "WINNER" | "RUNNER_UP" | "ELIMINATED";
 
@@ -37,6 +61,16 @@ const getStatus = (data: string): ContestantStatus => {
     Eliminated: "ELIMINATED",
   };
 
-  const result = data.match(/Winner|Runner-Up|Eliminate/);
-  return result ? statusMap[result[0] as statusKey] : "ELIMINATED";
+  const matchPattern = /Winner|Runner-Up|Eliminated/g;
+  const statusMatch = data.match(matchPattern);
+  const status = statusMatch
+    ? statusMap[statusMatch[0] as statusKey]
+    : "ELIMINATED";
+
+  const lastAppearance = data.replace(matchPattern, "");
+
+  return {
+    status,
+    finishDate: new Date(lastAppearance),
+  };
 };

@@ -20,15 +20,26 @@ CREATE TABLE `Judge` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Contestant` (
+CREATE TABLE `ContestantProfile` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(150) NOT NULL,
     `age` INTEGER NOT NULL DEFAULT 1,
     `hometown` VARCHAR(255) NOT NULL,
     `occupation` VARCHAR(255) NOT NULL,
-    `status` ENUM('ELIMINATED', 'RUNNER_UP', 'WINNER') NOT NULL DEFAULT 'ELIMINATED',
 
-    UNIQUE INDEX `Contestant_name_key`(`name`),
+    UNIQUE INDEX `ContestantProfile_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Contestant` (
+    `id` VARCHAR(191) NOT NULL,
+    `status` ENUM('WINNER', 'RUNNER_UP', 'ELIMINATED', 'ACTIVE') NOT NULL DEFAULT 'ELIMINATED',
+    `place` INTEGER NOT NULL DEFAULT 0,
+    `finishDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `profileId` VARCHAR(191) NOT NULL,
+    `seasonId` VARCHAR(191) NOT NULL,
+
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -36,8 +47,9 @@ CREATE TABLE `Contestant` (
 CREATE TABLE `Episode` (
     `id` VARCHAR(191) NOT NULL,
     `episodeNumber` INTEGER NOT NULL,
-    `name` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
     `airDate` DATETIME(3) NOT NULL,
+    `notes` TEXT NOT NULL,
     `seasonId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Episode_episodeNumber_key`(`episodeNumber`),
@@ -51,15 +63,6 @@ CREATE TABLE `_JudgeToSeason` (
 
     UNIQUE INDEX `_JudgeToSeason_AB_unique`(`A`, `B`),
     INDEX `_JudgeToSeason_B_index`(`B`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `_ContestantToSeason` (
-    `A` VARCHAR(191) NOT NULL,
-    `B` VARCHAR(191) NOT NULL,
-
-    UNIQUE INDEX `_ContestantToSeason_AB_unique`(`A`, `B`),
-    INDEX `_ContestantToSeason_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -81,6 +84,12 @@ CREATE TABLE `_EpisodeToJudge` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
+ALTER TABLE `Contestant` ADD CONSTRAINT `Contestant_profileId_fkey` FOREIGN KEY (`profileId`) REFERENCES `ContestantProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Contestant` ADD CONSTRAINT `Contestant_seasonId_fkey` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `Episode` ADD CONSTRAINT `Episode_seasonId_fkey` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -88,12 +97,6 @@ ALTER TABLE `_JudgeToSeason` ADD CONSTRAINT `_JudgeToSeason_A_fkey` FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE `_JudgeToSeason` ADD CONSTRAINT `_JudgeToSeason_B_fkey` FOREIGN KEY (`B`) REFERENCES `Season`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `_ContestantToSeason` ADD CONSTRAINT `_ContestantToSeason_A_fkey` FOREIGN KEY (`A`) REFERENCES `Contestant`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `_ContestantToSeason` ADD CONSTRAINT `_ContestantToSeason_B_fkey` FOREIGN KEY (`B`) REFERENCES `Season`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_ContestantToEpisode` ADD CONSTRAINT `_ContestantToEpisode_A_fkey` FOREIGN KEY (`A`) REFERENCES `Contestant`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
