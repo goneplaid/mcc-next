@@ -19,29 +19,29 @@ model Season {
 
 model Judge {
   id       String    @id @default(uuid())
-  name     String    @db.VarChar(150) @unique
+  name     String    @unique @db.VarChar(150)
   seasons  Season[]
   episodes Episode[]
 }
 
 model ContestantProfile {
-  id         String           @id @default(uuid())
-  name       String           @db.VarChar(150) @unique
-  age        Int              @default(1)
-  hometown   String           @db.VarChar(255)
-  occupation String           @db.VarChar(255)
+  id         String       @id @default(uuid())
+  name       String       @unique @db.VarChar(150)
+  age        Int          @default(1)
+  hometown   String       @db.VarChar(255)
+  occupation String       @db.VarChar(255)
   contests   Contestant[]
 }
 
 model Contestant {
-  id         String           @id @default(uuid())
-  status     ContestantStatus @default(ELIMINATED)
-  place     Int @default(0)
-  finishDate DateTime @default(now())
+  id         String            @id @default(uuid())
+  status     ContestantStatus  @default(ELIMINATED)
+  place      Int               @default(0)
+  finishDate DateTime          @default(now())
   profileId  String
   profile    ContestantProfile @relation(fields: [profileId], references: [id])
   seasonId   String
-  season     Season @relation(fields: [seasonId], references: [id])
+  season     Season            @relation(fields: [seasonId], references: [id])
   episodes   Episode[]
 }
 

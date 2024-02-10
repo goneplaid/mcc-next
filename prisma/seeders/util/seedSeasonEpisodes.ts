@@ -1,9 +1,9 @@
-import { ContestantStatus, PrismaClient, Season } from "@prisma/client";
+import { Season } from "@prisma/client";
+import prisma from "../../client";
 
 export default async function seedSeasonEpisodes(
   season: Season,
-  episodeData: Record<string, string>[],
-  prisma: PrismaClient
+  episodeData: Record<string, string>[]
 ) {
   for (const episode of episodeData) {
     const { episodeNumber, description, airDate, notes } = episode;
@@ -14,7 +14,9 @@ export default async function seedSeasonEpisodes(
       description: description.replace(/\"/g, ""),
       airDate: new Date(airDate),
       notes,
-      seasonId: season.id,
+      season: {
+        connect: season,
+      },
     };
 
     await prisma.episode.upsert({

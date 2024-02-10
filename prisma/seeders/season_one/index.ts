@@ -1,14 +1,14 @@
-import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 import { parse } from "csv-parse/sync";
+import prisma from "../../client";
 
 import csvToObjects from "../util/csvToObjects";
 import seedSeasonJudges from "../util/seedSeasonJudges";
 import seedSeasonContestants from "../util/seedSeasonContestants";
 import seedSeasonEpisodes from "../util/seedSeasonEpisodes";
 
-export default async function seedSeasonOne(prisma: PrismaClient) {
+export default async function seedSeasonOne() {
   const season = 1;
 
   const seasonOneData = {
@@ -24,7 +24,7 @@ export default async function seedSeasonOne(prisma: PrismaClient) {
   });
 
   const judges = ["Joe Bastianich", "Gordon Ramsay", "Graham Elliot"];
-  seedSeasonJudges(seasonOne, judges, prisma);
+  seedSeasonJudges(seasonOne, judges);
 
   const contestantsCsv = fs.readFileSync(
     path.resolve(__dirname, "contestants.csv")
@@ -40,7 +40,7 @@ export default async function seedSeasonOne(prisma: PrismaClient) {
 
   if (!contestants) throw new Error("No season 1 contestant data!");
 
-  seedSeasonContestants(seasonOne, contestants, prisma);
+  seedSeasonContestants(seasonOne, contestants);
 
   const episodesCsv = fs.readFileSync(path.resolve(__dirname, "episodes.csv"));
   const episodeData = parse(episodesCsv);
@@ -53,5 +53,5 @@ export default async function seedSeasonOne(prisma: PrismaClient) {
 
   if (!episodes) throw new Error("No season 1 episode data!");
 
-  seedSeasonEpisodes(seasonOne, episodes, prisma);
+  seedSeasonEpisodes(seasonOne, episodes);
 }

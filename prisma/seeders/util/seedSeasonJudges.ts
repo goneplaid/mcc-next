@@ -1,9 +1,9 @@
-import { PrismaClient, Season } from "@prisma/client";
+import { Season } from "@prisma/client";
+import prisma from "../../client";
 
 export default async function seedSeasonJudges(
   season: Season,
-  judgeData: string[],
-  prisma: PrismaClient
+  judgeData: string[]
 ) {
   for (const judge of judgeData) {
     const judgeRecord = {
