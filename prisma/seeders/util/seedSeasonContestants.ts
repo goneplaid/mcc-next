@@ -89,6 +89,6 @@ const getStatus = (data: string, seasonYear: number): DerivedStatus => {
 
   return {
     status,
-    finishDate: new Date(lastAppearance),
+    finishDate: new Date(`${lastAppearance}, ${seasonYear}`),
   };
 };

@@ -22,16 +22,27 @@ export default async function SeasonPage({ params }: SeasonPage) {
       contestants: {
         orderBy: [
           {
-            name: "asc",
+            place: "asc",
           },
         ],
+        include: {
+          profile: true,
+        },
       },
       episodes: {
         orderBy: [
           {
-            episodeNumber: "asc",
+            episodeNumber: "desc",
           },
         ],
+        include: {
+          contestants: {
+            orderBy: { id: "asc" },
+            include: {
+              profile: true,
+            },
+          },
+        },
       },
     },
   });
@@ -53,7 +64,11 @@ export default async function SeasonPage({ params }: SeasonPage) {
       <h3>Contestants</h3>
       <ul className="mb-10">
         {season?.contestants.map((contestant, i) => {
-          return <li key={i}>{contestant.name}</li>;
+          return (
+            <li
+              key={i}
+            >{`${contestant.profile.name} - ${contestant.place}`}</li>
+          );
         })}
       </ul>
 
@@ -63,7 +78,18 @@ export default async function SeasonPage({ params }: SeasonPage) {
           return (
             <li key={i} className="mb-4">
               <em>{episode.description}</em>
-              <div>{episode.notes}</div>
+              <br />
+              <em>{episode.airDate.toDateString()}</em>
+              <div className="mb-5">{episode.notes}</div>
+              <ul className="pl-5">
+                {episode.contestants.map((contestant) => {
+                  return (
+                    <li key={contestant.id}>{`${contestant.profile.name} - ${
+                      contestant.status
+                    } - ${contestant.finishDate.toDateString()}`}</li>
+                  );
+                })}
+              </ul>
             </li>
           );
         })}

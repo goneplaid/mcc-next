@@ -17,6 +17,18 @@ model Season {
   judges       Judge[]
 }
 
+model Episode {
+  id            String       @id @default(uuid())
+  episodeNumber Int          @unique
+  description   String       @db.VarChar(255)
+  airDate       DateTime
+  notes         String       @db.Text
+  seasonId      String
+  season        Season       @relation(fields: [seasonId], references: [id])
+  contestants   Contestant[]
+  judges        Judge[]
+}
+
 model Judge {
   id       String    @id @default(uuid())
   name     String    @unique @db.VarChar(150)
@@ -50,16 +62,4 @@ enum ContestantStatus {
   RUNNER_UP
   ELIMINATED
   ACTIVE
-}
-
-model Episode {
-  id            String       @id @default(uuid())
-  episodeNumber Int          @unique
-  description   String       @db.VarChar(255)
-  airDate       DateTime
-  notes         String       @db.Text
-  seasonId      String
-  season        Season       @relation(fields: [seasonId], references: [id])
-  contestants   Contestant[]
-  judges        Judge[]
 }

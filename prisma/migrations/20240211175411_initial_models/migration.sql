@@ -11,6 +11,19 @@ CREATE TABLE `Season` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Episode` (
+    `id` VARCHAR(191) NOT NULL,
+    `episodeNumber` INTEGER NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `airDate` DATETIME(3) NOT NULL,
+    `notes` TEXT NOT NULL,
+    `seasonId` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `Episode_episodeNumber_key`(`episodeNumber`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Judge` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(150) NOT NULL,
@@ -44,16 +57,12 @@ CREATE TABLE `Contestant` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Episode` (
-    `id` VARCHAR(191) NOT NULL,
-    `episodeNumber` INTEGER NOT NULL,
-    `description` VARCHAR(255) NOT NULL,
-    `airDate` DATETIME(3) NOT NULL,
-    `notes` TEXT NOT NULL,
-    `seasonId` VARCHAR(191) NOT NULL,
+CREATE TABLE `_EpisodeToJudge` (
+    `A` VARCHAR(191) NOT NULL,
+    `B` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Episode_episodeNumber_key`(`episodeNumber`),
-    PRIMARY KEY (`id`)
+    UNIQUE INDEX `_EpisodeToJudge_AB_unique`(`A`, `B`),
+    INDEX `_EpisodeToJudge_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -74,14 +83,8 @@ CREATE TABLE `_ContestantToEpisode` (
     INDEX `_ContestantToEpisode_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateTable
-CREATE TABLE `_EpisodeToJudge` (
-    `A` VARCHAR(191) NOT NULL,
-    `B` VARCHAR(191) NOT NULL,
-
-    UNIQUE INDEX `_EpisodeToJudge_AB_unique`(`A`, `B`),
-    INDEX `_EpisodeToJudge_B_index`(`B`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- AddForeignKey
+ALTER TABLE `Episode` ADD CONSTRAINT `Episode_seasonId_fkey` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Contestant` ADD CONSTRAINT `Contestant_profileId_fkey` FOREIGN KEY (`profileId`) REFERENCES `ContestantProfile`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -90,7 +93,10 @@ ALTER TABLE `Contestant` ADD CONSTRAINT `Contestant_profileId_fkey` FOREIGN KEY 
 ALTER TABLE `Contestant` ADD CONSTRAINT `Contestant_seasonId_fkey` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Episode` ADD CONSTRAINT `Episode_seasonId_fkey` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `_EpisodeToJudge` ADD CONSTRAINT `_EpisodeToJudge_A_fkey` FOREIGN KEY (`A`) REFERENCES `Episode`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_EpisodeToJudge` ADD CONSTRAINT `_EpisodeToJudge_B_fkey` FOREIGN KEY (`B`) REFERENCES `Judge`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_JudgeToSeason` ADD CONSTRAINT `_JudgeToSeason_A_fkey` FOREIGN KEY (`A`) REFERENCES `Judge`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -103,9 +109,3 @@ ALTER TABLE `_ContestantToEpisode` ADD CONSTRAINT `_ContestantToEpisode_A_fkey` 
 
 -- AddForeignKey
 ALTER TABLE `_ContestantToEpisode` ADD CONSTRAINT `_ContestantToEpisode_B_fkey` FOREIGN KEY (`B`) REFERENCES `Episode`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `_EpisodeToJudge` ADD CONSTRAINT `_EpisodeToJudge_A_fkey` FOREIGN KEY (`A`) REFERENCES `Episode`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `_EpisodeToJudge` ADD CONSTRAINT `_EpisodeToJudge_B_fkey` FOREIGN KEY (`B`) REFERENCES `Judge`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

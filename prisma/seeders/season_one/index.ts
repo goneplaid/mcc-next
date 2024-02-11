@@ -7,6 +7,7 @@ import csvToObjects from "../util/csvToObjects";
 import seedSeasonJudges from "../util/seedSeasonJudges";
 import seedSeasonContestants from "../util/seedSeasonContestants";
 import seedSeasonEpisodes from "../util/seedSeasonEpisodes";
+import relateContestantsToEpisodes from "../util/relateContestantsToEpisodes";
 
 export default async function seedSeasonOne() {
   const season = 1;
@@ -24,7 +25,7 @@ export default async function seedSeasonOne() {
   });
 
   const judges = ["Joe Bastianich", "Gordon Ramsay", "Graham Elliot"];
-  seedSeasonJudges(seasonOne, judges);
+  await seedSeasonJudges(seasonOne, judges);
 
   const contestantsCsv = fs.readFileSync(
     path.resolve(__dirname, "contestants.csv")
@@ -40,7 +41,7 @@ export default async function seedSeasonOne() {
 
   if (!contestants) throw new Error("No season 1 contestant data!");
 
-  seedSeasonContestants(seasonOne, contestants);
+  await seedSeasonContestants(seasonOne, contestants);
 
   const episodesCsv = fs.readFileSync(path.resolve(__dirname, "episodes.csv"));
   const episodeData = parse(episodesCsv);
@@ -53,5 +54,7 @@ export default async function seedSeasonOne() {
 
   if (!episodes) throw new Error("No season 1 episode data!");
 
-  seedSeasonEpisodes(seasonOne, episodes);
+  await seedSeasonEpisodes(seasonOne, episodes);
+
+  relateContestantsToEpisodes(seasonOne.id);
 }
