@@ -14,6 +14,7 @@ const SeasonCard = async ({ season }: SeasonCard) => {
   const winner = await prisma.contestant.findFirst({
     where: {
       status: "WINNER",
+      seasonId: season.id,
     },
     include: {
       profile: true,

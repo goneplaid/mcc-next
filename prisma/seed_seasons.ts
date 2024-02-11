@@ -6,7 +6,7 @@ import seedSeasonTwo from "./seeders/season_two";
 
 async function main() {
   await seedSeasonOne();
-  //await seedSeasonTwo(prisma);
+  await seedSeasonTwo();
   //await seedSeasonThree(prisma);
 }
 
