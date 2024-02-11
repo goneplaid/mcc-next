@@ -1,6 +1,8 @@
 import React from "react";
 import { Judge, Season, Contestant } from "@prisma/client";
 import prisma from "@/prisma/client";
+import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
+import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated
@@ -19,44 +21,21 @@ const SeasonCard = async ({ season }: SeasonCard) => {
   });
 
   return (
-    <div className="mt-14 card card-compact bg-white pb-6">
+    <div className="mt-14 card card-compact bg-white border-4 border-gray-300 group hover:border-teal-400 transition-all hover:scale-110 hover:shadow-lg">
       <div className="card-body items-center text-center">
-        <figure className="avatar placeholder -mt-14">
-          <div className="w-24 rounded-full bg-neutral">
-            <span className="text-white font-bold text-xl">
-              {getInitials(winner?.profile.name)}
-            </span>
-          </div>
-        </figure>
+        <ContestantAvatar size="large" contestant={winner!.profile} />
         <h2 className="card-title text-3xl">Season {season.seasonNumber}</h2>
         <span className="uppercase">Winner:</span>
         <span className="text-lg">{winner?.profile.name}</span>
-      </div>
-      <div className="avatar-group mx-auto rtl:space-x-reverse">
-        {season.judges.map((judge) => {
-          return (
-            <div key={judge.id} className="avatar">
-              <div className="w-12 rounded-full bg-neutral !flex items-center justify-center">
-                <span className="text-white font-semibold">
-                  {getInitials(judge.name)}
-                </span>
-              </div>
-            </div>
-          );
-        })}
+
+        <div className="mt-20 flex flex-row gap-2">
+          {season.judges.map((judge) => {
+            return <JudgeAvatar key={judge.id} size="small" judge={judge} />;
+          })}
+        </div>
       </div>
     </div>
   );
-};
-
-// Things like this should be integrated into Prisma models. Come back to this.
-const getInitials = (name?: string) => {
-  if (!name) return;
-
-  return name
-    .split(" ")
-    .map((name) => name.charAt(0))
-    .join("");
 };
 
 export default SeasonCard;
