@@ -19,7 +19,7 @@ CREATE TABLE `Episode` (
     `notes` TEXT NOT NULL,
     `seasonId` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `Episode_episodeNumber_key`(`episodeNumber`),
+    UNIQUE INDEX `Episode_episodeNumber_seasonId_key`(`episodeNumber`, `seasonId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

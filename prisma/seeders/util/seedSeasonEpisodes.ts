@@ -9,20 +9,16 @@ export default async function seedSeasonEpisodes(
     const { episodeNumber, description, airDate, notes } = episode;
     const _episodeNumber = Number(episodeNumber);
 
-    const episodeRecord = {
-      episodeNumber: _episodeNumber,
-      description: description.replace(/\"/g, ""),
-      airDate: new Date(airDate),
-      notes,
-      season: {
-        connect: season,
+    await prisma.episode.create({
+      data: {
+        episodeNumber: _episodeNumber,
+        description: description.replace(/\"/g, ""),
+        airDate: new Date(airDate),
+        notes,
+        season: {
+          connect: season,
+        },
       },
-    };
-
-    await prisma.episode.upsert({
-      where: { episodeNumber: _episodeNumber },
-      update: episodeRecord,
-      create: episodeRecord,
     });
   }
 }

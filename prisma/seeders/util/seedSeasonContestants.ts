@@ -8,30 +8,15 @@ export default async function seedSeasonContestants(
   for (const contestant of contestantData) {
     const { name, age, hometown, occupation, status: rawStatus } = contestant;
 
-    // The record we'll create or update
-    const profileRecord = {
-      name,
-      age: Number(age),
-      hometown,
-      occupation,
-    };
-
-    // Upsert it
-    const newProfile = await prisma.contestantProfile.upsert({
-      where: { name: profileRecord.name },
-      update: profileRecord,
-      create: profileRecord,
+    const newProfile = await prisma.contestantProfile.create({
+      data: {
+        name,
+        age: Number(age),
+        hometown,
+        occupation,
+      },
     });
 
-    // Clear any old contestant instances
-    // Had problems with upserts here while using a @@unique constraint on the
-    // model for `profileId: newProfile.id, seasonId: season.id`. This works
-    // fine for our purposes here though.
-    await prisma.contestant.deleteMany({
-      where: { profileId: newProfile.id, seasonId: season.id },
-    });
-
-    // Create a new contestant entry for the season
     const parsedStatus = getStatus(rawStatus, season.year);
     const newContestant = await prisma.contestant.create({
       data: {

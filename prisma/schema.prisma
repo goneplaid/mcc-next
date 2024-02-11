@@ -19,7 +19,7 @@ model Season {
 
 model Episode {
   id            String       @id @default(uuid())
-  episodeNumber Int          @unique
+  episodeNumber Int
   description   String       @db.VarChar(255)
   airDate       DateTime
   notes         String       @db.Text
@@ -27,6 +27,7 @@ model Episode {
   season        Season       @relation(fields: [seasonId], references: [id])
   contestants   Contestant[]
   judges        Judge[]
+  @@unique([episodeNumber, seasonId])
 }
 
 model Judge {
