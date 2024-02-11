@@ -9,6 +9,9 @@ export default async function Home() {
         seasonNumber: "asc",
       },
     ],
+    include: {
+      judges: true,
+    },
   });
 
   return (
@@ -18,7 +21,7 @@ export default async function Home() {
         {seasons.map((season, key) => {
           return (
             <Link key={key} href={`/seasons/${season.seasonNumber}`}>
-              <SeasonCard>{season.name}</SeasonCard>
+              <SeasonCard season={season} />
             </Link>
           );
         })}
