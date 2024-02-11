@@ -26,6 +26,10 @@ export default async function Home() {
           );
         })}
       </div>
+      <div className="grid sm:grid-cols-4 gap-4">
+        <div className="border">test</div>
+        <div className="col-span-3 border">test</div>
+      </div>
     </>
   );
 }

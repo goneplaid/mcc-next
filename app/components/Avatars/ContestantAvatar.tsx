@@ -2,21 +2,28 @@ import { ContestantProfile } from "@prisma/client";
 import React from "react";
 import { getInitials } from "../util";
 import { AvatarSize, avatarSizeMap } from "./utils";
+import { StyledComponent } from "@/app/types/components.types";
 
-interface ContestantAvatar {
+interface ContestantAvatar extends StyledComponent {
   // Figure out how to better type this; there should be an auto-generated
   // type from Prisma that we can use here instead.
   contestant: ContestantProfile;
   size: AvatarSize;
 }
 
-const ContestantAvatar = ({ contestant, size }: ContestantAvatar) => {
+const ContestantAvatar = ({
+  contestant,
+  size,
+  className,
+}: ContestantAvatar) => {
   const avatarStyles = `avatar ${avatarSizeMap[size].text} ${avatarSizeMap[size].dimensions}`;
-  const displayStyles = `placeholder rounded-full bg-neutral -mt-14 border-4 border-gray-500`;
+  const displayStyles = `placeholder rounded-full bg-neutral border-4 border-gray-500`;
   const interactiveStyles =
     "group-hover:border-teal-400 hover:border-teal-400 transition-all";
   return (
-    <figure className={`${avatarStyles} ${displayStyles} ${interactiveStyles}`}>
+    <figure
+      className={`${className} ${avatarStyles} ${displayStyles} ${interactiveStyles}`}
+    >
       <span className="text-white font-bold text-xl">
         {getInitials(contestant.name)}
       </span>

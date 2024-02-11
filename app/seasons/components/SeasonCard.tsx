@@ -22,14 +22,19 @@ const SeasonCard = async ({ season }: SeasonCard) => {
   });
 
   return (
-    <div className="mt-14 card card-compact bg-white border-4 border-gray-300 group hover:border-teal-400 transition-all hover:scale-110 hover:shadow-lg">
+    <div className="mt-14 card card-compact bg-white border-4 border-gray-300 group hover:border-teal-400 transition-all hover:scale-105 hover:mt-12 hover:shadow-lg">
       <div className="card-body items-center text-center">
-        <ContestantAvatar size="large" contestant={winner!.profile} />
+        <ContestantAvatar
+          size="large"
+          contestant={winner!.profile}
+          className="-mt-14"
+        />
         <h2 className="card-title text-3xl">Season {season.seasonNumber}</h2>
-        <span className="uppercase">Winner:</span>
+        <span className="uppercase">Winner</span>
         <span className="text-lg">{winner?.profile.name}</span>
 
-        <div className="mt-20 flex flex-row gap-2">
+        <span className="mt-6 uppercase">Judges</span>
+        <div className="flex flex-row gap-2">
           {season.judges.map((judge) => {
             return <JudgeAvatar key={judge.id} size="small" judge={judge} />;
           })}
