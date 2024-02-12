@@ -1,6 +1,8 @@
 import prisma from "@/prisma/client";
-import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
 import PageHeader from "@/app/components/PageHeader";
+import ContestantsAside from "./components/ContestantsAside";
+import EpisodeList from "./components/EpisodeList";
+import JudgeHeaderAside from "./components/JudgeHeaderAside";
 
 interface SeasonPage {
   params: { season: number };
@@ -14,50 +16,12 @@ export default async function SeasonPage({ params }: SeasonPage) {
     <>
       <PageHeader
         title={season?.name}
-        aside={judges.map((judge) => {
-          return <JudgeAvatar key={judge.id} size="small" judge={judge} />;
-        })}
+        aside={<JudgeHeaderAside judges={judges} />}
       />
-
       <div className="grid grid-cols-4 gap-4">
-        <aside className="contestants">
-          <h3>Contestants</h3>
-          <ul className="mb-10">
-            {contestants.map((contestant, i) => {
-              return (
-                <li
-                  key={i}
-                >{`${contestant.profile.name} - ${contestant.place}`}</li>
-              );
-            })}
-          </ul>
-        </aside>
-
+        <ContestantsAside contestants={contestants} />
         <section className="col-span-3">
-          <h3>Episodes</h3>
-          <ul className="mb-10">
-            {season?.episodes.map((episode, i) => {
-              return (
-                <li key={i} className="mb-4">
-                  <em>{episode.description}</em>
-                  <br />
-                  <em>{episode.airDate.toDateString()}</em>
-                  <div className="mb-5">{episode.notes}</div>
-                  <ul className="pl-5">
-                    {episode.contestants.map((contestant) => {
-                      return (
-                        <li key={contestant.id}>{`${
-                          contestant.profile.name
-                        } - ${
-                          contestant.status
-                        } - ${contestant.finishDate.toDateString()}`}</li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              );
-            })}
-          </ul>
+          <EpisodeList episodes={season!.episodes} />
         </section>
       </div>
     </>
