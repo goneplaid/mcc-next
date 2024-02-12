@@ -4,8 +4,6 @@ import { getInitials } from "../util";
 import { AvatarSize, avatarSizeMap } from "./utils";
 
 interface JudgeAvatar {
-  // Figure out how to better type this; there should be an auto-generated
-  // type from Prisma that we can use here instead.
   judge: Judge;
   size: AvatarSize;
 }

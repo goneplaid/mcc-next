@@ -5,8 +5,6 @@ import { AvatarSize, avatarSizeMap } from "./utils";
 import { StyledComponent } from "@/app/types/components.types";
 
 interface ContestantAvatar extends StyledComponent {
-  // Figure out how to better type this; there should be an auto-generated
-  // type from Prisma that we can use here instead.
   contestant: ContestantProfile;
   size: AvatarSize;
 }

@@ -3,6 +3,7 @@ import PageHeader from "@/app/components/PageHeader";
 import ContestantsAside from "./components/ContestantsAside";
 import EpisodeList from "./components/EpisodeList";
 import JudgeHeaderAside from "./components/JudgeHeaderAside";
+import AsideLayout from "@/app/components/AsideLayout";
 
 interface SeasonPage {
   params: { season: number };
@@ -18,12 +19,13 @@ export default async function SeasonPage({ params }: SeasonPage) {
         title={season?.name}
         aside={<JudgeHeaderAside judges={judges} />}
       />
-      <div className="grid grid-cols-4 gap-4">
+
+      <AsideLayout>
         <ContestantsAside contestants={contestants} />
-        <section className="col-span-3">
+        <AsideLayout.Main>
           <EpisodeList episodes={season!.episodes} />
-        </section>
-      </div>
+        </AsideLayout.Main>
+      </AsideLayout>
     </>
   );
 }
