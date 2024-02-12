@@ -21,7 +21,9 @@ export default async function SeasonPage({ params }: SeasonPage) {
       />
 
       <AsideLayout>
-        <ContestantsAside contestants={contestants} />
+        <AsideLayout.Aside>
+          <ContestantsAside contestants={contestants} />
+        </AsideLayout.Aside>
         <AsideLayout.Main>
           <EpisodeList episodes={season!.episodes} />
         </AsideLayout.Main>
