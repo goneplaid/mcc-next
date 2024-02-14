@@ -1,13 +1,9 @@
 import prisma from "./client";
 
-import seedSeasonOne from "./seeders/season_one";
-import seedSeasonThree from "./seeders/season_three";
-import seedSeasonTwo from "./seeders/season_two";
+import seedSeasonsTo from "./seeders";
 
 async function main() {
-  await seedSeasonOne();
-  await seedSeasonTwo();
-  await seedSeasonThree();
+  await seedSeasonsTo(3);
 }
 
 main()

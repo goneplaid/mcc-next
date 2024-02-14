@@ -1,5 +1,5 @@
 import { ContestantStatus, Season } from "@prisma/client";
-import prisma from "../../client";
+import prisma from "../client";
 
 export default async function seedSeasonContestants(
   season: Season,

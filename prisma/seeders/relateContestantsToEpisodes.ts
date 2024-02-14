@@ -1,4 +1,4 @@
-import prisma from "../../client";
+import prisma from "../client";
 import { Contestant, Episode } from "@prisma/client";
 
 export default async function relateContestantsToEpisodes(seasonId: string) {
@@ -28,9 +28,6 @@ const associateRecords = async (
     const { finalEpisode } = contestant;
 
     for (const episode of episodes) {
-      // airDate here doesn't work as some episodes were televised on the same
-      // day, back-to-back. Can't rely on the date that players were eliminated
-      // from the contestant data; will need to wait to extract from challenges
       if (episode.episodeNumber <= finalEpisode) {
         await prisma.episode.update({
           where: {
