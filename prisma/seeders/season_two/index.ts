@@ -36,6 +36,7 @@ export default async function seedSeasonTwo() {
     "age",
     "hometown",
     "occupation",
+    "place",
     "status",
   ]);
 

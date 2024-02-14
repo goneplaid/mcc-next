@@ -26,9 +26,9 @@ const EpisodeList = ({ episodes }: EpisodeList) => {
               <ul className="pl-5">
                 {episode.contestants.map((contestant) => {
                   return (
-                    <li key={contestant.id}>{`${contestant.profile.name} - ${
-                      contestant.status
-                    } - ${contestant.finishDate.toDateString()}`}</li>
+                    <li
+                      key={contestant.id}
+                    >{`${contestant.profile.name} - ${contestant.status}`}</li>
                   );
                 })}
               </ul>

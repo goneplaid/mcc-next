@@ -1,4 +1,4 @@
-import { ContestantStatus, PrismaClient, Season } from "@prisma/client";
+import { ContestantStatus, Season } from "@prisma/client";
 import prisma from "../../client";
 
 export default async function seedSeasonContestants(
@@ -6,7 +6,14 @@ export default async function seedSeasonContestants(
   contestantData: Record<string, string>[]
 ) {
   for (const contestant of contestantData) {
-    const { name, age, hometown, occupation, status: rawStatus } = contestant;
+    const {
+      name,
+      age,
+      hometown,
+      occupation,
+      place,
+      status: rawStatus,
+    } = contestant;
 
     const newProfile = await prisma.contestantProfile.create({
       data: {
@@ -22,10 +29,7 @@ export default async function seedSeasonContestants(
     const newContestant = await prisma.contestant.create({
       data: {
         status: parsedStatus.status,
-        // `place` isn't handled here well, needs to be extracted from challenge
-        // data. Some contestants are tied for their finishing place, so having
-        // it based on the index isn't ideal.
-        place: contestantData.indexOf(contestant) + 1,
+        place: Number(place),
         finalEpisode: parsedStatus.finalEpisode,
         profile: {
           connect: newProfile,
