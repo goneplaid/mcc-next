@@ -1,4 +1,4 @@
-export type SeasonObjects = {
+export type SeasonDataObjects = {
   season: {
     seasonNumber: number;
     year: number;

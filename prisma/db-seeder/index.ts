@@ -4,7 +4,7 @@ import { readCsv, readJson } from "./util";
 import seedSeasonJudges from "./seedSeasonJudges";
 import seedSeasonContestants from "./seedSeasonContestants";
 import seedSeasonEpisodes from "./seedSeasonEpisodes";
-import { SeasonObjects } from "./types";
+import { SeasonDataObjects } from "./types";
 
 export default async function seedSeasonsTo(seasonCeiling: number) {
   for (let seasonNumber = 1; seasonNumber <= seasonCeiling; seasonNumber++) {
@@ -28,13 +28,17 @@ export default async function seedSeasonsTo(seasonCeiling: number) {
   }
 }
 
-function loadSeason(season: number): SeasonObjects {
+function loadSeason(season: number): SeasonDataObjects {
   if (!season) throw new Error("Specify a season");
 
   const PATH_PREFIX = path.join(__dirname, `season_${season}`);
 
   const seasonData = readJson(path.join(PATH_PREFIX, "season.json"));
+  if (!seasonData) throw Error("No season information found!");
+
   const judgeData = readJson(path.join(PATH_PREFIX, "judges.json"));
+  if (!judgeData.length) throw Error("No judges found!");
+
   const contestantData = readCsv(path.join(PATH_PREFIX, "contestants.csv"), [
     "name",
     "age",
@@ -43,6 +47,7 @@ function loadSeason(season: number): SeasonObjects {
     "place",
     "status",
   ]);
+  if (!contestantData?.length) throw Error("No contestants found!");
 
   const episodeData = readCsv(path.join(PATH_PREFIX, "episodes.csv"), [
     "episodeNumber",
@@ -50,11 +55,7 @@ function loadSeason(season: number): SeasonObjects {
     "airDate",
     "notes",
   ]);
-
-  if (!seasonData) throw Error("Season information not found.");
-  if (!judgeData.length) throw Error("No judges found.");
-  if (!contestantData?.length) throw Error("No contestants found.");
-  if (!episodeData?.length) throw Error("No episodes found.");
+  if (!episodeData?.length) throw Error("No episodes found!");
 
   return {
     season: seasonData,

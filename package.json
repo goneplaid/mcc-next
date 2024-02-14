@@ -14,7 +14,7 @@
     "db:reset": "npx prisma migrate reset"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed_seasons.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed-db.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",

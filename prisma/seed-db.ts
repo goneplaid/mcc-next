@@ -1,6 +1,6 @@
 import prisma from "./client";
 
-import seedSeasonsTo from "./seeders";
+import seedSeasonsTo from "./db-seeder";
 
 async function main() {
   await seedSeasonsTo(3);
