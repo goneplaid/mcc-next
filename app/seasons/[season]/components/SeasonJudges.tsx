@@ -6,7 +6,7 @@ interface JudgeHeaderAside {
   judges: Judge[];
 }
 
-const JudgeHeaderAside = ({ judges }: JudgeHeaderAside) => {
+const SeasonJudges = ({ judges }: JudgeHeaderAside) => {
   return (
     <aside>
       <div className="flex flex-row gap-2">
@@ -18,4 +18,4 @@ const JudgeHeaderAside = ({ judges }: JudgeHeaderAside) => {
   );
 };
 
-export default JudgeHeaderAside;
+export default SeasonJudges;

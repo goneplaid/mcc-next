@@ -27,6 +27,7 @@ model Episode {
   season        Season       @relation(fields: [seasonId], references: [id])
   contestants   Contestant[]
   judges        Judge[]
+
   @@unique([episodeNumber, seasonId])
 }
 
@@ -47,15 +48,15 @@ model ContestantProfile {
 }
 
 model Contestant {
-  id         String            @id @default(uuid())
-  status     ContestantStatus  @default(ELIMINATED)
-  place      Int               @default(0)
-  finishDate DateTime          @default(now())
-  profileId  String
-  profile    ContestantProfile @relation(fields: [profileId], references: [id])
-  seasonId   String
-  season     Season            @relation(fields: [seasonId], references: [id])
-  episodes   Episode[]
+  id           String            @id @default(uuid())
+  status       ContestantStatus  @default(ELIMINATED)
+  place        Int               @default(0)
+  finalEpisode Int
+  profileId    String
+  profile      ContestantProfile @relation(fields: [profileId], references: [id])
+  seasonId     String
+  season       Season            @relation(fields: [seasonId], references: [id])
+  episodes     Episode[]
 }
 
 enum ContestantStatus {

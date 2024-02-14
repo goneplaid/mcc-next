@@ -17,7 +17,9 @@ const EpisodeList = ({ episodes }: EpisodeList) => {
         {episodes.map((episode, i) => {
           return (
             <li key={i} className="mb-4">
-              <em>{episode.description}</em>
+              <em>
+                {episode.episodeNumber} - {episode.description}
+              </em>
               <br />
               <em>{episode.airDate.toDateString()}</em>
               <div className="mb-5">{episode.notes}</div>

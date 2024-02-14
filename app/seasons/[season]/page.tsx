@@ -2,7 +2,7 @@ import prisma from "@/prisma/client";
 import PageHeader from "@/app/components/PageHeader";
 import ContestantsAside from "./components/ContestantsAside";
 import EpisodeList from "./components/EpisodeList";
-import JudgeHeaderAside from "./components/JudgeHeaderAside";
+import SeasonJudges from "./components/SeasonJudges";
 import AsideLayout from "@/app/components/AsideLayout";
 
 interface SeasonPage {
@@ -13,20 +13,22 @@ export default async function SeasonPage({ params }: SeasonPage) {
   const season = await getSeasonData(Number(params.season));
   const { judges, contestants } = season!;
 
+  const { Aside, Main } = AsideLayout;
+
   return (
     <>
       <PageHeader
         title={season?.name}
-        aside={<JudgeHeaderAside judges={judges} />}
+        aside={<SeasonJudges judges={judges} />}
       />
 
       <AsideLayout>
-        <AsideLayout.Aside>
+        <Aside>
           <ContestantsAside contestants={contestants} />
-        </AsideLayout.Aside>
-        <AsideLayout.Main>
+        </Aside>
+        <Main>
           <EpisodeList episodes={season!.episodes} />
-        </AsideLayout.Main>
+        </Main>
       </AsideLayout>
     </>
   );

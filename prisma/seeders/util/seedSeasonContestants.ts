@@ -17,7 +17,8 @@ export default async function seedSeasonContestants(
       },
     });
 
-    const parsedStatus = getStatus(rawStatus, season.year);
+    const parsedStatus = getStatus(rawStatus);
+
     const newContestant = await prisma.contestant.create({
       data: {
         status: parsedStatus.status,
@@ -25,7 +26,7 @@ export default async function seedSeasonContestants(
         // data. Some contestants are tied for their finishing place, so having
         // it based on the index isn't ideal.
         place: contestantData.indexOf(contestant) + 1,
-        finishDate: parsedStatus.finishDate,
+        finalEpisode: parsedStatus.finalEpisode,
         profile: {
           connect: newProfile,
         },
@@ -51,10 +52,10 @@ export default async function seedSeasonContestants(
 
 type DerivedStatus = {
   status: ContestantStatus;
-  finishDate: Date;
+  finalEpisode: number;
 };
 
-const getStatus = (data: string, seasonYear: number): DerivedStatus => {
+const getStatus = (data: string): DerivedStatus => {
   type statusKey = "Winner" | "Runner-Up" | "Eliminated";
   type statusValue = "WINNER" | "RUNNER_UP" | "ELIMINATED";
 
@@ -70,10 +71,12 @@ const getStatus = (data: string, seasonYear: number): DerivedStatus => {
     ? statusMap[statusMatch[0] as statusKey]
     : "ELIMINATED";
 
-  const lastAppearance = data.replace(matchPattern, "");
+  const lastAppearance = data
+    .replace(matchPattern, "")
+    .replace(/ |Episode/g, "");
 
   return {
     status,
-    finishDate: new Date(`${lastAppearance}, ${seasonYear}`),
+    finalEpisode: Number(lastAppearance),
   };
 };
