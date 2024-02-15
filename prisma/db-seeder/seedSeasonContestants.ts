@@ -15,6 +15,8 @@ export default async function seedSeasonContestants(
       status: rawStatus,
     } = contestant;
 
+    console.log(name);
+
     const newProfile = await prisma.contestantProfile.create({
       data: {
         name,

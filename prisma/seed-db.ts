@@ -3,7 +3,7 @@ import prisma from "./client";
 import seedSeasonsTo from "./db-seeder";
 
 async function main() {
-  await seedSeasonsTo(3);
+  await seedSeasonsTo(4);
 }
 
 main()

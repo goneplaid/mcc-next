@@ -7,17 +7,25 @@ import seedSeasonEpisodes from "./seedSeasonEpisodes";
 import { SeasonDataObjects } from "./types";
 
 export default async function seedSeasonsTo(seasonCeiling: number) {
-  for (let seasonNumber = 1; seasonNumber <= seasonCeiling; seasonNumber++) {
-    const { season, judges, contestants, episodes } = loadSeason(seasonNumber);
+  for (let seasonIndex = 1; seasonIndex <= seasonCeiling; seasonIndex++) {
+    const {
+      season: { seasonNumber, year },
+      judges,
+      contestants,
+      episodes,
+    } = loadSeason(seasonIndex);
 
     const seasonSeed = {
-      seasonNumber: season.seasonNumber,
-      name: `Season ${season.seasonNumber}`,
-      year: season.year,
+      seasonNumber: seasonNumber,
+      name: `Season ${seasonNumber}`,
+      year: year,
     };
 
+    console.log("-------------");
+    console.log("Season " + seasonNumber);
+    console.log("-------------");
     const seasonRecord = await prisma.season.upsert({
-      where: { seasonNumber },
+      where: { seasonNumber: seasonIndex },
       update: seasonSeed,
       create: seasonSeed,
     });
