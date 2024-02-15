@@ -5,6 +5,7 @@ import seedSeasonJudges from "./seedSeasonJudges";
 import seedSeasonContestants from "./seedSeasonContestants";
 import seedSeasonEpisodes from "./seedSeasonEpisodes";
 import { SeasonDataObjects } from "./types";
+import relateContestantsToEpisodes from "./relateContestantsToEpisodes";
 
 export default async function seedSeasonsTo(seasonCeiling: number) {
   for (let seasonIndex = 1; seasonIndex <= seasonCeiling; seasonIndex++) {
@@ -21,9 +22,6 @@ export default async function seedSeasonsTo(seasonCeiling: number) {
       year: year,
     };
 
-    console.log("-------------");
-    console.log("Season " + seasonNumber);
-    console.log("-------------");
     const seasonRecord = await prisma.season.upsert({
       where: { seasonNumber: seasonIndex },
       update: seasonSeed,
@@ -33,6 +31,7 @@ export default async function seedSeasonsTo(seasonCeiling: number) {
     await seedSeasonJudges(seasonRecord, judges);
     await seedSeasonContestants(seasonRecord, contestants!);
     await seedSeasonEpisodes(seasonRecord, episodes!);
+    await relateContestantsToEpisodes(seasonRecord.id);
   }
 }
 

@@ -1,9 +1,10 @@
 import prisma from "@/prisma/client";
 import PageHeader from "@/app/components/PageHeader";
-import ContestantsAside from "./components/ContestantsAside";
-import EpisodeList from "./components/EpisodeList";
+import EpisodeSummary from "./components/EpisodeSummary";
 import SeasonJudges from "./components/SeasonJudges";
 import AsideLayout from "@/app/components/AsideLayout";
+import ContestantSummary from "./components/ContestantSummary";
+import Link from "next/link";
 
 interface SeasonPage {
   params: { season: number };
@@ -11,25 +12,36 @@ interface SeasonPage {
 
 export default async function SeasonPage({ params }: SeasonPage) {
   const season = await getSeasonData(Number(params.season));
-  const { judges, contestants } = season!;
+  const { judges, contestants, episodes } = season!;
 
   const { Aside, Main } = AsideLayout;
 
   return (
     <>
+      <Link href="/">&lt; Back to seasons</Link>
       <PageHeader
         title={season?.name}
         aside={<SeasonJudges judges={judges} />}
       />
 
-      <AsideLayout>
-        <Aside>
-          <ContestantsAside contestants={contestants} />
-        </Aside>
-        <Main>
-          <EpisodeList episodes={season!.episodes} />
-        </Main>
-      </AsideLayout>
+      {episodes.map((episode, eKey) => {
+        return (
+          <AsideLayout key={eKey}>
+            <Aside className="flex flex-col gap-6">
+              {contestants
+                .filter((c) => c.finalEpisode === episode.episodeNumber)
+                .map((contestant, cKey) => {
+                  return (
+                    <ContestantSummary key={cKey} contestant={contestant} />
+                  );
+                })}
+            </Aside>
+            <Main>
+              <EpisodeSummary episode={episode} />
+            </Main>
+          </AsideLayout>
+        );
+      })}
     </>
   );
 }

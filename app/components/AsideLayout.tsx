@@ -1,18 +1,24 @@
 import { PropsWithChildren } from "react";
+import { StyledComponent } from "../types/components.types";
 
-interface Main extends PropsWithChildren {}
-interface AsideLayout extends PropsWithChildren {}
+interface AsideLayout extends PropsWithChildren, StyledComponent {}
 
-const AsideLayout = ({ children }: AsideLayout) => {
-  return <div className="grid grid-cols-4 gap-4">{children}</div>;
+const AsideLayout = ({ children, className }: AsideLayout) => {
+  return (
+    <div className={`grid grid-cols-4 gap-4 ${className ?? ""}`}>
+      {children}
+    </div>
+  );
 };
 
-const Aside = ({ children }: AsideLayout) => {
-  return <aside>{children}</aside>;
+const Aside = ({ children, className }: AsideLayout) => {
+  return <aside className={className ?? ""}>{children}</aside>;
 };
 
-const Main = ({ children }: AsideLayout) => {
-  return <section className="col-span-3">{children}</section>;
+const Main = ({ children, className }: AsideLayout) => {
+  return (
+    <section className={`col-span-3 ${className ?? ""}`}>{children}</section>
+  );
 };
 
 AsideLayout.Aside = Aside;

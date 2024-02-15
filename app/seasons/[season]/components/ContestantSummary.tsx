@@ -1,0 +1,25 @@
+import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
+import { statusDisplay } from "@/app/components/util";
+import { Contestant, ContestantProfile } from "@prisma/client";
+import React from "react";
+
+interface ContestantSummary {
+  contestant: Contestant & { profile: ContestantProfile };
+}
+
+const ContestantSummary = ({ contestant }: ContestantSummary) => {
+  return (
+    <div className="flex flex-col gap-4 items-center">
+      <ContestantAvatar contestant={contestant.profile} size="small" />
+      <div className="text-center">
+        <h4 className="text-lg">{contestant.profile.name}</h4>
+        <div className="text-sm flex flex-col">
+          <span>{statusDisplay(contestant.status)}</span>
+          <span>{contestant.place}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ContestantSummary;
