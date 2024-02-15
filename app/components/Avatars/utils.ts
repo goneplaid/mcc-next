@@ -6,17 +6,27 @@ export const avatarSizeMap: Record<
 > = {
   small: {
     text: "text-sm",
-    dimensions: "w-12 h-12",
+    dimensions: "w-10 h-10",
     border: "border-2",
   },
   medium: {
     text: "text-md",
     dimensions: "w-16 h-16",
-    border: "border-3",
+    border: "border-4",
   },
   large: {
     text: "text-lg",
     dimensions: "w-24 h-24",
     border: "border-4",
   },
+};
+
+export const getInitials = (name?: string) => {
+  if (!name) return;
+
+  return name
+    .replace(/ "([^"]*)"/g, "")
+    .split(" ")
+    .map((name) => name.charAt(0))
+    .join("");
 };

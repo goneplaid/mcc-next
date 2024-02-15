@@ -1,6 +1,6 @@
 import { Judge } from "@prisma/client";
 import React from "react";
-import { getInitials } from "../util";
+import { getInitials } from "./utils";
 import { AvatarSize, avatarSizeMap } from "./utils";
 
 interface JudgeAvatar {

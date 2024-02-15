@@ -14,19 +14,16 @@ const EpisodeSummary = ({ episode }: EpisodeSummary) => {
     <>
       <ul className="mb-10">
         <li className="mb-4">
-          <em>
-            {episode.episodeNumber} - {episode.description}
+          <h3 className="text-2xl">
+            {episode.episodeNumber}: {episode.description}
+          </h3>
+          <em className="block mb-4">
+            Original airdate: {episode.airDate.toDateString()}
           </em>
-          <br />
-          <em>{episode.airDate.toDateString()}</em>
           <div className="mb-5">{episode.notes}</div>
           <ul className="pl-5">
             {episode.contestants.map((contestant) => {
-              return (
-                <li
-                  key={contestant.id}
-                >{`${contestant.profile.name} - ${contestant.status}`}</li>
-              );
+              return <li key={contestant.id}>{contestant.profile.name}</li>;
             })}
           </ul>
         </li>
