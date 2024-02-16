@@ -17,11 +17,19 @@ export type JudgeData = string[];
 export type ContestantData = GenericObject[];
 export type EpisodeData = GenericObject[];
 
-export type ChallengeData = {
-  contestants: string[];
-  finishingPlaces: string[];
+type ParticipantData = {
+  name: string;
+  place: string;
   challenges: {
-    challenge: string;
+    name: string;
+    result: string;
+  }[];
+};
+
+export type ChallengeData = {
+  participants: ParticipantData[];
+  challenges: {
+    name: string;
     results: string[];
   }[];
 };

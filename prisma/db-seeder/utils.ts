@@ -31,15 +31,38 @@ export function readChallengeCsv(path: string): ChallengeData {
   const challengeData = parse(fs.readFileSync(path));
   const rotatedMatrix = rotateChallengeMatrix(challengeData);
 
+  const contestantNames = rotatedMatrix[1].slice(1);
+  const finishingPlaces = rotatedMatrix[0].slice(1);
+
+  const challenges = rotatedMatrix.slice(2).map((challenge) => {
+    return {
+      name: challenge[0],
+      results: challenge.slice(1),
+    };
+  });
+
+  const participants = contestantNames.map((name, index) => {
+    return {
+      name,
+      place: finishingPlaces[index],
+      challenges: challenges
+        .map((challenge) => {
+          const result = challenge.results[index];
+
+          return (
+            result && {
+              name: challenge.name,
+              result,
+            }
+          );
+        })
+        .filter((c) => !!c),
+    };
+  });
+
   const parsedChallengeData = {
-    contestants: rotatedMatrix[1].slice(1),
-    finishingPlaces: rotatedMatrix[0].slice(1),
-    challenges: rotatedMatrix.slice(2).map((challenge) => {
-      return {
-        challenge: challenge[0],
-        results: challenge.slice(1),
-      };
-    }),
+    participants,
+    challenges,
   };
 
   return parsedChallengeData;
