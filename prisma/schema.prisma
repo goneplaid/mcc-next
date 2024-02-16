@@ -7,14 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ContestantStatus {
+  ACTIVE
+  ELIMINATED
+  RUNNER_UP
+  WINNER
+}
+
+enum ChallengeResult {
+  WIN
+  HIGH
+  IN
+  LOW
+  ELIM
+}
+
+enum ChallengeType {
+  A // Audition
+  ST // Skill test
+  MB // Mystery box
+  ET // Elimination test
+  TC // Team Challenge
+  PT // Pressure test
+  I // Individual test
+  SF // Semi-final
+  F // Final
+  OSC // Off-site challenge (unique)
+}
+
 model Season {
-  id           String       @id @default(uuid())
-  seasonNumber Int          @unique
-  name         String       @unique @db.VarChar(9)
+  id           String        @id @default(uuid())
+  seasonNumber Int           @unique
+  name         String        @unique @db.VarChar(9)
   year         Int
   episodes     Episode[]
   contestants  Contestant[]
   judges       Judge[]
+  challenges   Challenge[]
+  participants Participant[]
 }
 
 model Episode {
@@ -27,6 +57,7 @@ model Episode {
   season        Season       @relation(fields: [seasonId], references: [id])
   contestants   Contestant[]
   judges        Judge[]
+  challenges    Challenge[]
 
   @@unique([episodeNumber, seasonId])
 }
@@ -48,20 +79,37 @@ model ContestantProfile {
 }
 
 model Contestant {
-  id           String            @id @default(uuid())
-  status       ContestantStatus  @default(ELIMINATED)
-  place        Int               @default(0)
-  finalEpisode Int
-  profileId    String
-  profile      ContestantProfile @relation(fields: [profileId], references: [id])
-  seasonId     String
-  season       Season            @relation(fields: [seasonId], references: [id])
-  episodes     Episode[]
+  id             String            @id @default(uuid())
+  status         ContestantStatus  @default(ELIMINATED)
+  place          Int               @default(0)
+  finalEpisode   Int
+  seasonId       String
+  season         Season            @relation(fields: [seasonId], references: [id])
+  profileId      String
+  profile        ContestantProfile @relation(fields: [profileId], references: [id])
+  episodes       Episode[]
+  participations Participant[]
 }
 
-enum ContestantStatus {
-  WINNER
-  RUNNER_UP
-  ELIMINATED
-  ACTIVE
+model Challenge {
+  id           String        @id @default(uuid())
+  type         ChallengeType
+  duration     Int
+  seasonId     String
+  season       Season        @relation(fields: [seasonId], references: [id])
+  episodeId    String
+  episode      Episode       @relation(fields: [episodeId], references: [id])
+  participants Participant[]
+}
+
+model Participant {
+  id           String          @id @default(uuid())
+  team         String
+  seasonId     String
+  season       Season          @relation(fields: [seasonId], references: [id])
+  challengeId  String
+  challenge    Challenge       @relation(fields: [challengeId], references: [id])
+  contestantId String
+  contestant   Contestant      @relation(fields: [contestantId], references: [id])
+  result       ChallengeResult
 }
