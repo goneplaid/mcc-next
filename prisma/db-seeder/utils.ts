@@ -1,6 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse/sync";
-import { ChallengeData, GenericObject } from "./types";
+import { ParticipantChallengeData, GenericObject } from "./types";
 
 export function csvToObjects(
   data: string[][],
@@ -27,7 +27,7 @@ export function readCsv(path: string, columns: string[]) {
   return csvToObjects(records, columns);
 }
 
-export function readChallengeCsv(path: string): ChallengeData {
+export function readChallengeCsv(path: string): ParticipantChallengeData {
   const challengeData = parse(fs.readFileSync(path));
   const rotatedMatrix = rotateChallengeMatrix(challengeData);
 
@@ -45,18 +45,6 @@ export function readChallengeCsv(path: string): ChallengeData {
     return {
       name,
       place: finishingPlaces[index],
-      challenges: challenges
-        .map((challenge) => {
-          const result = challenge.results[index];
-
-          return (
-            result && {
-              name: challenge.name,
-              result,
-            }
-          );
-        })
-        .filter((c) => !!c),
     };
   });
 
@@ -70,9 +58,9 @@ export function readChallengeCsv(path: string): ChallengeData {
 
 function rotateChallengeMatrix(matrix: any[][]) {
   const rotatedMatrix = matrix[0].map((val, index) =>
-    matrix.map((row) => row[index])
+    matrix.map((row) => row[index] || undefined)
   );
 
   // Filter out empty columns
-  return rotatedMatrix.map((row) => row.filter((i) => !!i));
+  return rotatedMatrix;
 }

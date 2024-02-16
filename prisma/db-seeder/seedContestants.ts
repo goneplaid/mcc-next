@@ -1,9 +1,10 @@
 import { ContestantStatus, Season } from "@prisma/client";
 import prisma from "../client";
+import { ContestantData } from "./types";
 
 export default async function seedSeasonContestants(
   season: Season,
-  contestantData: Record<string, string>[]
+  contestantData: ContestantData
 ) {
   for (const contestant of contestantData) {
     const {

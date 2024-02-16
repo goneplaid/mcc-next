@@ -47,26 +47,27 @@ model Season {
   participants Participant[]
 }
 
-model Episode {
-  id            String       @id @default(uuid())
-  episodeNumber Int
-  description   String       @db.VarChar(255)
-  airDate       DateTime
-  notes         String       @db.Text
-  seasonId      String
-  season        Season       @relation(fields: [seasonId], references: [id])
-  contestants   Contestant[]
-  judges        Judge[]
-  challenges    Challenge[]
-
-  @@unique([episodeNumber, seasonId])
-}
-
 model Judge {
   id       String    @id @default(uuid())
   name     String    @unique @db.VarChar(150)
   seasons  Season[]
   episodes Episode[]
+}
+
+model Episode {
+  id            String        @id @default(uuid())
+  episodeNumber Int
+  description   String        @db.VarChar(255)
+  airDate       DateTime
+  notes         String        @db.Text
+  seasonId      String
+  season        Season        @relation(fields: [seasonId], references: [id])
+  contestants   Contestant[]
+  judges        Judge[]
+  challenges    Challenge[]
+  participants  Participant[]
+
+  @@unique([episodeNumber, seasonId])
 }
 
 model ContestantProfile {
@@ -107,6 +108,8 @@ model Participant {
   team         String
   seasonId     String
   season       Season          @relation(fields: [seasonId], references: [id])
+  episodeId    String
+  episode      Episode         @relation(fields: [episodeId], references: [id])
   challengeId  String
   challenge    Challenge       @relation(fields: [challengeId], references: [id])
   contestantId String

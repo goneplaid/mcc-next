@@ -1,9 +1,10 @@
 import { Season } from "@prisma/client";
 import prisma from "../client";
+import { EpisodeData } from "./types";
 
 export default async function seedSeasonEpisodes(
   season: Season,
-  episodeData: Record<string, string>[]
+  episodeData: EpisodeData
 ) {
   for (const episode of episodeData) {
     const { episodeNumber, description, airDate, notes } = episode;
