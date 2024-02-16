@@ -1,5 +1,5 @@
 import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
-import { statusDisplay } from "@/app/components/utils";
+import { statusMap } from "@/app/types/utils";
 import { Contestant, ContestantProfile } from "@prisma/client";
 import React from "react";
 
@@ -14,7 +14,7 @@ const ContestantSummary = ({ contestant }: ContestantSummary) => {
       <div className="text-center">
         <h4 className="text-lg">{contestant.profile.name}</h4>
         <div className="text-sm flex flex-col">
-          <span>{statusDisplay(contestant.status)}</span>
+          <span>{statusMap[contestant.status]}</span>
           <span>{contestant.place}</span>
         </div>
       </div>

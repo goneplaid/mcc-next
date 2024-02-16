@@ -21,13 +21,18 @@ const SeasonCard = async ({ season }: SeasonCard) => {
     },
   });
 
+  const hoverStyles =
+    "hover:border-teal-400 transition-all hover:scale-105 hover:mt-12 hover:shadow-lg";
+
   return (
-    <div className="mt-14 card card-compact bg-white border-4 border-gray-300 group hover:border-teal-400 transition-all hover:scale-105 hover:mt-12 hover:shadow-lg">
+    <div
+      className={`mt-14 card card-compact bg-white border-4 border-gray-300 ${hoverStyles}`}
+    >
       <div className="card-body items-center text-center">
         <ContestantAvatar
-          size="large"
+          size="x-large"
           contestant={winner!.profile}
-          className="-mt-14"
+          className="-translate-y-1/2"
         />
         <h2 className="card-title text-3xl">Season {season.seasonNumber}</h2>
         <span className="uppercase">Winner</span>

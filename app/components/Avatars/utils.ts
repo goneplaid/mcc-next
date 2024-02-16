@@ -1,4 +1,4 @@
-export type AvatarSize = "small" | "medium" | "large";
+export type AvatarSize = "small" | "medium" | "large" | "x-large";
 
 export const avatarSizeMap: Record<
   AvatarSize,
@@ -10,14 +10,19 @@ export const avatarSizeMap: Record<
     border: "border-2",
   },
   medium: {
-    text: "text-md",
+    text: "text-lg",
     dimensions: "w-16 h-16",
     border: "border-4",
   },
   large: {
-    text: "text-lg",
+    text: "text-2xl",
     dimensions: "w-24 h-24",
     border: "border-4",
+  },
+  "x-large": {
+    text: "text-3xl",
+    dimensions: "w-32 h-32",
+    border: "border-8",
   },
 };
 
