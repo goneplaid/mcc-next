@@ -1,11 +1,13 @@
 import path from "path";
 import prisma from "../client";
-import { readCsv, readJson } from "./util";
+
+import { readChallengeCsv, readCsv, readJson } from "./utils";
+
 import seedSeasonJudges from "./seedSeasonJudges";
 import seedSeasonContestants from "./seedSeasonContestants";
 import seedSeasonEpisodes from "./seedSeasonEpisodes";
-import { SeasonDataObjects } from "./types";
 import relateContestantsToEpisodes from "./relateContestantsToEpisodes";
+import { SeasonObjects } from "./types";
 
 export default async function seedSeasonsTo(seasonCeiling: number) {
   for (let seasonIndex = 1; seasonIndex <= seasonCeiling; seasonIndex++) {
@@ -31,11 +33,12 @@ export default async function seedSeasonsTo(seasonCeiling: number) {
     await seedSeasonJudges(seasonRecord, judges);
     await seedSeasonContestants(seasonRecord, contestants!);
     await seedSeasonEpisodes(seasonRecord, episodes!);
+    // await seedSeasonChallenges(seasonRecord, challenges)
     await relateContestantsToEpisodes(seasonRecord.id);
   }
 }
 
-function loadSeason(season: number): SeasonDataObjects {
+function loadSeason(season: number): SeasonObjects {
   if (!season) throw new Error("Specify a season");
 
   const PATH_PREFIX = path.join(__dirname, `season_${season}`);
@@ -64,10 +67,15 @@ function loadSeason(season: number): SeasonDataObjects {
   ]);
   if (!episodeData?.length) throw Error("No episodes found!");
 
+  const challengeData = readChallengeCsv(
+    path.join(PATH_PREFIX, "challenges.csv")
+  );
+
   return {
     season: seasonData,
     judges: judgeData,
     contestants: contestantData,
     episodes: episodeData,
+    challenges: challengeData,
   };
 }
