@@ -1,11 +1,13 @@
-import { ContestantStatus, Season } from "@prisma/client";
-import prisma from "../client";
-import { ContestantData } from "./types";
+import { Contestant, ContestantStatus, Season } from "@prisma/client";
+import prisma from "../../client";
+import { ContestantData } from "../lib/types";
 
 export default async function seedSeasonContestants(
   season: Season,
   contestantData: ContestantData
 ) {
+  const contestants: Contestant[] = [];
+
   for (const contestant of contestantData) {
     const {
       name,
@@ -41,8 +43,10 @@ export default async function seedSeasonContestants(
       },
     });
 
+    contestants.push(newContestant);
+
     // Associate contestant entry w/ their profile
-    prisma.contestantProfile.update({
+    await prisma.contestantProfile.update({
       where: {
         id: newProfile.id,
       },
@@ -53,6 +57,8 @@ export default async function seedSeasonContestants(
       },
     });
   }
+
+  return contestants;
 }
 
 type DerivedStatus = {

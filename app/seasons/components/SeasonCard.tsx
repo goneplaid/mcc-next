@@ -34,7 +34,9 @@ const SeasonCard = async ({ season }: SeasonCard) => {
           contestant={winner!.profile}
           className="-translate-y-1/2"
         />
-        <h2 className="card-title text-3xl">Season {season.seasonNumber}</h2>
+        <h2 className="-mt-14 card-title text-3xl">
+          Season {season.seasonNumber}
+        </h2>
         <span className="uppercase">Winner</span>
         <span className="text-lg">{winner?.profile.name}</span>
 

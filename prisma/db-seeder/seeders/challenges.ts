@@ -6,34 +6,28 @@ import {
   Episode,
   Season,
 } from "@prisma/client";
-import prisma from "../client";
+import prisma from "../../client";
 import {
   AcceptedChallengeType,
-  ParticipantChallengeData,
   EpisodeChallengeInfo,
-} from "./types";
+  ParticipantChallengeData,
+} from "../lib/types";
 
-const acceptedChallenges: AcceptedChallengeType = ["A", "ST"];
+const acceptedChallenges: AcceptedChallengeType = [
+  "A",
+  "ST",
+  "MB",
+  "ET",
+  "SF",
+  "F",
+];
 
-export default async function seedSeasonChallengesAndParticipants(
+export default async function seedSeasonChallenges(
   season: Season,
+  contestants: Contestant[],
+  episodes: Episode[],
   challengeData: ParticipantChallengeData
 ) {
-  const episodes = await prisma.episode.findMany({
-    where: {
-      seasonId: season.id,
-    },
-    orderBy: {
-      episodeNumber: "asc",
-    },
-  });
-
-  const contestants = await prisma.contestant.findMany({
-    where: {
-      seasonId: season.id,
-    },
-  });
-
   for (const challenge of challengeData.challenges) {
     const { name: challengeName } = challenge;
 

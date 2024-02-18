@@ -1,6 +1,6 @@
 import { Season } from "@prisma/client";
-import prisma from "../client";
-import { JudgeData } from "./types";
+import prisma from "../../client";
+import { JudgeData } from "../lib/types";
 
 export default async function seedSeasonJudges(
   season: Season,

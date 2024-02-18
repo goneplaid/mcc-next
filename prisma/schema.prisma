@@ -20,6 +20,9 @@ enum ChallengeResult {
   IN
   LOW
   ELIM
+  IMM
+  WINNER
+  RUNNER_UP
 }
 
 enum ChallengeType {
