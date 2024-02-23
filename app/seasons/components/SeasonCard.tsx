@@ -3,6 +3,7 @@ import { Judge, Season, Contestant } from "@prisma/client";
 import prisma from "@/prisma/client";
 import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
 import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
+import { michroma } from "@/app/fonts";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated
@@ -34,16 +35,16 @@ const SeasonCard = async ({ season }: SeasonCard) => {
           contestant={winner!.profile}
           className="-translate-y-1/2"
         />
-        <h2 className="-mt-14 card-title text-3xl">
+        <h2 className="-mt-14 card-title text-3xl text-branded">
           Season {season.seasonNumber}
         </h2>
-        <span className="uppercase">Winner</span>
+        <span className={`font-branded ${michroma.variable}`}>Winner</span>
         <span className="text-lg">{winner?.profile.name}</span>
 
         <span className="mt-6 uppercase">Judges</span>
         <div className="flex flex-row gap-2">
           {season.judges.map((judge) => {
-            return <JudgeAvatar key={judge.id} size="small" judge={judge} />;
+            return <JudgeAvatar key={judge.id} size="x-small" judge={judge} />;
           })}
         </div>
       </div>

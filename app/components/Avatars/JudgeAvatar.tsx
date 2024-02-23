@@ -9,8 +9,8 @@ interface JudgeAvatar {
 }
 
 const JudgeAvatar = ({ judge, size }: JudgeAvatar) => {
-  const avatarStyles = `avatar ${avatarSizeMap[size].text} ${avatarSizeMap[size].dimensions}`;
-  const displayStyles = `placeholder rounded-full bg-neutral ${avatarSizeMap[size].border} border-gray-500`;
+  const avatarStyles = `avatar placeholder ${avatarSizeMap[size].text} ${avatarSizeMap[size].dimensions}`;
+  const displayStyles = `rounded-full bg-neutral ${avatarSizeMap[size].border} border-transparent`;
   const layoutStyles = "flex items-center justify-center";
 
   return (

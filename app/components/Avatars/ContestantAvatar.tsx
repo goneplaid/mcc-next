@@ -14,18 +14,18 @@ const ContestantAvatar = ({
   size = "medium",
   className,
 }: ContestantAvatar) => {
-  const avatarStyles = `avatar ${avatarSizeMap[size].text} ${avatarSizeMap[size].dimensions}`;
-  const displayStyles = `placeholder rounded-full bg-neutral ${avatarSizeMap[size].border} border-gray-500`;
+  const shapeStyles = `${avatarSizeMap[size].dimensions} bg-neutral mask mask-squircle`;
+  const ringStyles = "ring ring-primary ring-offset-base-100";
+  const textStyles = `${avatarSizeMap[size].text} text-neutral-content`;
+
   return (
-    <figure
-      className={`flex items-center justify-center ${avatarStyles} ${displayStyles} ${
-        className ?? ""
-      }`}
-    >
-      <span className={`text-white font-bold`}>
-        {getInitials(contestant.name)}
-      </span>
-    </figure>
+    <>
+      <figure className="avatar placeholder">
+        <div className={`${shapeStyles} ${textStyles} ${className ?? ""}`}>
+          <span>{getInitials(contestant.name)}</span>
+        </div>
+      </figure>
+    </>
   );
 };
 
