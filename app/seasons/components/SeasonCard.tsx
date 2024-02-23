@@ -1,9 +1,10 @@
 import React from "react";
-import { Judge, Season, Contestant } from "@prisma/client";
+import { Judge, Season } from "@prisma/client";
 import prisma from "@/prisma/client";
 import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
 import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
 import { michroma } from "@/app/fonts";
+import Card from "@/app/components/Card/Card";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated
@@ -22,33 +23,26 @@ const SeasonCard = async ({ season }: SeasonCard) => {
     },
   });
 
-  const hoverStyles =
-    "hover:border-teal-400 transition-all hover:scale-105 hover:mt-12 hover:shadow-lg";
-
   return (
-    <div
-      className={`mt-14 card card-compact bg-white border-4 border-gray-300 ${hoverStyles}`}
+    <Card
+      size="large"
+      hover={{ borderColor: true, raise: true }}
+      className="bg-white"
     >
-      <div className="card-body items-center text-center">
-        <ContestantAvatar
-          size="x-large"
-          contestant={winner!.profile}
-          className="-translate-y-1/2"
-        />
-        <h2 className="-mt-14 card-title text-3xl text-branded">
-          Season {season.seasonNumber}
-        </h2>
-        <span className={`font-branded ${michroma.variable}`}>Winner</span>
-        <span className="text-lg">{winner?.profile.name}</span>
+      <ContestantAvatar size="x-large" contestant={winner!.profile} />
+      <h2 className="card-title text-3xl text-branded">
+        Season {season.seasonNumber}
+      </h2>
+      <span className={`font-branded ${michroma.variable}`}>Winner</span>
+      <span className="text-lg">{winner?.profile.name}</span>
 
-        <span className="mt-6 uppercase">Judges</span>
-        <div className="flex flex-row gap-2">
-          {season.judges.map((judge) => {
-            return <JudgeAvatar key={judge.id} size="x-small" judge={judge} />;
-          })}
-        </div>
+      <span className="mt-6 uppercase">Judges</span>
+      <div className="flex flex-row gap-2">
+        {season.judges.map((judge) => {
+          return <JudgeAvatar key={judge.id} size="x-small" judge={judge} />;
+        })}
       </div>
-    </div>
+    </Card>
   );
 };
 

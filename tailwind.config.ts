@@ -10,7 +10,8 @@ const config: Config = {
     extend: {
       fontFamily: {
         branded: [`var(--font-michroma)`],
-        sans: [`var(--font-lato)`],
+        title: [`var(--font-lato)`],
+        content: [`var(--font-raleway)`],
       },
     },
   },

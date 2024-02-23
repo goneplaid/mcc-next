@@ -1,4 +1,4 @@
-import { Lato, Michroma } from "next/font/google";
+import { Lato, Michroma, Raleway } from "next/font/google";
 
 export const michroma = Michroma({
   subsets: ["latin"],
@@ -10,4 +10,10 @@ export const lato = Lato({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-lato",
+});
+
+export const raleway = Raleway({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-raleway",
 });

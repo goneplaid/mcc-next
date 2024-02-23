@@ -3,6 +3,7 @@ import SeasonCard from "./components/SeasonCard";
 import prisma from "@/prisma/client";
 import PageHeader from "../components/PageHeader";
 import CardGrid from "../components/CardGrid";
+import Card from "../components/Card/Card";
 
 export default async function Home() {
   const seasons = await prisma.season.findMany({
@@ -28,6 +29,7 @@ export default async function Home() {
             </Link>
           );
         })}
+        <Card>hello there</Card>
       </CardGrid>
     </>
   );
