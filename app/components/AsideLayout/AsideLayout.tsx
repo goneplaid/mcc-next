@@ -1,7 +1,9 @@
-import { PropsWithChildren } from "react";
-import { StyledComponent } from "../types/components.types";
+import { ReactNode } from "react";
 
-interface AsideLayout extends PropsWithChildren, StyledComponent {}
+interface AsideLayout {
+  children: ReactNode;
+  className?: string;
+}
 
 const AsideLayout = ({ children, className }: AsideLayout) => {
   return (

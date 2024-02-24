@@ -2,14 +2,15 @@ import {
   FontSize,
   FontType,
   FontWeight,
-  fontTypeClasses,
   fontSizeClasses,
+  fontTypeClasses,
   fontWeightClasses,
 } from "../../fonts";
 import clsx from "clsx";
-import { TextTag, TextTags } from "./TextTag";
-import { Heading, SubHead, P, Span } from "./SemanticText";
+import { TextTags } from "./util/TextTag";
+import { Heading, SubHead, P, Span } from "./util/SemanticText";
 import { ReactNode } from "react";
+import { TextAlignment, TextTag } from "./Text.types";
 
 interface TextProps {
   children: ReactNode;
@@ -21,8 +22,6 @@ interface TextProps {
   fontWeight?: FontWeight;
   tag?: TextTag;
 }
-
-export type TextAlignment = "left" | "center" | "right";
 
 const Text = ({
   align = "left",

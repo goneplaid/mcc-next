@@ -1,8 +1,8 @@
 import prisma from "@/prisma/client";
-import PageHeader from "@/app/components/PageHeader";
+import PageHeader from "@/app/components/PageHeader/PageHeader";
 import EpisodeSummary from "./components/EpisodeSummary";
 import SeasonJudges from "./components/SeasonJudges";
-import AsideLayout from "@/app/components/AsideLayout";
+import AsideLayout from "@/app/components/AsideLayout/AsideLayout";
 import ContestantSummary from "./components/ContestantSummary";
 import Link from "next/link";
 

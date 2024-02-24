@@ -1,9 +1,9 @@
 import Image from "next/image";
-import React, { PropsWithChildren } from "react";
 
-import { michroma } from "../fonts";
+import { michroma } from "../../fonts";
 import Link from "next/link";
-import { StyledComponent } from "../types/components.types";
+import { StyledComponent } from "../../types/components.types";
+import Text from "../Text/Text";
 
 interface SiteHeader extends StyledComponent {}
 
@@ -19,13 +19,11 @@ const SiteHeader = ({ className }: SiteHeader) => {
             width="40"
             height="40"
           />
-          <span
-            className={`inline-block text-sm font-branded ${michroma.variable}`}
-          >
+          <Text.Span branded level={3}>
             MasterChef
             <br />
             Compendium
-          </span>
+          </Text.Span>
         </Link>
       </div>
     </header>

@@ -12,8 +12,6 @@ interface SeasonCard {
   season: Season & { judges: Judge[] };
 }
 
-const Type = Text;
-
 const SeasonCard = async ({ season }: SeasonCard) => {
   const winner = await prisma.contestant.findFirst({
     where: {
@@ -32,16 +30,16 @@ const SeasonCard = async ({ season }: SeasonCard) => {
       className="bg-white items-center"
     >
       <ContestantAvatar size="x-large" contestant={winner!.profile} />
-      <Type.Heading align="center">Season {season.seasonNumber}</Type.Heading>
-      <Type.SubHead level={3} align="center" branded className="uppercase">
+      <Text.Heading align="center">Season {season.seasonNumber}</Text.Heading>
+      <Text.SubHead level={3} align="center" branded className="uppercase">
         Winner
-      </Type.SubHead>
-      <Type.P align="center" level={1}>
+      </Text.SubHead>
+      <Text.SubHead align="center" level={1}>
         {winner?.profile.name}
-      </Type.P>
-      <Type.SubHead level={3} align="center" branded className="uppercase">
+      </Text.SubHead>
+      <Text.SubHead level={3} align="center" branded className="uppercase">
         Judges
-      </Type.SubHead>
+      </Text.SubHead>
       <div className="flex flex-row gap-2 justify-center">
         {season.judges.map((judge) => {
           return <JudgeAvatar key={judge.id} size="x-small" judge={judge} />;

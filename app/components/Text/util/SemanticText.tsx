@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import Text, { TextAlignment } from "./Text";
-import { TextTag } from "./TextTag";
+import Text from "../Text";
 import { FontSize } from "@/app/fonts";
+import { TextAlignment, TextTag } from "../Text.types";
 
 interface SemanticTextProps {
   children: ReactNode;
@@ -17,10 +17,10 @@ export const Heading = ({
   ...rest
 }: SemanticTextProps) => {
   const tags: TextTag[] = ["h1", "h2", "h3"];
-  const targetTag = tags[level - 1 ?? 0];
+  const targetTag = tags[getLevel(level)];
 
   const fontSizes: FontSize[] = ["4xl", "3xl", "2xl"];
-  const targetSize = fontSizes[level - 1 ?? 0];
+  const targetSize = fontSizes[getLevel(level)];
 
   return (
     <Text
@@ -40,11 +40,11 @@ export const SubHead = ({
   level = 1,
   ...rest
 }: SemanticTextProps) => {
-  const tags: TextTag[] = ["h3", "h4", "h5"];
-  const targetTag = tags[level - 1 ?? 0];
+  const tags: TextTag[] = ["h4", "h5", "h6"];
+  const targetTag = tags[getLevel(level)];
 
   const fontSizes: FontSize[] = ["xl", "lg", "md"];
-  const targetSize = fontSizes[level - 1 ?? 0];
+  const targetSize = fontSizes[getLevel(level)];
 
   return (
     <Text tag={targetTag} fontSize={targetSize} fontType="title" {...rest}>
@@ -55,7 +55,7 @@ export const SubHead = ({
 
 export const P = ({ children, level = 1, ...rest }: SemanticTextProps) => {
   const fontSizes: FontSize[] = ["lg", "md", "sm"];
-  const targetSize = fontSizes[level - 1 ?? 0];
+  const targetSize = fontSizes[getLevel(level)];
 
   return (
     <Text tag="p" fontSize={targetSize} fontType="content" {...rest}>
@@ -66,7 +66,7 @@ export const P = ({ children, level = 1, ...rest }: SemanticTextProps) => {
 
 export const Span = ({ children, level = 1, ...rest }: SemanticTextProps) => {
   const fontSizes: FontSize[] = ["lg", "md", "sm"];
-  const targetSize = fontSizes[level ?? 1];
+  const targetSize = fontSizes[getLevel(level)];
 
   return (
     <Text tag="span" fontSize={targetSize} fontType="content" {...rest}>
@@ -74,3 +74,5 @@ export const Span = ({ children, level = 1, ...rest }: SemanticTextProps) => {
     </Text>
   );
 };
+
+const getLevel = (specified: number) => specified - 1 ?? 0;
