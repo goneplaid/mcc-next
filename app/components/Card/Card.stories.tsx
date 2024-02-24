@@ -25,7 +25,6 @@ const cardContent: ReactNode = (
 export const Large: Story = {
   args: {
     size: "large",
-    level: "base",
     hover: { borderColor: true, raise: true },
     children: cardContent,
   },
@@ -34,7 +33,6 @@ export const Large: Story = {
 export const Normal: Story = {
   args: {
     size: "normal",
-    level: "base",
     hover: { borderColor: true },
     children: cardContent,
   },
@@ -43,7 +41,6 @@ export const Normal: Story = {
 export const Compact: Story = {
   args: {
     size: "compact",
-    level: "base",
     hover: { borderColor: true },
     children: cardContent,
   },

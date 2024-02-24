@@ -1,24 +1,73 @@
-import { lato, michroma, raleway } from "../../fonts";
-import React, { PropsWithChildren } from "react";
+import {
+  FontSize,
+  FontType,
+  FontWeight,
+  fontTypeClasses,
+  fontSizeClasses,
+  fontWeightClasses,
+} from "../../fonts";
+import clsx from "clsx";
+import { TextTag, TextTags } from "./TextTag";
+import { Heading, SubHead, P, Span } from "./SemanticText";
+import { ReactNode } from "react";
 
-type TextType = "branded" | "title" | "content";
-
-interface Text extends PropsWithChildren {
-  type: TextType;
+interface TextProps {
+  children: ReactNode;
+  align?: TextAlignment;
+  branded?: boolean; // allows "branded" style to overtake all other styled font types
+  className?: string;
+  fontSize?: FontSize;
+  fontType?: Exclude<FontType, "branded">;
+  fontWeight?: FontWeight;
+  tag?: TextTag;
 }
 
-const Text = ({ children, type }: Text) => {
-  return <span className={TEXT_TYPE_MAP[type]}>{children}</span>;
+export type TextAlignment = "left" | "center" | "right";
+
+const Text = ({
+  align = "left",
+  branded,
+  children,
+  className,
+  fontSize = "md",
+  fontType = "content",
+  fontWeight = "normal",
+  tag = "span",
+}: TextProps) => {
+  const alignmentClass = textAlignmentClasses[align];
+  const fontSizeClass = fontSizeClasses[fontSize];
+  const fontTypeClass = branded
+    ? fontTypeClasses["branded"]
+    : fontTypeClasses[fontType];
+  const fontWeightClass = fontWeightClasses[fontWeight];
+
+  const TextTag = TextTags[tag];
+
+  return (
+    <TextTag
+      className={clsx(
+        alignmentClass,
+        fontSizeClass,
+        fontTypeClass,
+        fontWeightClass,
+        className
+      )}
+    >
+      {children}
+    </TextTag>
+  );
 };
+
+// Semantic tags decorated with predefined properties
+Text.Heading = Heading;
+Text.SubHead = SubHead;
+Text.P = P;
+Text.Span = Span;
 
 export default Text;
 
-const TEXT_TYPE_MAP: Record<TextType, string> = {
-  branded: `font-branded ${michroma.className}`,
-  title: `font-title ${lato.className}`,
-  content: `font-content ${raleway.className}`,
+const textAlignmentClasses: Record<TextAlignment, string> = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
 };
-
-Text.branded = TEXT_TYPE_MAP.branded;
-Text.title = TEXT_TYPE_MAP.title;
-Text.content = TEXT_TYPE_MAP.content;
