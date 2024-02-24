@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import Card from "./Card";
 import { ReactNode } from "react";
+import Text from "../Text/Text";
 
 const meta = {
   title: "Components/Card",
@@ -17,9 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const cardContent: ReactNode = (
-  <>
-    <span>We&apos;ve got some excellent card content here.</span>
-  </>
+  <Text.Span>We&apos;ve got some excellent card content here.</Text.Span>
 );
 
 export const Large: Story = {

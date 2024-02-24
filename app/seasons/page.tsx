@@ -1,8 +1,8 @@
 import Link from "next/link";
 import prisma from "@/prisma/client";
-import { CardGrid, PageHeader, SeasonCard } from "../components";
+import { CardGrid, PageHeader, PageLayout, SeasonCard } from "../components";
 
-export default async function Home() {
+export default async function SeasonsIndex() {
   const seasons = await prisma.season.findMany({
     orderBy: [
       {
@@ -17,15 +17,17 @@ export default async function Home() {
   return (
     <>
       <PageHeader title="MasterChef Seasons" />
-      <CardGrid>
-        {seasons.map((season, key) => {
-          return (
-            <Link key={key} href={`/seasons/${season.seasonNumber}`}>
-              <SeasonCard season={season} />
-            </Link>
-          );
-        })}
-      </CardGrid>
+      <PageLayout>
+        <CardGrid>
+          {seasons.map((season, key) => {
+            return (
+              <Link key={key} href={`/seasons/${season.seasonNumber}`}>
+                <SeasonCard season={season} />
+              </Link>
+            );
+          })}
+        </CardGrid>
+      </PageLayout>
     </>
   );
 }

@@ -1,17 +1,19 @@
 import Image from "next/image";
 
-import { michroma } from "../../fonts";
 import Link from "next/link";
-import { StyledComponent } from "../../types/components.types";
 import Text from "../Text/Text";
+import { ReactNode } from "react";
 
-interface SiteHeader extends StyledComponent {}
+interface SiteHeader {
+  className?: string;
+  children?: ReactNode;
+}
 
-const SiteHeader = ({ className }: SiteHeader) => {
+const SiteHeader = ({ className, children }: SiteHeader) => {
   return (
-    <header className={`p-2 mb-4 shadow-md bg-white ${className}`}>
-      <div className="content flex flex-row h-full">
-        <Link href="/" className="w-14  flex flex-row items-center">
+    <header className={`p-2 mb-8 shadow-md bg-white ${className}`}>
+      <div className="content h-full flex flex-row items-center">
+        <Link href="/" className="flex flex-row items-center">
           <Image
             src="/images/mc-logo.png"
             className="inline-block mr-2"
@@ -25,6 +27,7 @@ const SiteHeader = ({ className }: SiteHeader) => {
             Compendium
           </Text.Span>
         </Link>
+        {children}
       </div>
     </header>
   );

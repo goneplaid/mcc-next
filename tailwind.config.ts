@@ -9,9 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        branded: ["var(--font-michroma)"],
         title: ["var(--font-lato)"],
         content: ["var(--font-raleway)"],
+        branded: ["var(--font-michroma)"],
+        code: ["var(--font-anonpro)"],
       },
     },
   },

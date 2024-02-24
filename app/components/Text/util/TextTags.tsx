@@ -1,10 +1,30 @@
 import { ReactNode } from "react";
-import { TextTag } from "../Text.types";
 
 interface TextTagProps {
   children: ReactNode;
   className?: string;
 }
+
+// You need to introduce all other specific HTML attrs for each individual
+// tag return type for usability/accessibility/web-api purposes.
+// Interoperability is QUEEN.
+//
+// Something like this in your params:
+//    `...rest?: HTMLAttributes<HTMLDivElement>`
+// and this as your return type:
+//    `({children, className}) => HTMLDivElement | HTMLSpanElement | etc...
+
+export type TextTag =
+  | "div"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "p"
+  | "span"
+  | "code";
 
 export const TextTags: Record<
   TextTag,
@@ -20,5 +40,8 @@ export const TextTags: Record<
   p: ({ children, className }) => <p className={className}>{children}</p>,
   span: ({ children, className }) => (
     <span className={className}>{children}</span>
+  ),
+  code: ({ children, className }) => (
+    <code className={className}>{children}</code>
   ),
 };

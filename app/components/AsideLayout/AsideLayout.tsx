@@ -3,11 +3,16 @@ import { ReactNode } from "react";
 interface AsideLayout {
   children: ReactNode;
   className?: string;
+  gap?: LayoutGap;
 }
 
-const AsideLayout = ({ children, className }: AsideLayout) => {
+// Consider moving this and other similar constructs involving layout units
+// into a cohesive abstraction
+type LayoutGap = "small" | "medium" | "large";
+
+const AsideLayout = ({ children, className, gap = "small" }: AsideLayout) => {
   return (
-    <div className={`grid grid-cols-4 gap-4 ${className ?? ""}`}>
+    <div className={`grid grid-cols-4 ${gapClasses[gap]} ${className ?? ""}`}>
       {children}
     </div>
   );
@@ -17,13 +22,19 @@ const Aside = ({ children, className }: AsideLayout) => {
   return <aside className={className ?? ""}>{children}</aside>;
 };
 
-const Main = ({ children, className }: AsideLayout) => {
+const Article = ({ children, className }: AsideLayout) => {
   return (
-    <section className={`col-span-3 ${className ?? ""}`}>{children}</section>
+    <article className={`col-span-3 ${className ?? ""}`}>{children}</article>
   );
 };
 
 AsideLayout.Aside = Aside;
-AsideLayout.Main = Main;
+AsideLayout.Article = Article;
 
 export default AsideLayout;
+
+export const gapClasses: Record<LayoutGap, string> = {
+  small: "gap-4",
+  medium: "gap-8",
+  large: "gap-16",
+};

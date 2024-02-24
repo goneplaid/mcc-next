@@ -5,23 +5,26 @@ import {
   fontSizeClasses,
   fontTypeClasses,
   fontWeightClasses,
-} from "../../fonts";
+} from "../../typography";
 import clsx from "clsx";
-import { TextTags } from "./util/TextTag";
-import { Heading, SubHead, P, Span } from "./util/SemanticText";
+import { TextTag, TextTags } from "./util/TextTags";
+import { Heading, SubHead, P, Span, Code } from "./util/SemanticText";
 import { ReactNode } from "react";
-import { TextAlignment, TextTag } from "./Text.types";
+
+export type TextAlignment = "left" | "center" | "right";
 
 interface TextProps {
   children: ReactNode;
   align?: TextAlignment;
-  branded?: boolean; // allows "branded" style to overtake all other styled font types
+  branded?: boolean; // Allows "branded" style to overtake all other styled font types
   className?: string;
-  fontSize?: FontSize;
-  fontType?: Exclude<FontType, "branded">;
+  fontSize?: FontSize | "inherit";
+  fontType?: Exclude<FontType, "branded">; // Force consumers to use the boolean
   fontWeight?: FontWeight;
-  tag?: TextTag;
+  tagName?: TextTag;
 }
+
+// Consider making this private by not exporting it.
 
 const Text = ({
   align = "left",
@@ -31,7 +34,7 @@ const Text = ({
   fontSize = "md",
   fontType = "content",
   fontWeight = "normal",
-  tag = "span",
+  tagName: tag = "span",
 }: TextProps) => {
   const alignmentClass = textAlignmentClasses[align];
   const fontSizeClass = fontSizeClasses[fontSize];
@@ -58,10 +61,12 @@ const Text = ({
 };
 
 // Semantic tags decorated with predefined properties
+
 Text.Heading = Heading;
 Text.SubHead = SubHead;
 Text.P = P;
 Text.Span = Span;
+Text.Code = Code;
 
 export default Text;
 

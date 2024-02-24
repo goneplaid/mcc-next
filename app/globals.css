@@ -16,13 +16,16 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
-h1 {
-  font-weight: 700;
-  font-size: x-large;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .font-weight-inherit {
+    font-weight: inherit;
+  }
+
+  .font-size-inherit {
+    font-size: inherit;
   }
 }

@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
-import Text from "../Text";
-import { FontSize } from "@/app/fonts";
-import { TextAlignment, TextTag } from "../Text.types";
+import Text, { TextAlignment } from "../Text";
+import { FontSize, fontWeightClasses } from "@/app/typography";
+import { TextTag } from "./TextTags";
+import clsx from "clsx";
 
 interface SemanticTextProps {
   children: ReactNode;
   align?: TextAlignment;
   branded?: boolean;
-  level?: 1 | 2 | 3;
+  level?: 0 | 1 | 2 | 3; // bug, see usage below
   className?: string;
 }
 
@@ -16,17 +17,18 @@ export const Heading = ({
   level = 1,
   ...rest
 }: SemanticTextProps) => {
-  const tags: TextTag[] = ["h1", "h2", "h3"];
-  const targetTag = tags[getLevel(level)];
+  const targetLevel = getLevel(level);
+  const tags: TextTag[] = ["h1", "h1", "h2", "h3"]; // fix this oversight
+  const targetTag = tags[targetLevel];
 
-  const fontSizes: FontSize[] = ["4xl", "3xl", "2xl"];
-  const targetSize = fontSizes[getLevel(level)];
+  const fontSizes: FontSize[] = ["inherit", "4xl", "3xl", "2xl"];
+  const targetSize = fontSizes[targetLevel];
 
   return (
     <Text
-      tag={targetTag}
+      tagName={targetTag}
       fontSize={targetSize}
-      fontType="title"
+      fontType="heading"
       fontWeight="bold"
       {...rest}
     >
@@ -40,39 +42,84 @@ export const SubHead = ({
   level = 1,
   ...rest
 }: SemanticTextProps) => {
-  const tags: TextTag[] = ["h4", "h5", "h6"];
-  const targetTag = tags[getLevel(level)];
+  const targetLevel = getLevel(level);
+  const tags: TextTag[] = ["h4", "h4", "h5", "h6"]; // fix this oversight
+  const targetTag = tags[targetLevel];
 
-  const fontSizes: FontSize[] = ["xl", "lg", "md"];
-  const targetSize = fontSizes[getLevel(level)];
+  const fontSizes: FontSize[] = ["inherit", "xl", "lg", "md"];
+  const targetSize = fontSizes[targetLevel];
 
   return (
-    <Text tag={targetTag} fontSize={targetSize} fontType="title" {...rest}>
+    <Text
+      tagName={targetTag}
+      fontSize={targetSize}
+      fontType="heading"
+      {...rest}
+    >
       {children}
     </Text>
   );
 };
 
 export const P = ({ children, level = 1, ...rest }: SemanticTextProps) => {
-  const fontSizes: FontSize[] = ["lg", "md", "sm"];
+  const fontSizes: FontSize[] = ["inherit", "lg", "md", "sm"];
   const targetSize = fontSizes[getLevel(level)];
 
   return (
-    <Text tag="p" fontSize={targetSize} fontType="content" {...rest}>
+    <Text tagName="p" fontSize={targetSize} fontType="content" {...rest}>
       {children}
     </Text>
   );
 };
 
-export const Span = ({ children, level = 1, ...rest }: SemanticTextProps) => {
-  const fontSizes: FontSize[] = ["lg", "md", "sm"];
+interface SemanticInlineProps extends SemanticTextProps {
+  inheritWeight?: boolean;
+}
+
+export const Span = ({
+  children,
+  level = 0,
+  inheritWeight = false,
+  ...rest
+}: SemanticInlineProps) => {
+  const fontSizes: FontSize[] = ["inherit", "lg", "md", "sm"];
   const targetSize = fontSizes[getLevel(level)];
 
   return (
-    <Text tag="span" fontSize={targetSize} fontType="content" {...rest}>
+    <Text
+      tagName="span"
+      fontSize={targetSize}
+      fontType="content"
+      fontWeight={inheritWeight ? "inherit" : undefined}
+      {...rest}
+    >
       {children}
     </Text>
   );
 };
 
-const getLevel = (specified: number) => specified - 1 ?? 0;
+export const Code = ({
+  children,
+  level = 0,
+  inheritWeight = false,
+  className,
+  ...rest
+}: SemanticInlineProps) => {
+  const fontSizes: FontSize[] = ["inherit", "lg", "md", "sm"];
+  const targetSize = fontSizes[getLevel(level)]; // default to "inherit"
+
+  return (
+    <Text
+      tagName="code"
+      fontSize={targetSize}
+      fontWeight={inheritWeight ? "inherit" : undefined}
+      fontType="content"
+      className={clsx("bg-slate-200", className)}
+      {...rest}
+    >
+      {children}
+    </Text>
+  );
+};
+
+const getLevel = (specified: number) => specified ?? 1;

@@ -30,7 +30,9 @@ const SeasonCard = async ({ season }: SeasonCard) => {
       className="bg-white items-center"
     >
       <ContestantAvatar size="x-large" contestant={winner!.profile} />
-      <Text.Heading align="center">Season {season.seasonNumber}</Text.Heading>
+      <Text.Heading level={2} align="center">
+        Season {season.seasonNumber}
+      </Text.Heading>
       <Text.SubHead level={3} align="center" branded className="uppercase">
         Winner
       </Text.SubHead>
