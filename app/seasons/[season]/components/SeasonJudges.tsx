@@ -1,4 +1,5 @@
-import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
+import Avatar from "@/app/components/Avatar/Avatar";
+import { avatarSrcLookup } from "@/app/utils";
 import { Judge } from "@prisma/client";
 import React from "react";
 
@@ -11,7 +12,15 @@ const SeasonJudges = ({ judges }: JudgeHeaderAside) => {
     <aside>
       <div className="flex flex-row gap-2">
         {judges.map((judge) => {
-          return <JudgeAvatar key={judge.id} size="small" judge={judge} />;
+          return (
+            <Avatar
+              key={judge.id}
+              size="sm"
+              alt={`Judge ${judge.name}`}
+              src={avatarSrcLookup(judge.name)!}
+              shape="circle"
+            />
+          );
         })}
       </div>
     </aside>

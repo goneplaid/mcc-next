@@ -1,6 +1,5 @@
 export { default as AsideLayout } from "./AsideLayout/AsideLayout";
-export { default as ContestantAvatar } from "./Avatars/ContestantAvatar";
-export { default as JudgeAvatar } from "./Avatars/JudgeAvatar";
+export { default as Avatar } from "./Avatar/Avatar";
 export { default as Card } from "./Card/Card";
 export { default as CardGrid } from "./CardGrid/CardGrid";
 export { default as PageHeader } from "./PageHeader/PageHeader";
