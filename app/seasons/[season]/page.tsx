@@ -14,7 +14,7 @@ export default async function SeasonPage({ params }: SeasonPage) {
   const season = await getSeasonData(Number(params.season));
   const { judges, contestants, episodes } = season!;
 
-  const { Aside, Main } = AsideLayout;
+  const { Aside, Article } = AsideLayout;
   return (
     <>
       <Link href="/">&lt; Back to seasons</Link>
@@ -26,9 +26,9 @@ export default async function SeasonPage({ params }: SeasonPage) {
       {episodes.map((episode, eKey) => {
         return (
           <AsideLayout key={eKey}>
-            <Main>
+            <Article>
               <EpisodeSummary episode={episode} />
-            </Main>
+            </Article>
             <Aside className="flex flex-col gap-6">
               {contestants
                 .filter((c) => c.finalEpisode === episode.episodeNumber)
