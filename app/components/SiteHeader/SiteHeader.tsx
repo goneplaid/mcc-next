@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Text from "../Text/Text";
 import { ReactNode } from "react";
+import clsx from "clsx";
 
 interface SiteHeader {
   className?: string;
@@ -11,7 +12,12 @@ interface SiteHeader {
 
 const SiteHeader = ({ className, children }: SiteHeader) => {
   return (
-    <header className={`p-2 mb-8 shadow-md bg-white ${className}`}>
+    <header
+      className={clsx(
+        "p-2 mb-8 shadow-md bg-white sticky top-0 z-50",
+        className
+      )}
+    >
       <div className="content h-full flex flex-row items-center">
         <Link href="/" className="flex flex-row items-center">
           <Image

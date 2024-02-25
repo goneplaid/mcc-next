@@ -1,10 +1,7 @@
 import React from "react";
 import { Judge, Season } from "@prisma/client";
 import prisma from "@/prisma/client";
-import ContestantAvatar from "@/app/components/Avatars/ContestantAvatar";
-import JudgeAvatar from "@/app/components/Avatars/JudgeAvatar";
-import Card from "@/app/components/Card/Card";
-import Text from "@/app/components/Text/Text";
+import { ContestantAvatar, JudgeAvatar, Card, Text } from "@/app/components";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated
@@ -30,16 +27,31 @@ const SeasonCard = async ({ season }: SeasonCard) => {
       className="bg-white items-center"
     >
       <ContestantAvatar size="x-large" contestant={winner!.profile} />
+
       <Text.Heading level={2} align="center">
         Season {season.seasonNumber}
       </Text.Heading>
-      <Text.SubHead level={3} align="center" branded className="uppercase">
+
+      <Text.SubHead
+        align="center"
+        level={3}
+        displayMargin={false}
+        branded
+        className="uppercase"
+      >
         Winner
       </Text.SubHead>
-      <Text.SubHead align="center" level={1}>
+      <Text.P align="center" level={1}>
         {winner?.profile.name}
-      </Text.SubHead>
-      <Text.SubHead level={3} align="center" branded className="uppercase">
+      </Text.P>
+
+      <Text.SubHead
+        align="center"
+        level={3}
+        displayMargin={false}
+        branded
+        className="uppercase"
+      >
         Judges
       </Text.SubHead>
       <div className="flex flex-row gap-2 justify-center">

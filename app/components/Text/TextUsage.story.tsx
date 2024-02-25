@@ -4,35 +4,112 @@ import SiteHeader from "../SiteHeader/SiteHeader";
 import PageLayout from "../PageLayout/PageLayout";
 import AsideLayout from "../AsideLayout/AsideLayout";
 import Card from "../Card/Card";
+import clsx from "clsx";
+import { fontTypeClasses } from "../../typography";
 
 const TextUsage = () => {
   const { Aside, Article } = AsideLayout;
+  const { Heading, SubHead, P, Span, Code } = Text;
+
+  const textComponentLabel = <Code>&lt;Text&gt;</Code>;
 
   return (
     <>
       <SiteHeader>
-        <Text.SubHead align="center" className="h-full flex-grow">
+        <SubHead
+          align="center"
+          displayMargin={false}
+          className="h-full flex-grow"
+        >
           MCC Tiny Design System
-        </Text.SubHead>
+        </SubHead>
       </SiteHeader>
 
       <PageLayout>
-        <Text.Heading className="mb-16">
-          Using <Text.Code>&lt;Text&gt;</Text.Code> &amp;{" "}
-          <Text.Span inheritWeight>Typography</Text.Span>
-        </Text.Heading>
+        <Heading>
+          Using {textComponentLabel} &amp; <Span branded>Typography</Span>
+        </Heading>
 
-        <AsideLayout gap="large">
+        <AsideLayout gap="medium">
           <Aside>
-            <Card size="compact">
-              <Text.P>
-                This section goes over how to use the{" "}
-                <Text.Code>&lt;Text&gt;</Text.Code> component and how it
-                integrates with the projects&apos; typographic standards.
-              </Text.P>
+            <Card>
+              <P>
+                This section goes over how to use the {textComponentLabel}{" "}
+                component and how it integrates with the projects&apos;
+                typography system.
+              </P>
             </Card>
           </Aside>
-          <Article>We landed on the moon!</Article>
+          <Article>
+            <div className="flex flex-col gap-8">
+              <section>
+                <SubHead level={1} branded>
+                  Introduction
+                </SubHead>
+                <P level={2}>
+                  {textComponentLabel} is a React component that is built on top
+                  of the typograpic conventions for this project which are
+                  defined in its typographic configuration.
+                </P>
+                <P level={2}>
+                  The typographic configuration for this project consists of a
+                  set of types and utility classes that comprise the typography
+                  system; it provides a finite set of typographic choices
+                  available. This, by necessity, dictates the shape of the API
+                  contract for the {textComponentLabel} component.
+                </P>
+              </section>
+
+              <section>
+                <SubHead level={1} branded>
+                  Typography System
+                </SubHead>
+                <P level={2}>
+                  The typography system is divided on three primary presentation
+                  text-styles:
+                </P>
+                <ul
+                  className={clsx(
+                    "list-disc list-inside ml-4 mb-8",
+                    fontTypeClasses.content
+                  )}
+                >
+                  <li>Headings (Lato, bold)</li>
+                  <li>Sub-headings (Lato, semibold)</li>
+                  <li>Content (Raleway, normal)</li>
+                </ul>
+
+                <P level={2}>With an additional, special type:</P>
+                <ul
+                  className={clsx(
+                    "list-disc list-inside ml-4 mb-8",
+                    fontTypeClasses.content
+                  )}
+                >
+                  <li>Branded</li>
+                </ul>
+
+                <Text.SubHead>Example:</Text.SubHead>
+
+                <Card className="mb-8 ml-4">
+                  <Heading level={3}>This is a heading</Heading>
+                  <SubHead level={3}>With a sub-heading</SubHead>
+                  <Span className="block mb-8">
+                    Along with some additional content
+                  </Span>
+                  <Heading level={3} branded>
+                    This is a &quot;branded&quot; heading
+                  </Heading>
+                  <SubHead level={3} branded>
+                    With a &quot;branded&quot; sub-heading
+                  </SubHead>
+                  <Span level={3} branded>
+                    Along with some additional &quot;branded&quot; content
+                  </Span>
+                </Card>
+              </section>
+            </div>
+          </Article>
         </AsideLayout>
       </PageLayout>
     </>

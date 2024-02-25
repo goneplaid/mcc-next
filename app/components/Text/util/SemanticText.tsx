@@ -7,6 +7,7 @@ import clsx from "clsx";
 interface SemanticTextProps {
   children: ReactNode;
   align?: TextAlignment;
+  displayMargin?: boolean;
   branded?: boolean;
   level?: 0 | 1 | 2 | 3; // bug, see usage below
   className?: string;
@@ -14,15 +15,21 @@ interface SemanticTextProps {
 
 export const Heading = ({
   children,
+  className,
   level = 1,
+  displayMargin = true,
   ...rest
 }: SemanticTextProps) => {
   const targetLevel = getLevel(level);
+
   const tags: TextTag[] = ["h1", "h1", "h2", "h3"]; // fix this oversight
   const targetTag = tags[targetLevel];
 
   const fontSizes: FontSize[] = ["inherit", "4xl", "3xl", "2xl"];
   const targetSize = fontSizes[targetLevel];
+
+  const margins: string[] = ["mb-8", "mb-8", "mb-4", "mb-2"];
+  const marginClass = displayMargin ? margins[targetLevel] : "";
 
   return (
     <Text
@@ -30,6 +37,7 @@ export const Heading = ({
       fontSize={targetSize}
       fontType="heading"
       fontWeight="bold"
+      className={clsx(marginClass, className)}
       {...rest}
     >
       {children}
@@ -39,21 +47,28 @@ export const Heading = ({
 
 export const SubHead = ({
   children,
+  className,
   level = 1,
+  displayMargin = true,
   ...rest
 }: SemanticTextProps) => {
   const targetLevel = getLevel(level);
+
   const tags: TextTag[] = ["h4", "h4", "h5", "h6"]; // fix this oversight
   const targetTag = tags[targetLevel];
 
   const fontSizes: FontSize[] = ["inherit", "xl", "lg", "md"];
   const targetSize = fontSizes[targetLevel];
 
+  const margins: string[] = ["mb-4", "mb-4", "mb-2", "mb-1"];
+  const marginClass = displayMargin ? margins[targetLevel] : "";
+
   return (
     <Text
       tagName={targetTag}
       fontSize={targetSize}
       fontType="heading"
+      className={clsx(marginClass, className)}
       {...rest}
     >
       {children}
@@ -61,12 +76,29 @@ export const SubHead = ({
   );
 };
 
-export const P = ({ children, level = 1, ...rest }: SemanticTextProps) => {
+export const P = ({
+  children,
+  className,
+  level = 1,
+  displayMargin = true,
+  ...rest
+}: SemanticTextProps) => {
+  const targetLevel = getLevel(level);
+
   const fontSizes: FontSize[] = ["inherit", "lg", "md", "sm"];
   const targetSize = fontSizes[getLevel(level)];
 
+  const margins: string[] = ["mb-4", "mb-4", "mb-2", "mb-2"];
+  const marginClass = displayMargin ? margins[targetLevel] : "";
+
   return (
-    <Text tagName="p" fontSize={targetSize} fontType="content" {...rest}>
+    <Text
+      tagName="p"
+      fontSize={targetSize}
+      fontType="content"
+      className={clsx(marginClass, className)}
+      {...rest}
+    >
       {children}
     </Text>
   );
