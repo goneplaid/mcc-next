@@ -11,8 +11,8 @@
     "db:reset": "npx prisma migrate reset",
     "dev": "next dev",
     "lint": "next lint",
-    "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/normalize-avatar-filenames",
-    "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/normalize-avatar-filenames",
+    "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/normalize-filenames",
+    "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/create-manifest",
     "schema:format": "npx prisma format",
     "start": "next start",
     "storybook": "storybook dev -p 6006 -s ../public"
