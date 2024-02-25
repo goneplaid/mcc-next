@@ -18,108 +18,100 @@
     ],
     "contestants": [
         {
-            "season_2": [
-                {
-                    "tracy_kontos": "images/avatars/contestants/season_2/tracy_kontos.jpg"
-                },
-                {
-                    "susan_singh": "images/avatars/contestants/season_2/susan_singh.jpg"
-                },
-                {
-                    "max_kramer": "images/avatars/contestants/season_2/max_kramer.jpg"
-                },
-                {
-                    "mark_raffaeli": "images/avatars/contestants/season_2/mark_raffaeli.jpg"
-                },
-                {
-                    "jennifer_kelley": "images/avatars/contestants/season_2/jennifer_kelley.jpg"
-                },
-                {
-                    "jennifer_behm": "images/avatars/contestants/season_2/jennifer_behm.jpg"
-                },
-                {
-                    "giuseppe_morisco": "images/avatars/contestants/season_2/giuseppe_morisco.jpg"
-                },
-                {
-                    "esther_kang": "images/avatars/contestants/season_2/esther_kang.jpg"
-                },
-                {
-                    "erryn_cobb": "images/avatars/contestants/season_2/erryn_cobb.jpg"
-                },
-                {
-                    "derrick_prince": "images/avatars/contestants/season_2/derrick_prince.jpg"
-                },
-                {
-                    "christine_corley": "images/avatars/contestants/season_2/christine_corley.jpg"
-                },
-                {
-                    "christian_collins": "images/avatars/contestants/season_2/christian_collins.jpg"
-                },
-                {
-                    "benjamin_starr": "images/avatars/contestants/season_2/benjamin_starr.jpg"
-                },
-                {
-                    "anthony_scruggs": "images/avatars/contestants/season_2/anthony_scruggs.jpg"
-                },
-                {
-                    "angel_moore-soukkay": "images/avatars/contestants/season_2/angel_moore-soukkay.jpg"
-                },
-                {
-                    "alvin_schultz": "images/avatars/contestants/season_2/alvin_schultz.jpg"
-                },
-                {
-                    "alejandra_schrader": "images/avatars/contestants/season_2/alejandra_schrader.jpg"
-                },
-                {
-                    "adrien_nieto": "images/avatars/contestants/season_2/adrien_nieto.jpg"
-                }
-            ]
+            "tracy_kontos": "images/avatars/contestants/season_2/tracy_kontos.jpg"
         },
         {
-            "season_1": [
-                {
-                    "whitney_miller": "images/avatars/contestants/season_1/whitney_miller.jpg"
-                },
-                {
-                    "tracy_nailor": "images/avatars/contestants/season_1/tracy_nailor.jpg"
-                },
-                {
-                    "sheetal_bhagat": "images/avatars/contestants/season_1/sheetal_bhagat.jpg"
-                },
-                {
-                    "sheena_zadeh": "images/avatars/contestants/season_1/sheena_zadeh.jpg"
-                },
-                {
-                    "sharone_hakman": "images/avatars/contestants/season_1/sharone_hakman.jpg"
-                },
-                {
-                    "mike_kim": "images/avatars/contestants/season_1/mike_kim.jpg"
-                },
-                {
-                    "lee_knaz": "images/avatars/contestants/season_1/lee_knaz.jpg"
-                },
-                {
-                    "kim_dung_huynh": "images/avatars/contestants/season_1/kim_dung_huynh.jpg"
-                },
-                {
-                    "jenna_hamiter": "images/avatars/contestants/season_1/jenna_hamiter.jpg"
-                },
-                {
-                    "jake_gandolfo": "images/avatars/contestants/season_1/jake_gandolfo.jpg"
-                },
-                {
-                    "faruq_jenkins": "images/avatars/contestants/season_1/faruq_jenkins.jpg"
-                },
-                {
-                    "david_miller": "images/avatars/contestants/season_1/david_miller.jpg"
-                },
-                {
-                    "avis_white": "images/avatars/contestants/season_1/avis_white.jpg"
-                },
-                {
-                    "anthony_carbone": "images/avatars/contestants/season_1/anthony_carbone.jpg"
-                }
-            ]
+            "susan_singh": "images/avatars/contestants/season_2/susan_singh.jpg"
+        },
+        {
+            "max_kramer": "images/avatars/contestants/season_2/max_kramer.jpg"
+        },
+        {
+            "mark_raffaeli": "images/avatars/contestants/season_2/mark_raffaeli.jpg"
+        },
+        {
+            "jennifer_kelley": "images/avatars/contestants/season_2/jennifer_kelley.jpg"
+        },
+        {
+            "jennifer_behm": "images/avatars/contestants/season_2/jennifer_behm.jpg"
+        },
+        {
+            "giuseppe_morisco": "images/avatars/contestants/season_2/giuseppe_morisco.jpg"
+        },
+        {
+            "esther_kang": "images/avatars/contestants/season_2/esther_kang.jpg"
+        },
+        {
+            "erryn_cobb": "images/avatars/contestants/season_2/erryn_cobb.jpg"
+        },
+        {
+            "derrick_prince": "images/avatars/contestants/season_2/derrick_prince.jpg"
+        },
+        {
+            "christine_corley": "images/avatars/contestants/season_2/christine_corley.jpg"
+        },
+        {
+            "christian_collins": "images/avatars/contestants/season_2/christian_collins.jpg"
+        },
+        {
+            "benjamin_starr": "images/avatars/contestants/season_2/benjamin_starr.jpg"
+        },
+        {
+            "anthony_scruggs": "images/avatars/contestants/season_2/anthony_scruggs.jpg"
+        },
+        {
+            "angel_moore-soukkay": "images/avatars/contestants/season_2/angel_moore-soukkay.jpg"
+        },
+        {
+            "alvin_schultz": "images/avatars/contestants/season_2/alvin_schultz.jpg"
+        },
+        {
+            "alejandra_schrader": "images/avatars/contestants/season_2/alejandra_schrader.jpg"
+        },
+        {
+            "adrien_nieto": "images/avatars/contestants/season_2/adrien_nieto.jpg"
+        },
+        {
+            "whitney_miller": "images/avatars/contestants/season_1/whitney_miller.jpg"
+        },
+        {
+            "tracy_nailor": "images/avatars/contestants/season_1/tracy_nailor.jpg"
+        },
+        {
+            "sheetal_bhagat": "images/avatars/contestants/season_1/sheetal_bhagat.jpg"
+        },
+        {
+            "sheena_zadeh": "images/avatars/contestants/season_1/sheena_zadeh.jpg"
+        },
+        {
+            "sharone_hakman": "images/avatars/contestants/season_1/sharone_hakman.jpg"
+        },
+        {
+            "mike_kim": "images/avatars/contestants/season_1/mike_kim.jpg"
+        },
+        {
+            "lee_knaz": "images/avatars/contestants/season_1/lee_knaz.jpg"
+        },
+        {
+            "kim_dung_huynh": "images/avatars/contestants/season_1/kim_dung_huynh.jpg"
+        },
+        {
+            "jenna_hamiter": "images/avatars/contestants/season_1/jenna_hamiter.jpg"
+        },
+        {
+            "jake_gandolfo": "images/avatars/contestants/season_1/jake_gandolfo.jpg"
+        },
+        {
+            "faruq_jenkins": "images/avatars/contestants/season_1/faruq_jenkins.jpg"
+        },
+        {
+            "david_miller": "images/avatars/contestants/season_1/david_miller.jpg"
+        },
+        {
+            "avis_white": "images/avatars/contestants/season_1/avis_white.jpg"
+        },
+        {
+            "anthony_carbone": "images/avatars/contestants/season_1/anthony_carbone.jpg"
         }
     ]
 }
