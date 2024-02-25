@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "schema:format": "npx prisma format",
+    "build-storybook": "storybook build",
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "db:reset-seed": "npm run db:reset",
     "db:reset": "npx prisma migrate reset",
-    "storybook": "storybook dev -p 6006 -s ../public",
-    "build-storybook": "storybook build"
+    "dev": "next dev",
+    "lint": "next lint",
+    "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/normalize-avatar-filenames",
+    "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/normalize-avatar-filenames",
+    "schema:format": "npx prisma format",
+    "start": "next start",
+    "storybook": "storybook dev -p 6006 -s ../public"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed-db.ts"
