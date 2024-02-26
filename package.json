@@ -9,7 +9,7 @@
     "db:seed": "npx prisma db seed",
     "db:reset-seed": "npm run db:reset",
     "db:reset": "npx prisma migrate reset",
-    "dev": "next dev",
+    "dev": "next dev -p 1234",
     "lint": "next lint",
     "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/normalize-filenames",
     "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/create-manifest",

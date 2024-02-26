@@ -16,11 +16,7 @@ const TextUsage = () => {
   return (
     <>
       <SiteNav>
-        <SubHead
-          align="center"
-          displayMargin={false}
-          className="h-full flex-grow"
-        >
+        <SubHead align="center" className="h-full flex-grow">
           MCC Tiny Design System
         </SubHead>
       </SiteNav>

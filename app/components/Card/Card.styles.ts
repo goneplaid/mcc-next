@@ -1,67 +1,95 @@
 import clsx from "clsx";
-import { CardSize, HoverOptions } from "./Card";
+import { CardLevel, CardSize, HoverOptions } from "./Card";
+import {
+  THEME_BORDER_COLORS,
+  THEME_BORDER_COLORS_HOVER,
+  ThemeColor,
+} from "@/app/styles/theme-colors";
 
-export type CardStyles = {
-  dimensions: string;
-  borderWidth: string;
-  rounded: string;
-  hoverState: string;
+export type CardClasses = {
+  dimensionClasses: string;
+  levelClasses: string;
+  borderClasses: string;
+  roundedClasses: string;
+  hoverClasses: string;
 };
 
 export function useStyles(
   size: CardSize,
-  border: boolean,
-  borderColor?: string,
+  level: CardLevel,
+  borderColor?: ThemeColor,
   hoverOptions?: HoverOptions
-): CardStyles {
+): CardClasses {
   return {
-    dimensions: getDimensionClasses(size),
-    rounded: getRoundedClasses(size),
-    borderWidth: border ? getBorderClasses(size, borderColor) : "",
-    hoverState: hoverOptions ? getHoverClasses(hoverOptions, border) : "",
+    dimensionClasses: getDimensionClasses(size),
+    levelClasses: getLevelClasses(level),
+    roundedClasses: getRoundedClasses(size),
+    borderClasses: borderColor ? getBorderClasses(size, borderColor) : "",
+    hoverClasses: hoverOptions ? getHoverClasses(level, hoverOptions) : "",
   };
 }
 
 function getDimensionClasses(size: CardSize) {
-  const sizeClasses: Record<CardSize, string> = {
+  const SIZE_CLASSES: Record<CardSize, string> = {
     xs: "card-compact",
     sm: "card-compact",
     md: "card-normal",
     lg: "card-normal",
   };
 
-  return sizeClasses[size];
+  return SIZE_CLASSES[size];
 }
 
-function getBorderClasses(size: CardSize, borderColor?: string) {
-  const borderClasses: Record<CardSize, string> = {
+function getLevelClasses(level: CardLevel) {
+  const LEVEL_CLASSES: Record<CardLevel, string> = {
+    base: "shadow-none",
+    low: "shadow-sm",
+    mid: "shadow-md",
+    high: "shadow-lg",
+  };
+
+  return LEVEL_CLASSES[level];
+}
+
+function getBorderClasses(size: CardSize, borderColor?: ThemeColor) {
+  const BORDER_CLASSES: Record<CardSize, string> = {
     xs: "border",
     sm: "border",
     md: "border-2",
     lg: "border-4",
   };
 
-  return clsx(borderClasses[size], borderColor);
+  return clsx(
+    BORDER_CLASSES[size],
+    borderColor && THEME_BORDER_COLORS[borderColor]
+  );
 }
 function getRoundedClasses(size: CardSize) {
-  const roundedClasses: Record<CardSize, string> = {
+  const ROUNDED_CLASSES: Record<CardSize, string> = {
     xs: "rounded-md",
     sm: "rounded-md",
     md: "rounded-xl",
     lg: "rounded-3xl",
   };
 
-  return roundedClasses[size];
+  return ROUNDED_CLASSES[size];
 }
 
-export const getHoverClasses = (
-  hoverOptions: HoverOptions,
-  border: boolean
-) => {
+const getHoverClasses = (level: CardLevel, hoverOptions: HoverOptions) => {
   const { borderColor, raiseCard } = hoverOptions;
+  const hoverColor = borderColor ? THEME_BORDER_COLORS_HOVER[borderColor] : "";
+
+  const HOVER_LEVEL_CLASSES: Record<CardLevel, string> = {
+    base: "hover:shadow-sm",
+    low: "hover:shadow-md",
+    mid: "hover:shadow-lg",
+    high: "hover:shadow-xl",
+  };
 
   return clsx(
-    border && borderColor ? `hover:${borderColor}` : "",
-    raiseCard ? "hover:scale-105 hover:-mt-2 hover:shadow-lg" : ""
+    hoverColor,
+    raiseCard
+      ? clsx("hover:scale-105 hover:-mt-2", HOVER_LEVEL_CLASSES[level])
+      : ""
   );
 };

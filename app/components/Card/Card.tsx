@@ -2,23 +2,26 @@ import React, { ReactNode } from "react";
 import clsx from "clsx";
 import { fontTypeClasses } from "../../typography";
 import { useStyles } from "./Card.styles";
+import { ThemeColor } from "@/app/styles/theme-colors";
 
 interface Card {
   children: ReactNode;
   className?: string;
   size?: CardSize;
-  border?: boolean;
+  level?: CardLevel;
   // `borderColor` needs to be bound by a color palette and not a free-form
   // string. Figure out a generic system later on that can be used by other
   // components/needs
-  borderColor?: string;
+  borderColor?: ThemeColor;
   hoverOptions?: HoverOptions;
 }
 
 export type CardSize = "xs" | "sm" | "md" | "lg";
 
+export type CardLevel = "base" | "low" | "mid" | "high";
+
 export type HoverOptions = {
-  borderColor?: string;
+  borderColor?: ThemeColor;
   raiseCard?: boolean;
 };
 
@@ -26,27 +29,27 @@ const Card = ({
   children,
   className,
   size = "md",
-  border = false,
+  level = "base",
   borderColor,
   hoverOptions,
 }: Card) => {
-  const showBorder = border || !!borderColor;
-
-  const { dimensions, rounded, borderWidth, hoverState } = useStyles(
-    size,
-    showBorder,
-    borderColor,
-    hoverOptions
-  );
+  const {
+    dimensionClasses,
+    levelClasses,
+    roundedClasses,
+    borderClasses,
+    hoverClasses,
+  } = useStyles(size, level, borderColor, hoverOptions);
 
   return (
     <div
       className={clsx(
         "card transition-all",
-        dimensions,
-        rounded,
-        borderWidth,
-        hoverState,
+        dimensionClasses,
+        levelClasses,
+        roundedClasses,
+        borderClasses,
+        hoverClasses,
         className
       )}
     >

@@ -21,6 +21,7 @@ interface TextProps {
   fontSize?: FontSize | "inherit";
   fontType?: Exclude<FontType, "branded">; // Force consumers to use the boolean
   fontWeight?: FontWeight;
+  uppercase?: boolean;
   tagName?: TextTag;
 }
 
@@ -34,6 +35,7 @@ const Text = ({
   fontSize = "md",
   fontType = "content",
   fontWeight = "normal",
+  uppercase = false,
   tagName: tag = "span",
 }: TextProps) => {
   const alignmentClass = align ? textAlignmentClasses[align] : "";
@@ -42,6 +44,7 @@ const Text = ({
     ? fontTypeClasses["branded"]
     : fontTypeClasses[fontType];
   const fontWeightClass = fontWeightClasses[fontWeight];
+  const uppercaseClass = uppercase && "uppercase";
 
   const TextTag = TextTags[tag];
 
@@ -52,6 +55,7 @@ const Text = ({
         fontSizeClass,
         fontTypeClass,
         fontWeightClass,
+        uppercaseClass,
         className
       )}
     >
