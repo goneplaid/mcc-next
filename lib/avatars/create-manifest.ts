@@ -12,6 +12,7 @@ function main() {
     ...globSync(`${contestantsPath}/season_*/*.{png,jpeg,jpg}`),
   ];
 
+  // Turn this into a Map for faster look-ups.
   const avatarManifest: Record<string, string> = {};
 
   avatarSources.forEach((avatarSrc) => {

@@ -12,6 +12,7 @@ interface SeasonCard {
 }
 
 const SeasonCard = async ({ season }: SeasonCard) => {
+  // Don't look up data in your components like this 🤦
   const winner = await prisma.contestant.findFirst({
     where: {
       status: "WINNER",
@@ -28,8 +29,9 @@ const SeasonCard = async ({ season }: SeasonCard) => {
 
   return (
     <Card
-      size="large"
-      hover={{ borderColor: true, raise: true }}
+      size="lg"
+      borderColor="border-gray-300"
+      hoverOptions={{ borderColor: "border-teal-400", raiseCard: true }}
       className="bg-white items-center text-center"
     >
       <Text.Heading level={2}>Season {season.seasonNumber}</Text.Heading>
