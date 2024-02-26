@@ -28,6 +28,13 @@ const anonPro = Anonymous_Pro({
   variable: "--font-anonpro",
 });
 
+export const fontVariables = [
+  lato.variable,
+  raleway.variable,
+  michroma.variable,
+  anonPro.variable,
+];
+
 export type FontSize =
   | "inherit"
   | "xs"

@@ -10,9 +10,9 @@ interface SiteHeader {
   children?: ReactNode;
 }
 
-const SiteHeader = ({ className, children }: SiteHeader) => {
+const SiteNav = ({ className, children }: SiteHeader) => {
   return (
-    <header
+    <nav
       className={clsx(
         "p-2 mb-8 shadow-md bg-white sticky top-0 z-50",
         className
@@ -35,8 +35,8 @@ const SiteHeader = ({ className, children }: SiteHeader) => {
         </Link>
         {children}
       </div>
-    </header>
+    </nav>
   );
 };
 
-export default SiteHeader;
+export default SiteNav;

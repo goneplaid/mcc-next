@@ -1,13 +1,7 @@
 import React, { ReactNode } from "react";
 import clsx from "clsx";
 import { fontTypeClasses } from "../../typography";
-import {
-  CardSize,
-  HoverOptions,
-  getBodyClasses,
-  getContainerClasses,
-  getHoverClasses,
-} from "./utils";
+import { getContainerClasses, getHoverClasses } from "./utils";
 
 interface Card {
   children: ReactNode;
@@ -16,10 +10,19 @@ interface Card {
   hover?: HoverOptions;
 }
 
+export type CardSize =
+  | "compact" // small badge components, etc.
+  | "normal" // mid-sized card; good for mobile
+  | "large"; // large, chunky format; great for desktop
+
+export type HoverOptions = {
+  borderColor?: boolean;
+  raise?: boolean;
+};
+
 const Card = ({ children, className, size = "normal", hover }: Card) => {
   const containerStyles = getContainerClasses(size);
   const hoverOptions = getHoverClasses(hover);
-  const bodyStyles = getBodyClasses(size);
 
   return (
     <div
@@ -30,7 +33,7 @@ const Card = ({ children, className, size = "normal", hover }: Card) => {
         className
       )}
     >
-      <div className={clsx("card-body", bodyStyles, fontTypeClasses.content)}>
+      <div className={clsx("card-body", fontTypeClasses.content)}>
         {children}
       </div>
     </div>

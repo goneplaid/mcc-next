@@ -1,6 +1,6 @@
 import React from "react";
 import Text from "./Text";
-import SiteHeader from "../SiteHeader/SiteHeader";
+import SiteNav from "../SiteNav/SiteNav";
 import PageLayout from "../PageLayout/PageLayout";
 import AsideLayout from "../AsideLayout/AsideLayout";
 import Card from "../Card/Card";
@@ -15,7 +15,7 @@ const TextUsage = () => {
 
   return (
     <>
-      <SiteHeader>
+      <SiteNav>
         <SubHead
           align="center"
           displayMargin={false}
@@ -23,7 +23,7 @@ const TextUsage = () => {
         >
           MCC Tiny Design System
         </SubHead>
-      </SiteHeader>
+      </SiteNav>
 
       <PageLayout>
         <Heading>

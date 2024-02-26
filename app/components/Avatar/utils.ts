@@ -1,9 +1,5 @@
-export type AvatarSize = "sm" | "md" | "lg" | "xl";
-export type AvatarShape = "circle" | "square" | "squircle";
+import { AvatarShape, AvatarSize } from "./Avatar";
 
-// Make this a giant, generic structure that can serve as a reference for
-// all property types/groups? You're writing a lot of redunant structures and
-// operations for preparing tailwind classes for your components. Dry that up.
 export type AvatarClasses = {
   dimension: number;
   dimensions: string;

@@ -1,6 +1,5 @@
 import clsx from "clsx";
-import React, { ReactNode } from "react";
-import { AvatarShape, AvatarSize, getAvatarClasses } from "./utils";
+import { getAvatarClasses } from "./utils";
 import Image from "next/image";
 
 interface Avatar {
@@ -9,6 +8,9 @@ interface Avatar {
   size?: AvatarSize;
   shape?: AvatarShape;
 }
+
+export type AvatarSize = "sm" | "md" | "lg" | "xl";
+export type AvatarShape = "circle" | "square" | "squircle";
 
 const Avatar = ({ alt, src, size = "md", shape = "circle" }: Avatar) => {
   const { dimension, dimensions, border, rounded } = getAvatarClasses(

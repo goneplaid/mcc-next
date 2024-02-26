@@ -1,12 +1,4 @@
-export type CardSize =
-  | "compact" // small badge components, etc.
-  | "normal" // mid-sized card; good for mobile
-  | "large"; // large, chunky format; great for desktop
-
-export type HoverOptions = {
-  borderColor?: boolean;
-  raise?: boolean;
-};
+import { CardSize, HoverOptions } from "./Card";
 
 export const getContainerClasses = (size: CardSize) => {
   const CARD_CONTAINER_CLASSES: Record<CardSize, string> = {
@@ -16,16 +8,6 @@ export const getContainerClasses = (size: CardSize) => {
   };
 
   return CARD_CONTAINER_CLASSES[size];
-};
-
-export const getBodyClasses = (size: CardSize) => {
-  const CARD_BODY_CLASSES: Record<CardSize, string> = {
-    compact: "!p-2",
-    normal: "!p-4",
-    large: "!p-8",
-  };
-
-  return CARD_BODY_CLASSES[size];
 };
 
 export const getHoverClasses = (hover?: HoverOptions) => {

@@ -17,17 +17,15 @@ export default async function SeasonsIndex() {
   return (
     <>
       <PageHeader title="MasterChef Seasons" />
-      <PageLayout>
-        <CardGrid>
-          {seasons.map((season, key) => {
-            return (
-              <Link key={key} href={`/seasons/${season.seasonNumber}`}>
-                <SeasonCard season={season} />
-              </Link>
-            );
-          })}
-        </CardGrid>
-      </PageLayout>
+      <CardGrid>
+        {seasons.map((season, key) => {
+          return (
+            <Link key={key} href={`/seasons/${season.seasonNumber}`}>
+              <SeasonCard season={season} />
+            </Link>
+          );
+        })}
+      </CardGrid>
     </>
   );
 }

@@ -5,7 +5,9 @@ interface PageLayout {
 }
 
 const PageLayout = ({ children }: PageLayout) => {
-  return <main className="w-full max-w-6xl mx-10 xl:mx-auto">{children}</main>;
+  return (
+    <main className="mx-4 md:mx-8 lg:mx-auto transition-all">{children}</main>
+  );
 };
 
 export default PageLayout;

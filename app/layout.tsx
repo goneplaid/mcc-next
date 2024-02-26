@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { PageLayout, SiteHeader } from "./components";
+import { PageLayout, SiteNav } from "./components";
+import clsx from "clsx";
+import { fontVariables } from "./typography";
 
 export const metadata: Metadata = {
   title: "MasterChef Compendium",
@@ -14,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={clsx(fontVariables)}>
         <div className="min-h-screen flex flex-col bg-gray-100">
-          <SiteHeader className="flex-shrink-0" />
+          <SiteNav className="flex-shrink-0" />
           <PageLayout>{children}</PageLayout>
         </div>
       </body>

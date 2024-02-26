@@ -27,7 +27,7 @@ interface TextProps {
 // Consider making this private by not exporting it.
 
 const Text = ({
-  align = "left",
+  align,
   branded,
   children,
   className,
@@ -36,7 +36,7 @@ const Text = ({
   fontWeight = "normal",
   tagName: tag = "span",
 }: TextProps) => {
-  const alignmentClass = textAlignmentClasses[align];
+  const alignmentClass = align ? textAlignmentClasses[align] : "";
   const fontSizeClass = fontSizeClasses[fontSize];
   const fontTypeClass = branded
     ? fontTypeClasses["branded"]
