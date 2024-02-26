@@ -17,9 +17,7 @@ interface Card {
 }
 
 export type CardSize = "xs" | "sm" | "md" | "lg";
-
 export type CardLevel = "base" | "low" | "mid" | "high";
-
 export type HoverOptions = {
   borderColor?: ThemeColor;
   raiseCard?: boolean;
@@ -35,6 +33,7 @@ const Card = ({
 }: Card) => {
   const {
     dimensionClasses,
+    paddingClasses,
     levelClasses,
     roundedClasses,
     borderClasses,
@@ -53,7 +52,9 @@ const Card = ({
         className
       )}
     >
-      <div className={clsx("card-body", fontTypeClasses.content)}>
+      <div
+        className={clsx("card-body", paddingClasses, fontTypeClasses.content)}
+      >
         {children}
       </div>
     </div>

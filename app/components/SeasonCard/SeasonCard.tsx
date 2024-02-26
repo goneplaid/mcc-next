@@ -29,41 +29,41 @@ const SeasonCard = async ({ season }: SeasonCard) => {
 
   return (
     <Card
-      size="lg"
+      size="md"
       borderColor="base100"
       level="mid"
       hoverOptions={{ raiseCard: true, borderColor: "accent" }}
-      className="bg-white items-center text-center"
+      className="bg-white items-center text-center h-full"
     >
       <Text.Heading level={2}>Season {season.seasonNumber}</Text.Heading>
-
       <Avatar
-        size="xl"
+        size="lg"
         alt={imgAltText}
         src={winnerAvatarSrc!}
         shape="squircle"
       />
-
       <Text.SubHead level={3} uppercase branded>
         Winner
       </Text.SubHead>
       <Text.Heading level={3}>{winnerName}</Text.Heading>
 
-      <Text.SubHead level={3} branded uppercase className="hidden lg:block">
-        Judges
-      </Text.SubHead>
-      <div className="gap-2 justify-center hidden lg:flex lg:flex-row">
-        {season.judges.map((judge) => {
-          return (
-            <Avatar
-              key={judge.id}
-              size="sm"
-              alt={imgAltText}
-              src={avatarSrcLookup(judge.name)!}
-              shape="circle"
-            />
-          );
-        })}
+      <div className="mt-auto hidden lg:flex flex-col gap-2">
+        <Text.SubHead level={3} branded uppercase>
+          Judges
+        </Text.SubHead>
+        <div className="flex gap-2 justify-center">
+          {season.judges.map((judge) => {
+            return (
+              <Avatar
+                key={judge.id}
+                size="sm"
+                alt={imgAltText}
+                src={avatarSrcLookup(judge.name)!}
+                shape="circle"
+              />
+            );
+          })}
+        </div>
       </div>
     </Card>
   );

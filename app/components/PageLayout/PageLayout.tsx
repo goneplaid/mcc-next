@@ -6,7 +6,9 @@ interface PageLayout {
 
 const PageLayout = ({ children }: PageLayout) => {
   return (
-    <main className="mx-4 md:mx-8 lg:mx-auto transition-all">{children}</main>
+    <main className="max-w-screen-xl mx-4 md:mx-8 lg:mx-auto transition-all">
+      {children}
+    </main>
   );
 };
 

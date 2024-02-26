@@ -8,6 +8,7 @@ import {
 
 export type CardClasses = {
   dimensionClasses: string;
+  paddingClasses: string;
   levelClasses: string;
   borderClasses: string;
   roundedClasses: string;
@@ -22,6 +23,7 @@ export function useStyles(
 ): CardClasses {
   return {
     dimensionClasses: getDimensionClasses(size),
+    paddingClasses: getPaddingClasses(size),
     levelClasses: getLevelClasses(level),
     roundedClasses: getRoundedClasses(size),
     borderClasses: borderColor ? getBorderClasses(size, borderColor) : "",
@@ -35,6 +37,17 @@ function getDimensionClasses(size: CardSize) {
     sm: "card-compact",
     md: "card-normal",
     lg: "card-normal",
+  };
+
+  return SIZE_CLASSES[size];
+}
+
+function getPaddingClasses(size: CardSize) {
+  const SIZE_CLASSES: Record<CardSize, string> = {
+    xs: "!p-1 md:!p-2",
+    sm: "!p-2 md:!p-4",
+    md: "!p-2 md:!p-4 lg:!p-6",
+    lg: "!p-4 md:!p-6 lg:!p-8",
   };
 
   return SIZE_CLASSES[size];

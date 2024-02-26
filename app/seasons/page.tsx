@@ -15,7 +15,7 @@ export default async function SeasonsIndex() {
   });
 
   return (
-    <>
+    <div className="flex flex-col gap-4 md:gap-8">
       <PageHeader title="MasterChef Seasons" />
       <CardGrid>
         {seasons.map((season, key) => {
@@ -26,6 +26,6 @@ export default async function SeasonsIndex() {
           );
         })}
       </CardGrid>
-    </>
+    </div>
   );
 }
