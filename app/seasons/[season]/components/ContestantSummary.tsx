@@ -1,6 +1,6 @@
 import Avatar from "@/app/components/Avatar/Avatar";
 import { statusMap } from "@/app/types/utils";
-import { avatarSrcLookup } from "@/app/utils";
+import { avatarSrcLookup } from "@/app/utils/avatarSrcLookup";
 import { Contestant, ContestantProfile } from "@prisma/client";
 import React from "react";
 

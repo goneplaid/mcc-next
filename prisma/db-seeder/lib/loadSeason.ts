@@ -71,8 +71,8 @@ function transformChallengeData(
 ): ParticipantChallengeData {
   const challengeMatrix = rotateChallengeMatrix(challengeData);
 
-  const contestantNames = challengeMatrix[1].slice(1);
   const finishingPlaces = challengeMatrix[0].slice(1);
+  const contestantNames = challengeMatrix[1].slice(1);
 
   const challenges = challengeMatrix.slice(2).map((challenge) => {
     return {

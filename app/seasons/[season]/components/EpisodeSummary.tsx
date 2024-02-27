@@ -1,5 +1,5 @@
 import { AvatarGroup, Text } from "@/app/components";
-import { avatarSrcLookup } from "@/app/utils";
+import { avatarSrcLookup } from "@/app/utils/avatarSrcLookup";
 import { Contestant, ContestantProfile, Episode } from "@prisma/client";
 import React from "react";
 

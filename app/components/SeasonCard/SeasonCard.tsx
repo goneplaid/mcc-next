@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 import { Judge, Season } from "@prisma/client";
 import { Avatar, AvatarGroup, Card, Text } from "../../components";
-import { avatarSrcLookup } from "@/app/utils";
+import { avatarSrcLookup } from "@/app/utils/avatarSrcLookup";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated

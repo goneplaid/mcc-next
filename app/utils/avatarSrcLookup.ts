@@ -7,7 +7,6 @@ let avatarSources: Record<string, string> | undefined = undefined;
 
 export const avatarSrcLookup = (name?: string) => {
   if (!name) return;
-
   if (!avatarSources) avatarSources = getManifest();
 
   const nameKey = formatName(name);
