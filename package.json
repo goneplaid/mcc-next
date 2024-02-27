@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/normalize-filenames",
+    "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/create-manifest",
     "build": "next build",
     "build-storybook": "storybook build",
     "db:migrate": "npx prisma migrate dev",
@@ -11,8 +13,6 @@
     "db:reset": "npx prisma migrate reset",
     "dev": "next dev -p 1234",
     "lint": "next lint",
-    "avatars:normalize": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/normalize-filenames",
-    "avatars:create-manifest": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} lib/avatars/create-manifest",
     "schema:format": "npx prisma format",
     "start": "next start",
     "storybook": "storybook dev -p 6006 -s ../public"
