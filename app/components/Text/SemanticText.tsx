@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import Text, { TextAlignment } from "../Text";
-import { FontSize, fontWeightClasses } from "@/app/typography";
+import Text, { FontSize, TextAlignment } from "./Text";
 import { TextTag } from "./TextTags";
 import clsx from "clsx";
 

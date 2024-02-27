@@ -7,7 +7,6 @@ interface TextTagProps {
 
 // You need to introduce all other specific HTML attrs for each individual
 // tag return type for usability/accessibility/web-api purposes.
-// Interoperability is QUEEN.
 //
 // Something like this in your params:
 //    `...rest?: HTMLAttributes<HTMLDivElement>`
@@ -15,13 +14,13 @@ interface TextTagProps {
 //    `({children, className}) => HTMLDivElement | HTMLSpanElement | etc...
 
 export type TextTag =
-  | "div"
   | "h1"
   | "h2"
   | "h3"
   | "h4"
   | "h5"
   | "h6"
+  | "div"
   | "p"
   | "span"
   | "code";

@@ -29,25 +29,27 @@ const SeasonCard = async ({ season }: SeasonCard) => {
 
   return (
     <Card
-      size="md"
+      size="lg"
       borderColor="base100"
       level="mid"
       hoverOptions={{ raiseCard: true, borderColor: "accent" }}
       className="bg-white items-center text-center h-full"
     >
       <Text.Heading level={2}>Season {season.seasonNumber}</Text.Heading>
+      <Text.SubHead level={3} uppercase branded>
+        Winner
+      </Text.SubHead>
+
       <Avatar
         size="lg"
         alt={imgAltText}
         src={winnerAvatarSrc!}
         shape="squircle"
       />
-      <Text.SubHead level={3} uppercase branded>
-        Winner
-      </Text.SubHead>
       <Text.Heading level={3}>{winnerName}</Text.Heading>
 
-      <div className="mt-auto hidden lg:flex flex-col gap-2">
+      <div className="mt-2 hidden lg:flex flex-col gap-2">
+        <hr className="mb-2" />
         <Text.SubHead level={3} branded uppercase>
           Judges
         </Text.SubHead>

@@ -5,7 +5,7 @@ import PageLayout from "../PageLayout/PageLayout";
 import AsideLayout from "../AsideLayout/AsideLayout";
 import Card from "../Card/Card";
 import clsx from "clsx";
-import { fontTypeClasses } from "../../typography";
+import { fontTypeClasses, fontVariables } from "../../fonts";
 
 const TextUsage = () => {
   const { Aside, Article } = AsideLayout;
@@ -14,7 +14,7 @@ const TextUsage = () => {
   const textComponentLabel = <Code>&lt;Text&gt;</Code>;
 
   return (
-    <>
+    <div className={clsx(fontVariables)}>
       <SiteNav>
         <SubHead align="center" className="h-full flex-grow">
           MCC Tiny Design System
@@ -28,7 +28,7 @@ const TextUsage = () => {
 
         <AsideLayout gap="medium">
           <Aside>
-            <Card>
+            <Card borderColor="base200">
               <P>
                 This section goes over how to use the {textComponentLabel}{" "}
                 component and how it integrates with the projects&apos;
@@ -108,7 +108,7 @@ const TextUsage = () => {
           </Article>
         </AsideLayout>
       </PageLayout>
-    </>
+    </div>
   );
 };
 

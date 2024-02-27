@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PageLayout, SiteNav } from "./components";
 import clsx from "clsx";
-import { fontVariables } from "./typography";
+import { fontVariables } from "./fonts";
 
 export const metadata: Metadata = {
   title: "MasterChef Compendium",

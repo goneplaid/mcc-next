@@ -23,24 +23,36 @@ const cardContent: ReactNode = (
 
 export const Large: Story = {
   args: {
-    size: "large",
-    hover: { borderColor: true, raise: true },
+    size: "lg",
+    borderColor: "base300",
+    hoverOptions: { borderColor: "primary", raiseCard: true },
     children: cardContent,
   },
 };
 
-export const Normal: Story = {
+export const Medium: Story = {
   args: {
-    size: "normal",
-    hover: { borderColor: true },
+    size: "md",
+    borderColor: "base300",
+    hoverOptions: { borderColor: "primary", raiseCard: true },
     children: cardContent,
   },
 };
 
-export const Compact: Story = {
+export const Small: Story = {
   args: {
-    size: "compact",
-    hover: { borderColor: true },
+    size: "sm",
+    borderColor: "base300",
+    hoverOptions: { borderColor: "primary", raiseCard: true },
+    children: cardContent,
+  },
+};
+
+export const ExtraSmall: Story = {
+  args: {
+    size: "xs",
+    borderColor: "base300",
+    hoverOptions: { borderColor: "primary", raiseCard: true },
     children: cardContent,
   },
 };

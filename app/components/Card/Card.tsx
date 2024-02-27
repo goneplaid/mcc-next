@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 import clsx from "clsx";
-import { fontTypeClasses } from "../../typography";
 import { useStyles } from "./Card.styles";
-import { ThemeColor } from "@/app/styles/theme-colors";
+import { ThemeColor } from "../../styles/theme-colors";
 
 interface Card {
   children: ReactNode;
@@ -52,9 +51,7 @@ const Card = ({
         className
       )}
     >
-      <div
-        className={clsx("card-body", paddingClasses, fontTypeClasses.content)}
-      >
+      <div className={clsx("card-body font-content", paddingClasses)}>
         {children}
       </div>
     </div>

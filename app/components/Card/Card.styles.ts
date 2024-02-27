@@ -4,7 +4,7 @@ import {
   THEME_BORDER_COLORS,
   THEME_BORDER_COLORS_HOVER,
   ThemeColor,
-} from "@/app/styles/theme-colors";
+} from "../../styles/theme-colors";
 
 export type CardClasses = {
   dimensionClasses: string;

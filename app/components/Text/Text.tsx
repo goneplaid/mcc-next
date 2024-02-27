@@ -1,50 +1,67 @@
-import {
-  FontSize,
-  FontType,
-  FontWeight,
-  fontSizeClasses,
-  fontTypeClasses,
-  fontWeightClasses,
-} from "../../typography";
 import clsx from "clsx";
-import { TextTag, TextTags } from "./util/TextTags";
-import { Heading, SubHead, P, Span, Code } from "./util/SemanticText";
+import { TextTag, TextTags } from "./TextTags";
+import { Heading, SubHead, P, Span, Code } from "./SemanticText";
 import { ReactNode } from "react";
-
-export type TextAlignment = "left" | "center" | "right";
+import { useStyles } from "./Text.styles";
 
 interface TextProps {
-  children: ReactNode;
   align?: TextAlignment;
   branded?: boolean; // Allows "branded" style to overtake all other styled font types
+  children: ReactNode;
   className?: string;
-  fontSize?: FontSize | "inherit";
-  fontType?: Exclude<FontType, "branded">; // Force consumers to use the boolean
+  fontSize?: FontSize;
+  fontType?: FontType;
   fontWeight?: FontWeight;
-  uppercase?: boolean;
   tagName?: TextTag;
+  uppercase?: boolean;
 }
+
+export type FontType = "heading" | "content" | "code";
+export type FontSize =
+  | "inherit"
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl";
+
+export type FontWeight =
+  | "inherit"
+  | "thin"
+  | "extralight"
+  | "light"
+  | "normal"
+  | "medium"
+  | "semibold"
+  | "bold"
+  | "extrabold"
+  | "black";
+
+export type TextAlignment = "left" | "center" | "right";
 
 // Consider making this private by not exporting it.
 
 const Text = ({
   align,
-  branded,
+  branded = false,
   children,
   className,
-  fontSize = "md",
   fontType = "content",
+  fontSize = "md",
   fontWeight = "normal",
-  uppercase = false,
   tagName: tag = "span",
+  uppercase = false,
 }: TextProps) => {
-  const alignmentClass = align ? textAlignmentClasses[align] : "";
-  const fontSizeClass = fontSizeClasses[fontSize];
-  const fontTypeClass = branded
-    ? fontTypeClasses["branded"]
-    : fontTypeClasses[fontType];
-  const fontWeightClass = fontWeightClasses[fontWeight];
-  const uppercaseClass = uppercase && "uppercase";
+  const {
+    fontTypeClass,
+    sizeClass,
+    weightClass,
+    alignmentClass,
+    uppercaseClass,
+  } = useStyles(fontType, branded, fontSize, fontWeight, align, uppercase);
 
   const TextTag = TextTags[tag];
 
@@ -52,9 +69,9 @@ const Text = ({
     <TextTag
       className={clsx(
         alignmentClass,
-        fontSizeClass,
+        sizeClass,
         fontTypeClass,
-        fontWeightClass,
+        weightClass,
         uppercaseClass,
         className
       )}
@@ -65,7 +82,6 @@ const Text = ({
 };
 
 // Semantic tags decorated with predefined properties
-
 Text.Heading = Heading;
 Text.SubHead = SubHead;
 Text.P = P;
@@ -73,9 +89,3 @@ Text.Span = Span;
 Text.Code = Code;
 
 export default Text;
-
-const textAlignmentClasses: Record<TextAlignment, string> = {
-  left: "text-left",
-  center: "text-center",
-  right: "text-right",
-};
