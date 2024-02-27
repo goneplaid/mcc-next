@@ -14,7 +14,7 @@ const SiteNav = ({ className, children }: SiteHeader) => {
   return (
     <nav
       className={clsx(
-        "p-2 mb-8 shadow-md bg-white sticky top-0 z-50",
+        "pl-4 mb-8 h-16 shadow-md bg-white sticky top-0 z-50",
         className
       )}
     >

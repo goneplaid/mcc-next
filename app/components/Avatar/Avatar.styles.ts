@@ -21,8 +21,8 @@ function getDimensions(size: AvatarSize) {
     Pick<AvatarClasses, "dimension" | "dimensionsClasses">
   > = {
     sm: {
-      dimension: 48,
-      dimensionsClasses: "w-12 h-12",
+      dimension: 32,
+      dimensionsClasses: "w-8 h-8",
     },
     md: {
       dimension: 64,
