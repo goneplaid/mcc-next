@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { getAvatarClasses } from "./utils";
+import { useStyles } from "./Avatar.styles";
 import Image from "next/image";
 
 interface Avatar {
@@ -13,13 +13,11 @@ export type AvatarSize = "sm" | "md" | "lg" | "xl";
 export type AvatarShape = "circle" | "square" | "squircle";
 
 const Avatar = ({ alt, src, size = "md", shape = "circle" }: Avatar) => {
-  const { dimension, dimensions, border, rounded } = getAvatarClasses(
-    size,
-    shape
-  );
+  const { dimension, dimensionsClasses, borderClasses, roundedClasses } =
+    useStyles(size, shape);
   return (
     <figure className="avatar">
-      <div className={clsx(dimensions, border, rounded)}>
+      <div className={clsx(dimensionsClasses, borderClasses, roundedClasses)}>
         <Image src={src} alt={alt} width={dimension} height={dimension} />
       </div>
     </figure>
