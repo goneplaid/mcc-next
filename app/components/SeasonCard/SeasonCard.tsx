@@ -1,9 +1,7 @@
-import React from "react";
-import { Judge, Season } from "@prisma/client";
 import prisma from "@/prisma/client";
-import { Card, Text } from "@/app/components";
+import { Judge, Season } from "@prisma/client";
+import { Avatar, AvatarGroup, Card, Text } from "../../components";
 import { avatarSrcLookup } from "@/app/utils";
-import Avatar from "../Avatar/Avatar";
 
 interface SeasonCard {
   // Figure out how to better type this; there should be an auto-generated
@@ -26,6 +24,10 @@ const SeasonCard = async ({ season }: SeasonCard) => {
   const winnerName = winner!.profile.name;
   const winnerAvatarSrc = avatarSrcLookup(winner?.profile.name);
   const imgAltText = `${winnerName} profile image`;
+
+  const judgeAvatarData = season.judges.map((j) => {
+    return { src: avatarSrcLookup(j.name)!, alt: `Judge ${j.name}` };
+  });
 
   return (
     <Card
@@ -53,19 +55,7 @@ const SeasonCard = async ({ season }: SeasonCard) => {
         <Text.SubHead level={3} branded uppercase>
           Judges
         </Text.SubHead>
-        <div className="flex gap-2 justify-center">
-          {season.judges.map((judge) => {
-            return (
-              <Avatar
-                key={judge.id}
-                size="sm"
-                alt={imgAltText}
-                src={avatarSrcLookup(judge.name)!}
-                shape="circle"
-              />
-            );
-          })}
-        </div>
+        <AvatarGroup size="sm" align="center" avatars={judgeAvatarData} />
       </div>
     </Card>
   );

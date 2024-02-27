@@ -9,7 +9,7 @@ interface ContestantSummary {
 }
 
 const ContestantSummary = async ({ contestant }: ContestantSummary) => {
-  const winnerAvatarSrc = await avatarSrcLookup(contestant.profile.name);
+  const winnerAvatarSrc = avatarSrcLookup(contestant.profile.name);
 
   return (
     <div className="flex flex-col gap-4 items-center">

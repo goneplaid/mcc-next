@@ -12,13 +12,31 @@ interface Avatar {
 export type AvatarSize = "sm" | "md" | "lg" | "xl";
 export type AvatarShape = "circle" | "square" | "squircle";
 
-const Avatar = ({ alt, src, size = "md", shape = "circle" }: Avatar) => {
-  const { dimension, dimensionsClasses, borderClasses, roundedClasses } =
-    useStyles(size, shape);
+export const AVATAR_DEFAULT_SIZE = "md";
+export const AVATAR_DEFAULT_SHAPE = "circle";
+
+const Avatar = ({
+  alt,
+  src,
+  size = AVATAR_DEFAULT_SIZE,
+  shape = AVATAR_DEFAULT_SHAPE,
+}: Avatar) => {
+  const {
+    dimension,
+    dimensionsClasses,
+    borderClasses: _borderClasses, // temporarily disable borders until we need them
+    roundedClasses,
+  } = useStyles(size, shape);
   return (
-    <figure className="avatar">
-      <div className={clsx(dimensionsClasses, borderClasses, roundedClasses)}>
-        <Image src={src} alt={alt} width={dimension} height={dimension} />
+    <figure className="avatar border-0">
+      <div className={clsx(dimensionsClasses, roundedClasses)}>
+        <Image
+          src={src}
+          title={alt}
+          alt={alt}
+          width={dimension}
+          height={dimension}
+        />
       </div>
     </figure>
   );

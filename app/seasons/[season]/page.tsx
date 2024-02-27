@@ -1,10 +1,8 @@
-import prisma from "@/prisma/client";
-import PageHeader from "@/app/components/PageHeader/PageHeader";
-import EpisodeSummary from "./components/EpisodeSummary";
-import SeasonJudges from "./components/SeasonJudges";
-import AsideLayout from "@/app/components/AsideLayout/AsideLayout";
-import ContestantSummary from "./components/ContestantSummary";
 import Link from "next/link";
+import prisma from "@/prisma/client";
+import { AsideLayout, PageHeader, SeasonJudgesRow } from "../../components";
+import EpisodeSummary from "./components/EpisodeSummary";
+import ContestantSummary from "./components/ContestantSummary";
 
 interface SeasonPage {
   params: { season: number };
@@ -20,7 +18,7 @@ export default async function SeasonPage({ params }: SeasonPage) {
       <Link href="/">&lt; Back to seasons</Link>
       <PageHeader
         title={season?.name}
-        aside={<SeasonJudges judges={judges} />}
+        aside={<SeasonJudgesRow judges={judges} />}
       />
 
       {episodes.map((episode, eKey) => {

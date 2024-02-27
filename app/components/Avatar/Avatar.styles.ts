@@ -57,6 +57,9 @@ function getShapeClasses(shape: AvatarShape, size: AvatarSize) {
 }
 
 function getBorderClasses(size: AvatarSize) {
+  return "border-0";
+
+  // temporarily disable borders until we need them
   const BORDER_CLASSES: Record<AvatarSize, string> = {
     sm: "border-1",
     md: "border-2",

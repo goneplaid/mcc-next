@@ -1,3 +1,5 @@
+import { AvatarGroup, Text } from "@/app/components";
+import { avatarSrcLookup } from "@/app/utils";
 import { Contestant, ContestantProfile, Episode } from "@prisma/client";
 import React from "react";
 
@@ -10,6 +12,13 @@ interface EpisodeSummary {
 }
 
 const EpisodeSummary = ({ episode }: EpisodeSummary) => {
+  const contestantAvatarData = episode.contestants.map((c) => {
+    return {
+      src: avatarSrcLookup(c.profile.name)!,
+      alt: c.profile.name,
+    };
+  });
+
   return (
     <>
       <ul className="mb-10">
@@ -21,11 +30,16 @@ const EpisodeSummary = ({ episode }: EpisodeSummary) => {
             Original airdate: {episode.airDate.toDateString()}
           </em>
           <div className="mb-5">{episode.notes}</div>
-          <ul className="pl-5">
-            {episode.contestants.map((contestant) => {
-              return <li key={contestant.id}>{contestant.profile.name}</li>;
-            })}
-          </ul>
+          <aside className="flex flex-col gap-2">
+            <Text.SubHead level={3} branded>
+              Episode Contestants
+            </Text.SubHead>
+            <AvatarGroup
+              size="sm"
+              align="left"
+              avatars={contestantAvatarData}
+            />
+          </aside>
         </li>
       </ul>
     </>
