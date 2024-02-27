@@ -7,11 +7,25 @@ import {
   Season,
 } from "@prisma/client";
 import prisma from "../../client";
-import {
-  AcceptedChallengeType,
-  EpisodeChallengeInfo,
-  ParticipantChallengeData,
-} from "../lib/types";
+import { ParticipantChallengeData } from "../types";
+
+// These are the only challenges that we're attempting to process at the moment
+// This is constructed from the Prisma enum `ChallengeType` and allows only
+// a subset of challenge types to be processed.
+type AcceptedChallengeType = Extract<
+  ChallengeType,
+  "A" | "ST" | "MB" | "ET" | "SF" | "F"
+  // "A":  Audition
+  // "ST": Skills Test
+  // "MB": Mystery Box
+  // "ET": Elimination Test
+  // "SF": Semi-Final
+  // "F":  Final
+>[];
+
+type EpisodeNumber = number;
+type ChallengeTypeCode = AcceptedChallengeType[number];
+type EpisodeChallengeInfo = [EpisodeNumber, ...ChallengeTypeCode[]];
 
 const acceptedChallenges: AcceptedChallengeType = [
   "A",

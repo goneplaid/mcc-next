@@ -1,6 +1,6 @@
 import path from "path";
 import { readCsv, readJson } from "./utilities";
-import { ParticipantChallengeData } from "./types";
+import { ParticipantChallengeData } from "../types";
 
 export function loadSeason(season: number) {
   if (!season) throw new Error("Specify a season");

@@ -1,15 +1,14 @@
 import fs from "fs";
 import { parse } from "csv-parse/sync";
-import { GenericObject } from "./types";
 
 export function csvToObjects(
   data: string[][],
   columns: string[]
-): GenericObject[] | undefined {
+): Record<string, string>[] | undefined {
   if (!columns.length || !data.length) return;
 
   return data.map((row: string[]) => {
-    return columns.reduce((obj: GenericObject, col, i) => {
+    return columns.reduce((obj: Record<string, string>, col, i) => {
       obj[col] = row[i];
       return obj;
     }, {});
