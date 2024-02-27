@@ -15,6 +15,7 @@ enum ContestantStatus {
 }
 
 enum ChallengeResult {
+  NP
   WIN
   HIGH
   IN
@@ -26,16 +27,15 @@ enum ChallengeResult {
 }
 
 enum ChallengeType {
-  A // Audition
-  ST // Skill test
-  MB // Mystery box
-  ET // Elimination test
-  TC // Team Challenge
-  PT // Pressure test
-  I // Individual test
-  SF // Semi-final
-  F // Final
-  OSC // Off-site challenge (unique)
+  AUDITION
+  SKILL_TEST
+  MYSTERY_BOX
+  ELIMINATION_TEST
+  TEAM_CHALLENGE
+  PRESSURE_TEST
+  INDIVIDUAL_TEST
+  SEMI_FINAL
+  FINALE
 }
 
 model Season {

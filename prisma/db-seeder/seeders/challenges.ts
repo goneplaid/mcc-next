@@ -9,33 +9,48 @@ import {
 import prisma from "../../client";
 import { ParticipantChallengeData } from "../types";
 
-// These are the only challenges that we're attempting to process at the moment
-// This is constructed from the Prisma enum `ChallengeType` and allows only
-// a subset of challenge types to be processed.
-type AcceptedChallengeType = Extract<
+// The range of challenges that we're capable of processing
+type ProcessableChallengeType = Extract<
   ChallengeType,
-  "A" | "ST" | "MB" | "ET" | "SF" | "F"
-  // "A":  Audition
-  // "ST": Skills Test
-  // "MB": Mystery Box
-  // "ET": Elimination Test
-  // "SF": Semi-Final
-  // "F":  Final
->[];
+  | "AUDITION"
+  | "SKILL_TEST"
+  | "MYSTERY_BOX"
+  | "ELIMINATION_TEST"
+  | "SEMI_FINAL"
+  | "FINALE"
+>;
+
+// Codes used in CSV file for challenges; mapped to ChallengeType
+type ChallengeCode = "A" | "ST" | "MB" | "ET" | "SF" | "F";
 
 type EpisodeNumber = number;
-type ChallengeTypeCode = AcceptedChallengeType[number];
-type EpisodeChallengeInfo = [EpisodeNumber, ...ChallengeTypeCode[]];
+type EpisodeChallengeInfo = [EpisodeNumber, ...[ChallengeCode[number]]];
 
-const acceptedChallenges: AcceptedChallengeType = [
-  "A",
-  "ST",
-  "MB",
-  "ET",
-  "SF",
-  "F",
+// Processable challenges configured here, usually limited to challenges under
+// development
+const processableChallenges: ProcessableChallengeType[] = [
+  "AUDITION",
+  "SKILL_TEST",
+  "MYSTERY_BOX",
+  "ELIMINATION_TEST",
+  "SEMI_FINAL",
+  "FINALE",
 ];
 
+// Map of challenge type codes to ChallengeType
+const challengeTypeCodeMappings: Record<
+  ChallengeCode,
+  Extract<ChallengeType, ProcessableChallengeType>
+> = {
+  A: "AUDITION",
+  ST: "SKILL_TEST",
+  MB: "MYSTERY_BOX",
+  ET: "ELIMINATION_TEST",
+  SF: "SEMI_FINAL",
+  F: "FINALE",
+};
+
+const challengeCodes = Object.keys(challengeTypeCodeMappings);
 export default async function seedSeasonChallenges(
   season: Season,
   contestants: Contestant[],
@@ -54,22 +69,26 @@ export default async function seedSeasonChallenges(
 
     // Every episode contains 1-2 challenges. Raise an error if we find any
     // outliers to that assumption in case we need to adjust
-    if (episodeChallengeCodes.length > 2)
+    if (episodeChallengeCodes.length > 2 || !episodeChallengeCodes.length)
       throw new Error(
-        `More than two challenges found for season ${season.seasonNumber}, episode ${episodeInfo[0]}!`
+        `More/less than two challenges found for season ${season.seasonNumber}, episode ${episodeInfo[0]}!`
       );
 
     const episode = episodes.find(
       (e) => e.episodeNumber == Number(episodeNumber)
     );
 
+    const episodeChallengeTypes = episodeChallengeCodes.map(
+      (cc) => challengeTypeCodeMappings[cc as ChallengeCode]
+    );
+
     if (!episode)
       throw new Error(`No episode (${episodeNumber}) found for challenges!`);
 
-    for (const challengeCode of episodeChallengeCodes) {
-      if (!acceptedChallenges.includes(challengeCode)) continue;
+    for (const challengeType of episodeChallengeTypes) {
+      if (!processableChallenges.includes(challengeType)) continue;
 
-      const newChallenge = await seedChallenge(season, episode, challengeCode);
+      const newChallenge = await seedChallenge(season, episode, challengeType);
 
       await seedParticipants(
         season,

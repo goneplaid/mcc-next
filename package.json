@@ -11,6 +11,7 @@
     "db:seed": "npx prisma db seed",
     "db:reset-seed": "npm run db:reset",
     "db:reset": "npx prisma migrate reset",
+    "db:reset:no-seed": "npx prisma migrate reset --skip-seed",
     "dev": "next dev -p 1234",
     "lint": "next lint",
     "schema:format": "npx prisma format",
