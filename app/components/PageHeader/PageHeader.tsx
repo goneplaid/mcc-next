@@ -8,7 +8,7 @@ interface PageHeader {
 
 const PageHeader = ({ title, aside }: PageHeader) => {
   return (
-    <header className="mb-4 flex flex-row justify-between items-center">
+    <header className="w-full mb-4 flex flex-row justify-between items-center">
       <Text.Heading>{title}</Text.Heading>
       {aside}
     </header>

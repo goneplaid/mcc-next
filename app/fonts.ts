@@ -38,5 +38,6 @@ export const fontVariables = [
 export const fontTypeClasses = {
   heading: `font-title`,
   content: `font-content`,
+  branded: `font-branded`,
   code: `font-code`,
 };

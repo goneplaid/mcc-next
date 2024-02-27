@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={clsx(fontVariables)}>
         <div className="min-h-screen flex flex-col bg-gray-100">
-          <SiteNav className="flex-shrink-0" />
+          <SiteNav />
           <PageLayout>{children}</PageLayout>
         </div>
       </body>
