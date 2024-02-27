@@ -14,17 +14,6 @@ enum ContestantStatus {
   WINNER
 }
 
-enum ChallengeResult {
-  WIN
-  HIGH
-  IN
-  LOW
-  ELIM
-  IMM
-  WINNER
-  RUNNER_UP
-}
-
 enum ChallengeType {
   AUDITION
   SKILL_TEST
@@ -33,9 +22,8 @@ enum ChallengeType {
   TEAM_CHALLENGE
   PRESSURE_TEST
   INDIVIDUAL_TEST
-  SSEMI_FINAL
+  SEMI_FINAL
   FINALE
-  OFF_SITE_CHALLENGE
 }
 
 //enum ChallengeResult {
@@ -51,6 +39,14 @@ enum ChallengeType {
 //  RUNNER_UP
 //} 
 
+enum ChallengeResult {
+  WIN
+  HIGH
+  IN
+  LOW
+  ELIM
+  IMM
+}
 
 model Season {
   id           String        @id @default(uuid())

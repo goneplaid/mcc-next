@@ -1,6 +1,7 @@
 import fs from "fs";
 import { parse } from "csv-parse/sync";
-import { GenericObject } from "./types";
+
+type GenericObject = Record<string, string>;
 
 export function csvToObjects(
   data: string[][],

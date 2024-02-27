@@ -1,6 +1,7 @@
 import { Season } from "@prisma/client";
 import prisma from "../../client";
-import { JudgeData } from "../lib/types";
+
+type JudgeData = string[];
 
 export default async function seedSeasonJudges(
   season: Season,
