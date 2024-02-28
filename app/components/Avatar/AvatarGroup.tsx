@@ -24,8 +24,8 @@ export type AvatarGroupAlignment = "left" | "center" | "right";
 const AvatarGroup = ({
   children,
   avatars,
-  size = AVATAR_DEFAULT_SIZE,
-  shape = AVATAR_DEFAULT_SHAPE,
+  size,
+  shape,
   align = "left",
 }: AvatarGroup) => {
   const { alignmentClass } = useStyles(align);

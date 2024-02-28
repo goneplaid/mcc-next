@@ -55,7 +55,12 @@ const SeasonCard = async ({ season }: SeasonCard) => {
         <Text.SubHead level={3} branded uppercase>
           Judges
         </Text.SubHead>
-        <AvatarGroup size="sm" align="center" avatars={judgeAvatarData} />
+        <AvatarGroup
+          size="sm"
+          align="center"
+          shape="squircle"
+          avatars={judgeAvatarData}
+        />
       </div>
     </Card>
   );
