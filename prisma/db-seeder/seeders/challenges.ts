@@ -1,6 +1,5 @@
 import {
   Challenge,
-  ChallengeResult,
   ChallengeType,
   Contestant,
   Episode,
@@ -8,49 +7,15 @@ import {
 } from "@prisma/client";
 import prisma from "../../client";
 import { ParticipantChallengeData } from "../types";
-
-// The range of challenges that we're capable of processing
-type ProcessableChallengeType = Extract<
-  ChallengeType,
-  | "AUDITION"
-  | "SKILL_TEST"
-  | "MYSTERY_BOX"
-  | "ELIMINATION_TEST"
-  | "SEMI_FINAL"
-  | "FINALE"
->;
-
-// Codes used in CSV file for challenges; mapped to ChallengeType
-type ChallengeCode = "A" | "ST" | "MB" | "ET" | "SF" | "F";
-
-type EpisodeNumber = number;
-type EpisodeChallengeInfo = [EpisodeNumber, ...[ChallengeCode[number]]];
-
-// Processable challenges configured here, usually limited to challenges under
-// development
-const processableChallenges: ProcessableChallengeType[] = [
-  "AUDITION",
-  "SKILL_TEST",
-  "MYSTERY_BOX",
-  "ELIMINATION_TEST",
-  "SEMI_FINAL",
-  "FINALE",
-];
-
-// Map of challenge type codes to ChallengeType
-const challengeTypeCodeMappings: Record<
+import {
   ChallengeCode,
-  Extract<ChallengeType, ProcessableChallengeType>
-> = {
-  A: "AUDITION",
-  ST: "SKILL_TEST",
-  MB: "MYSTERY_BOX",
-  ET: "ELIMINATION_TEST",
-  SF: "SEMI_FINAL",
-  F: "FINALE",
-};
+  EpisodeChallengeData,
+  ParticipantResultCode,
+  CHALLENGE_RESULT_MAP,
+  CHALLENGE_TYPE_CODE_MAP,
+} from "./challenges.types";
+import assert from "assert";
 
-const challengeCodes = Object.keys(challengeTypeCodeMappings);
 export default async function seedSeasonChallenges(
   season: Season,
   contestants: Contestant[],
@@ -60,33 +25,34 @@ export default async function seedSeasonChallenges(
   for (const challenge of challengeData.challenges) {
     const { name: challengeName } = challenge;
 
-    // Splits episode challenge data in the form of `1-A` or `5-TC-PT`,
-    // with each signature indicating episode 1 with a single Audition
-    // or episode 5 with a Team Challenge and Pressure Test, respectively
-    const episodeInfo = challengeName.split("-") as EpisodeChallengeInfo;
-
+    // Splits episode challenge data in the form of `1-A` or `5-TC-PT`, for
+    // example, with each signature indicating episode 1 + a single Audition
+    // or episode 5 + a Team Challenge and Pressure Test, respectively.
+    const episodeInfo = challengeName.split("-") as EpisodeChallengeData;
     const [episodeNumber, ...episodeChallengeCodes] = episodeInfo;
 
     // Every episode contains 1-2 challenges. Raise an error if we find any
     // outliers to that assumption in case we need to adjust
-    if (episodeChallengeCodes.length > 2 || !episodeChallengeCodes.length)
-      throw new Error(
-        `More/less than two challenges found for season ${season.seasonNumber}, episode ${episodeInfo[0]}!`
-      );
+    assert(
+      episodeChallengeCodes.length && episodeChallengeCodes.length <= 2,
+      `More/less than two challenges found for season ${season.seasonNumber}, episode ${episodeInfo[0]}!`
+    );
 
     const episode = episodes.find(
       (e) => e.episodeNumber == Number(episodeNumber)
     );
 
     const episodeChallengeTypes = episodeChallengeCodes.map(
-      (cc) => challengeTypeCodeMappings[cc as ChallengeCode]
+      (cc) => CHALLENGE_TYPE_CODE_MAP[cc as ChallengeCode]
     );
 
-    if (!episode)
-      throw new Error(`No episode (${episodeNumber}) found for challenges!`);
+    assert(!!episode, `No episode (${episodeNumber}) found for challenges!`);
 
     for (const challengeType of episodeChallengeTypes) {
-      if (!processableChallenges.includes(challengeType)) continue;
+      // Challenges that we are not currently processing will be `undefined`
+      // We need a better way to do this that warns when challenge types will
+      // not be processed.
+      if (!challengeType) continue;
 
       const newChallenge = await seedChallenge(season, episode, challengeType);
 
@@ -130,24 +96,45 @@ async function seedParticipants(
   contestants: Contestant[]
 ) {
   for (const index in challengeResults) {
-    const result = challengeResults[index] as ChallengeResult;
+    const resultCode = challengeResults[index] as ParticipantResultCode;
 
-    if (result) {
-      await prisma.participant.create({
+    // Eliminated contestants won't have participation data
+    if (!resultCode) continue;
+
+    const resultType = CHALLENGE_RESULT_MAP[challenge.type]?.[resultCode];
+
+    assert(
+      !!resultType,
+      `Unknown resultCode found for ${challenge.type}: ${resultCode} (season ${season.seasonNumber}, episode ${episode.episodeNumber})`
+    );
+
+    await prisma.participant.create({
+      data: {
+        result: resultType,
+        team: "individual",
+        season: {
+          connect: season,
+        },
+        episode: {
+          connect: episode,
+        },
+        challenge: {
+          connect: challenge,
+        },
+        contestant: {
+          connect: contestants[index],
+        },
+      },
+    });
+
+    if (resultType === "ELIMINATED") {
+      await prisma.contestant.update({
+        where: {
+          id: contestants[index].id,
+        },
         data: {
-          result,
-          team: "individual",
-          season: {
-            connect: season,
-          },
-          episode: {
+          episodeEliminated: {
             connect: episode,
-          },
-          challenge: {
-            connect: challenge,
-          },
-          contestant: {
-            connect: contestants[index],
           },
         },
       });

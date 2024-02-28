@@ -65,6 +65,7 @@ type DerivedStatus = {
   finalEpisode: number;
 };
 
+// Most of this should be replaceable soon and you can nuke this janky stuff
 const getStatus = (data: string): DerivedStatus => {
   type statusKey = "Winner" | "Runner-Up" | "Eliminated";
   type statusValue = "WINNER" | "RUNNER_UP" | "ELIMINATED";

@@ -14,14 +14,15 @@ enum ContestantStatus {
   WINNER
 }
 
-enum ChallengeResult {
-  NP
+enum ParticipantResult {
+  NON_PARTICIPANT
   WIN
   HIGH
-  IN
+  PASS
+  LOSS
   LOW
-  ELIM
-  IMM
+  ELIMINATED
+  IMMUNITY
   WINNER
   RUNNER_UP
 }
@@ -69,6 +70,7 @@ model Episode {
   judges        Judge[]
   challenges    Challenge[]
   participants  Participant[]
+  eliminated    Contestant[]  @relation("EpisodeElimination")
 
   @@unique([episodeNumber, seasonId])
 }
@@ -83,16 +85,18 @@ model ContestantProfile {
 }
 
 model Contestant {
-  id             String            @id @default(uuid())
-  status         ContestantStatus  @default(ELIMINATED)
-  place          Int               @default(0)
-  finalEpisode   Int
-  seasonId       String
-  season         Season            @relation(fields: [seasonId], references: [id])
-  profileId      String
-  profile        ContestantProfile @relation(fields: [profileId], references: [id])
-  episodes       Episode[]
-  participations Participant[]
+  id                  String            @id @default(uuid())
+  status              ContestantStatus  @default(ELIMINATED)
+  place               Int               @default(0)
+  finalEpisode        Int
+  seasonId            String
+  season              Season            @relation(fields: [seasonId], references: [id])
+  profileId           String
+  profile             ContestantProfile @relation(fields: [profileId], references: [id])
+  episodes            Episode[]
+  participations      Participant[]
+  episodeEliminatedId String?
+  episodeEliminated   Episode?          @relation("EpisodeElimination", fields: [episodeEliminatedId], references: [id])
 }
 
 model Challenge {
@@ -103,19 +107,19 @@ model Challenge {
   season       Season        @relation(fields: [seasonId], references: [id])
   episodeId    String
   episode      Episode       @relation(fields: [episodeId], references: [id])
-  participants Participant[]
+  participants Participant[] @relation("ChallengeParticipant")
 }
 
 model Participant {
-  id           String          @id @default(uuid())
+  id           String            @id @default(uuid())
   team         String
   seasonId     String
-  season       Season          @relation(fields: [seasonId], references: [id])
+  season       Season            @relation(fields: [seasonId], references: [id])
   episodeId    String
-  episode      Episode         @relation(fields: [episodeId], references: [id])
+  episode      Episode           @relation(fields: [episodeId], references: [id])
   challengeId  String
-  challenge    Challenge       @relation(fields: [challengeId], references: [id])
+  challenge    Challenge         @relation("ChallengeParticipant", fields: [challengeId], references: [id])
   contestantId String
-  contestant   Contestant      @relation(fields: [contestantId], references: [id])
-  result       ChallengeResult
+  contestant   Contestant        @relation(fields: [contestantId], references: [id])
+  result       ParticipantResult
 }
