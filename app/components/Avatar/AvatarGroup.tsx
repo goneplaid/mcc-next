@@ -30,7 +30,7 @@ const AvatarGroup = ({
 }: AvatarGroup) => {
   const { alignmentClass } = useStyles(align);
   return (
-    <div className={clsx("avatar-group gap-2", alignmentClass)}>
+    <div className={clsx("flex flex-row gap-2", alignmentClass)}>
       {children
         ? children
         : avatars?.map((avatarProps, key) => (

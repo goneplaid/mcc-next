@@ -35,6 +35,7 @@ const EpisodeCard = ({ episode }: EpisodeCard) => {
     >
       <div className="flex flex-row gap-8">
         <Text.Heading>{episode.episodeNumber}</Text.Heading>
+
         <section className="flex flex-col gap-2">
           <Text.Heading level={3}>{episode.description}</Text.Heading>
           <Text.SubHead level={2}>
@@ -49,7 +50,7 @@ const EpisodeCard = ({ episode }: EpisodeCard) => {
             Participants
           </Text.SubHead>
           <AvatarGroup
-            size="sm"
+            size="md"
             shape="squircle"
             align="left"
             avatars={contestantAvatarData}

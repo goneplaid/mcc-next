@@ -31,7 +31,7 @@ const args: AvatarGroup = {
     },
   ],
   size: "lg",
-  shape: "squircle",
+  shape: "circle",
 };
 
 const wat = {
