@@ -1,31 +1,19 @@
-import prisma from "@/prisma/client";
-import { Judge, Season } from "@prisma/client";
+import { Contestant, ContestantProfile, Judge, Season } from "@prisma/client";
 import { Avatar, AvatarGroup, Card, Text } from "../../components";
 import { avatarSrcLookup } from "@/app/utils/avatarSrcLookup";
 
 interface SeasonCard {
-  // Figure out how to better type this; there should be an auto-generated
-  // type from Prisma that we can use here instead.
-  season: Season & { judges: Judge[] };
+  season: Season;
+  winner: Contestant & { profile: ContestantProfile };
+  judges: Judge[];
 }
 
-const SeasonCard = async ({ season }: SeasonCard) => {
-  // Don't look up data in your components like this 🤦
-  const winner = await prisma.contestant.findFirst({
-    where: {
-      status: "WINNER",
-      seasonId: season.id,
-    },
-    include: {
-      profile: true,
-    },
-  });
-
+const SeasonCard = async ({ winner, season, judges }: SeasonCard) => {
   const winnerName = winner!.profile.name;
   const winnerAvatarSrc = avatarSrcLookup(winner?.profile.name);
-  const imgAltText = `${winnerName} profile image`;
+  const imgAltText = `Season winner ${winnerName}`;
 
-  const judgeAvatarData = season.judges.map((j) => {
+  const judgeAvatarData = judges.map((j) => {
     return { src: avatarSrcLookup(j.name)!, alt: `Judge ${j.name}` };
   });
 
