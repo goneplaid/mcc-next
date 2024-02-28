@@ -9,7 +9,7 @@ interface Avatar {
   shape?: AvatarShape;
 }
 
-export type AvatarSize = "sm" | "md" | "lg" | "xl";
+export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type AvatarShape = "circle" | "square" | "squircle";
 
 export const AVATAR_DEFAULT_SIZE = "md";
@@ -21,12 +21,10 @@ const Avatar = ({
   size = AVATAR_DEFAULT_SIZE,
   shape = AVATAR_DEFAULT_SHAPE,
 }: Avatar) => {
-  const {
-    dimension,
-    dimensionsClasses,
-    borderClasses: _borderClasses, // temporarily disable borders until we need them
-    roundedClasses,
-  } = useStyles(size, shape);
+  const { dimension, dimensionsClasses, roundedClasses } = useStyles(
+    size,
+    shape
+  );
   return (
     <figure className="avatar border-0">
       <div className={clsx(dimensionsClasses, roundedClasses)}>

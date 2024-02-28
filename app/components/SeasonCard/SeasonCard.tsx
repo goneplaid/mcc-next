@@ -46,7 +46,7 @@ const SeasonCard = async ({ winner, season, judges }: SeasonCard) => {
         <AvatarGroup
           size="sm"
           align="center"
-          shape="squircle"
+          shape="circle"
           avatars={judgeAvatarData}
         />
       </div>

@@ -25,6 +25,20 @@ export default function query(season: number) {
               profile: true,
             },
           },
+          participants: {
+            where: {
+              result: {
+                in: ["WINNER", "RUNNER_UP", "ELIMINATED"],
+              },
+            },
+            include: {
+              contestant: {
+                include: {
+                  profile: true,
+                },
+              },
+            },
+          },
           challenges: true,
         },
       },

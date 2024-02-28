@@ -13,6 +13,7 @@ interface Card {
   // components/needs
   borderColor?: ThemeColor;
   hoverOptions?: HoverOptions;
+  valignContent?: ContentVAlign;
 }
 
 export type CardSize = "xs" | "sm" | "md" | "lg";
@@ -21,14 +22,16 @@ export type HoverOptions = {
   borderColor?: ThemeColor;
   raiseCard?: boolean;
 };
+export type ContentVAlign = "top" | "center" | "bottom";
 
 const Card = ({
+  borderColor,
   children,
   className,
-  size = "md",
-  level = "base",
-  borderColor,
   hoverOptions,
+  level = "base",
+  size = "md",
+  valignContent,
 }: Card) => {
   const {
     dimensionClasses,
@@ -37,7 +40,8 @@ const Card = ({
     roundedClasses,
     borderClasses,
     hoverClasses,
-  } = useStyles(size, level, borderColor, hoverOptions);
+    vAlignClasses,
+  } = useStyles(size, level, borderColor, hoverOptions, valignContent);
 
   return (
     <div
@@ -51,7 +55,13 @@ const Card = ({
         className
       )}
     >
-      <div className={clsx("card-body font-content", paddingClasses)}>
+      <div
+        className={clsx(
+          "card-body font-content",
+          paddingClasses,
+          vAlignClasses
+        )}
+      >
         {children}
       </div>
     </div>

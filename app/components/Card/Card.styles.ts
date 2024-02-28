@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { CardLevel, CardSize, HoverOptions } from "./Card";
+import { CardLevel, CardSize, ContentVAlign, HoverOptions } from "./Card";
 import {
   THEME_BORDER_COLORS,
   THEME_BORDER_COLORS_HOVER,
@@ -13,13 +13,15 @@ export type CardClasses = {
   borderClasses: string;
   roundedClasses: string;
   hoverClasses: string;
+  vAlignClasses: string;
 };
 
 export function useStyles(
   size: CardSize,
   level: CardLevel,
   borderColor?: ThemeColor,
-  hoverOptions?: HoverOptions
+  hoverOptions?: HoverOptions,
+  vAlign?: ContentVAlign
 ): CardClasses {
   return {
     dimensionClasses: getDimensionClasses(size),
@@ -28,6 +30,7 @@ export function useStyles(
     roundedClasses: getRoundedClasses(size),
     borderClasses: borderColor ? getBorderClasses(size, borderColor) : "",
     hoverClasses: hoverOptions ? getHoverClasses(level, hoverOptions) : "",
+    vAlignClasses: getVAlignClasses(vAlign),
   };
 }
 
@@ -46,8 +49,8 @@ function getPaddingClasses(size: CardSize) {
   const SIZE_CLASSES: Record<CardSize, string> = {
     xs: "!p-1 md:!p-2",
     sm: "!p-2 md:!p-4",
-    md: "!p-2 md:!p-4 lg:!p-6",
-    lg: "!p-4 md:!p-6 lg:!p-8",
+    md: "md:!p-4 lg:!p-6",
+    lg: "md:!p-6 lg:!p-8",
   };
 
   return SIZE_CLASSES[size];
@@ -77,6 +80,7 @@ function getBorderClasses(size: CardSize, borderColor?: ThemeColor) {
     borderColor && THEME_BORDER_COLORS[borderColor]
   );
 }
+
 function getRoundedClasses(size: CardSize) {
   const ROUNDED_CLASSES: Record<CardSize, string> = {
     xs: "rounded-md",
@@ -106,3 +110,13 @@ const getHoverClasses = (level: CardLevel, hoverOptions: HoverOptions) => {
       : ""
   );
 };
+
+function getVAlignClasses(vAlign?: ContentVAlign) {
+  const VALIGN_CLASSES: Record<ContentVAlign, string> = {
+    top: "justify-start",
+    center: "justify-center",
+    bottom: "rounded-end",
+  };
+
+  return vAlign ? VALIGN_CLASSES[vAlign] : VALIGN_CLASSES["top"];
+}
