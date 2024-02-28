@@ -1,18 +1,19 @@
 import Link from "next/link";
-import prisma from "@/prisma/client";
 import { AsideLayout, PageHeader, SeasonJudgesRow } from "../../components";
 import EpisodeSummary from "./components/EpisodeSummary";
 import ContestantSummary from "./components/ContestantSummary";
+import query from "./page.query";
 
-interface SeasonPage {
+interface SeasonIndex {
   params: { season: number };
 }
 
-export default async function SeasonPage({ params }: SeasonPage) {
-  const season = await getSeasonData(Number(params.season));
+export default async function SeasonPage({ params }: SeasonIndex) {
+  const season = await query(Number(params.season));
   const { judges, contestants, episodes } = season!;
 
   const { Aside, Article } = AsideLayout;
+
   return (
     <>
       <Link href="/">&lt; Back to seasons</Link>
@@ -42,45 +43,3 @@ export default async function SeasonPage({ params }: SeasonPage) {
     </>
   );
 }
-
-const getSeasonData = async (season: number) => {
-  return await prisma.season.findUnique({
-    where: {
-      seasonNumber: season,
-    },
-    include: {
-      judges: {
-        orderBy: [
-          {
-            name: "asc",
-          },
-        ],
-      },
-      contestants: {
-        orderBy: [
-          {
-            place: "asc",
-          },
-        ],
-        include: {
-          profile: true,
-        },
-      },
-      episodes: {
-        orderBy: [
-          {
-            episodeNumber: "desc",
-          },
-        ],
-        include: {
-          contestants: {
-            orderBy: { id: "asc" },
-            include: {
-              profile: true,
-            },
-          },
-        },
-      },
-    },
-  });
-};

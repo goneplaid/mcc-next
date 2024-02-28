@@ -1,7 +1,7 @@
 import prisma from "@/prisma/client";
 
-export default function query() {
-  return prisma.contestant.findMany({
+export default async function query() {
+  const winners = await prisma.contestant.findMany({
     where: {
       place: 1,
     },
@@ -18,5 +18,13 @@ export default function query() {
         seasonNumber: "asc",
       },
     },
+  });
+
+  return winners.map((winner) => {
+    return {
+      winner,
+      season: winner.season,
+      judges: winner.season.judges,
+    };
   });
 }
