@@ -13,16 +13,6 @@ export default function query(season: number) {
           },
         ],
       },
-      contestants: {
-        orderBy: [
-          {
-            place: "asc",
-          },
-        ],
-        include: {
-          profile: true,
-        },
-      },
       episodes: {
         orderBy: [
           {
@@ -31,11 +21,11 @@ export default function query(season: number) {
         ],
         include: {
           contestants: {
-            orderBy: { id: "asc" },
             include: {
               profile: true,
             },
           },
+          challenges: true,
         },
       },
     },

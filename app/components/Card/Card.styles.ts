@@ -102,7 +102,7 @@ const getHoverClasses = (level: CardLevel, hoverOptions: HoverOptions) => {
   return clsx(
     hoverColor,
     raiseCard
-      ? clsx("hover:scale-105 hover:-mt-2", HOVER_LEVEL_CLASSES[level])
+      ? clsx("hover:scale-[1.02] hover:-mt-1.5", HOVER_LEVEL_CLASSES[level])
       : ""
   );
 };
