@@ -16,7 +16,7 @@ interface TextProps {
   uppercase?: boolean;
 }
 
-export type FontType = "heading" | "content" | "code";
+export type FontType = "title" | "body" | "code";
 export type FontSize =
   | "inherit"
   | "xs"
@@ -29,6 +29,8 @@ export type FontSize =
   | "4xl"
   | "5xl"
   | "6xl";
+
+type thangs = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 export type FontWeight =
   | "inherit"
@@ -51,7 +53,7 @@ const Text = ({
   branded = false,
   children,
   className,
-  fontType = "content",
+  fontType = "body",
   fontSize = "md",
   fontWeight = "normal",
   tagName: tag = "span",

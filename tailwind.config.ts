@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         title: ["var(--font-lato)"],
-        content: ["var(--font-raleway)"],
+        body: ["var(--font-raleway)"],
         branded: ["var(--font-michroma)"],
         code: ["var(--font-anonpro)"],
       },

@@ -56,11 +56,7 @@ const Card = ({
       )}
     >
       <div
-        className={clsx(
-          "card-body font-content",
-          paddingClasses,
-          vAlignClasses
-        )}
+        className={clsx("card-body font-body", paddingClasses, vAlignClasses)}
       >
         {children}
       </div>

@@ -1,5 +1,3 @@
-import { ChallengeType } from "@prisma/client";
-
 export type ParticipantChallengeData = {
   participants: ParticipantData[];
   challenges: ChallengeData[];

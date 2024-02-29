@@ -67,7 +67,7 @@ const TextUsage = () => {
                 <ul
                   className={clsx(
                     "list-disc list-inside ml-4 mb-8",
-                    fontTypeClasses.content
+                    fontTypeClasses.body
                   )}
                 >
                   <li>Headings (Lato, bold)</li>
@@ -79,7 +79,7 @@ const TextUsage = () => {
                 <ul
                   className={clsx(
                     "list-disc list-inside ml-4 mb-8",
-                    fontTypeClasses.content
+                    fontTypeClasses.body
                   )}
                 >
                   <li>Branded</li>

@@ -39,7 +39,7 @@ h6 {
 p,
 span,
 div {
-  @apply font-content text-sm md:text-base lg:text-base xl:text-lg;
+  @apply font-body text-sm md:text-base lg:text-base xl:text-lg;
 }
 
 .branded {

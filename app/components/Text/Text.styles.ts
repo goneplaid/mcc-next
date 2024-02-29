@@ -29,7 +29,7 @@ export function useStyles(
 function getFontTypeClasses(fontType?: FontType, branded?: Boolean) {
   if (branded) return "font-branded";
   const TYPE_CLASSES = fontTypeClasses;
-  return TYPE_CLASSES[fontType ?? "content"];
+  return TYPE_CLASSES[fontType ?? "body"];
 }
 
 function getFontSizeClass(fontSize?: FontSize) {

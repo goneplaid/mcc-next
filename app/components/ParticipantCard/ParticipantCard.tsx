@@ -20,20 +20,21 @@ const ParticipantCard = ({ participant }: ParticipantCard) => {
       <div className="flex flex-row gap-4 items-center">
         <Avatar
           size="sm"
-          alt={"hi"}
+          alt={`Challenge participant ${name}`}
           src={avatarSrcLookup(name)!}
           shape="squircle"
         />
         <div className="flex flex-col">
           <div className="flex flex-row gap-1 items-center">
             <Text.Span level={3}>
-              {participant.result === "ELIMINATED"
-                ? "❌"
-                : participant.result === "WINNER"
+              {/* some kind of helper would be a good drop-in for below */}
+              {participant.result === "WINNER"
                 ? "🎉"
-                : "✨"}
+                : participant.result === "RUNNER_UP"
+                ? "✨"
+                : "❌"}
             </Text.Span>
-            <Text.Span level={2}>
+            <Text.Span level={3} branded>
               {PARTICIPANT_RESULT_MAP[participant.result]}
             </Text.Span>
           </div>

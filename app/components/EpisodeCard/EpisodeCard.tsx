@@ -44,15 +44,15 @@ const EpisodeCard = ({ episode }: EpisodeCard) => {
       className="bg-white"
     >
       <div className="flex flex-row gap-8">
-        <Text fontType="heading" fontSize="6xl" fontWeight="bold">
+        <Text fontType="title" fontSize="5xl" fontWeight="bold">
           {episode.episodeNumber}
         </Text>
 
         <section className="flex flex-col gap-2">
           <Text.Heading level={3}>{episode.description}</Text.Heading>
-          <Text.SubHead level={2}>
+          <Text.P>
             Original Air Date: {episode.airDate.toLocaleDateString()}
-          </Text.SubHead>
+          </Text.P>
 
           <div className="flex flex-row flex-wrap gap-4 mt-4">
             {episode.challenges.map((challenge, key) => {
