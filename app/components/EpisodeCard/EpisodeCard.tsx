@@ -14,6 +14,8 @@ import ChallengeTypeCard from "../ChallengeTypeCard/ChallengeTypeCard";
 import ParticipantCard from "../ParticipantCard/ParticipantCard";
 
 interface EpisodeCard {
+  // This structure is gross, refactor it and also come up with a type for
+  // Contestants + their ContestantProfile's.
   episode: Episode & {
     contestants: (Contestant & { profile: ContestantProfile })[];
     challenges: Challenge[];

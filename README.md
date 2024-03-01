@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# mcc-next
 
-## Getting Started
+This is a small side-project that I am currently developing that will serve as
+a portfolio piece and as a learning tool for picking up NextJS, along with
+sharpening and honing other skills.
 
-First, run the development server:
+## Background
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project will also be used to scratch a small, nerdy itch of mine, which is
+to build a data-mining project around the television show MasterChef; hence the
+project name, "mcc": MasterChef Compendium.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I've been a fan of the show for a while and have sometimes day dreamed of being
+a contestant, which I will probably never, _ever_ do. Despite that, I've wanted
+a tool that would allow me to record recipe information from cooking challenges
+on the show so that I can correlate that data with challenge results that I've
+scraped from
+[Wikipedia](<https://en.wikipedia.org/wiki/MasterChef_(American_season_1)>).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Eventually I want to answer questions like,
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- What was the success rate of contestants who have cooked a specific thing with
+  a specific technique?
+- What type of cuisine has been cooked the most historically on the show?
+- Which specific type of food have contestants performed the best with? Which
+  techniques? Which ingredients? Which have they performed the _worst_ with?
 
-## Learn More
+All very geeky and fun.
 
-To learn more about Next.js, take a look at the following resources:
+## Status
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is currently in the early/middle stage of phase `1`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Initial, navigable UI for the shows' season-episode-challenge-result data
+   structure (like a wiki).
+2. A data entry UI, used capture recipe information for each episode, built on
+   top of `phase 1` work
+3. Data mining, reporting, and visualization, derived from `phase 2` efforts
 
-## Deploy on Vercel
+## Note
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This is a side-project and learning tool. A few things that I've implemented so
+far are still in-flight; there will be quite a bit of initial churn until I
+settle on various ideas for different aspects of this project.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![UI Screenshot](readme_files/ui.png)

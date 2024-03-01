@@ -1,8 +1,6 @@
 import fs from "fs";
 import path from "path";
 
-export type AvatarType = "judge" | "contestant";
-
 let avatarSources: Record<string, string> | undefined = undefined;
 
 export const avatarSrcLookup = (name?: string) => {

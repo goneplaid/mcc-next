@@ -1,5 +1,5 @@
 import { Contestant, ContestantProfile, Judge, Season } from "@prisma/client";
-import { Avatar, AvatarGroup, Card, Text } from "../../components";
+import { Avatar, AvatarGroup, Card, Text } from "..";
 import { avatarSrcLookup } from "@/app/utils/avatarSrcLookup";
 
 interface SeasonCard {
