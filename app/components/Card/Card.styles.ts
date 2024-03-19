@@ -42,7 +42,7 @@ function getDimensionClasses(size: CardSize) {
     lg: "card-normal",
   };
 
-  return SIZE_CLASSES[size];
+  return `${SIZE_CLASSES[size]} block`;
 }
 
 function getPaddingClasses(size: CardSize) {

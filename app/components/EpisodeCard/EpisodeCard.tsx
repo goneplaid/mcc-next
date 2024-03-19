@@ -56,14 +56,17 @@ const EpisodeCard = ({ episode }: EpisodeCard) => {
             Original Air Date: {episode.airDate.toLocaleDateString()}
           </Text.P>
 
-          <div className="flex flex-row flex-wrap gap-4 mt-4">
-            {episode.challenges.map((challenge, key) => {
-              return (
-                <div key={key} className="hidden md:flex">
-                  <ChallengeTypeCard type={challenge.type} size="xs" />
-                </div>
-              );
-            })}
+          <div className="flex flex-col gap-4 mt-4">
+            <div className="flex flex-row justify-between gap-4">
+              {episode.challenges.map((challenge, key) => {
+                return (
+                  <div key={key} className="hidden md:block">
+                    <ChallengeTypeCard type={challenge.type} size="xs" />
+                  </div>
+                );
+              })}
+            </div>
+
             {participants.map((participant, key) => {
               return (
                 <div key={key}>
@@ -71,18 +74,6 @@ const EpisodeCard = ({ episode }: EpisodeCard) => {
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-4 flex-col gap-2 hidden md:flex">
-            <Text.SubHead level={3} branded>
-              Participants
-            </Text.SubHead>
-            <AvatarGroup
-              size="sm"
-              shape="squircle"
-              align="left"
-              avatars={contestantAvatarData}
-            />
           </div>
         </section>
       </div>
